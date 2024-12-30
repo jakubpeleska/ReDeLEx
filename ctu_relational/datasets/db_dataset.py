@@ -185,6 +185,13 @@ class DBDataset(Dataset):
                     sql_type = None
 
                 dtype = SQL_TO_PANDAS.get(sql_type, None)
+
+                if dtype is None:
+                    # Special case for YEAR type
+                    if c.type.__str__() == "YEAR":
+                        dtype = pd.Int32Dtype()
+                        sql_type = sa.types.Integer
+
                 if dtype is not None:
                     dtypes[c.name] = dtype
                     sql_types_dict[c.name] = sql_type
