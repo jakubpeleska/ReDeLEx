@@ -50,6 +50,9 @@ CTUDatabaseName = Literal[
 
 
 class CTUDataset(DBDataset):
+    val_timestamp = pd.Timestamp.max
+    test_timestamp = pd.Timestamp.max
+
     def __init__(
         self,
         database: CTUDatabaseName,
@@ -73,7 +76,7 @@ class CTUDataset(DBDataset):
         super().__init__(
             cache_dir=cache_dir,
             dialect="mariadb",
-            driver="mysqlconnector",
+            driver="pymysql",
             user="guest",
             password="ctu-relational",
             host="relational.fel.cvut.cz",
@@ -84,10 +87,14 @@ class CTUDataset(DBDataset):
             keep_original_compound_keys=keep_original_compound_keys,
         )
 
+    def get_stats(self):
+        # TODO
+        raise NotImplementedError
+
 
 class Accidents(CTUDataset):
-    val_timestamp = pd.Timestamp("2003-01-01")
-    test_timestamp = pd.Timestamp("2005-01-01")
+    # val_timestamp = pd.Timestamp("2003-01-01")
+    # test_timestamp = pd.Timestamp("2005-01-01")
 
     def __init__(self, cache_dir: Optional[str] = None):
         super().__init__(
@@ -106,8 +113,8 @@ class AdventureWorks(CTUDataset):
     Adventure Works Cycles.
     """
 
-    val_timestamp = pd.Timestamp("2014-01-01")
-    test_timestamp = pd.Timestamp("2014-04-01")
+    # val_timestamp = pd.Timestamp("2014-01-01")
+    # test_timestamp = pd.Timestamp("2014-04-01")
 
     def __init__(self, cache_dir: Optional[str] = None):
         super().__init__(
@@ -140,8 +147,17 @@ class AdventureWorks(CTUDataset):
 
 
 class Airline(CTUDataset):
-    val_timestamp = pd.Timestamp("2016-01-18")
-    test_timestamp = pd.Timestamp("2016-01-25")
+    """
+    Airline on-time data are reported each month to the U.S. Department of Transportation\
+    (DOT), Bureau of Transportation Statistics (BTS) by the 16 U.S. air carriers that have\
+    at least 1 percent of total domestic scheduled-service passenger revenues, plus two\
+    other carriers that report voluntarily. The data cover nonstop scheduled-service\
+    flights between points within the United States (including territories) as described\
+    in 14 CFR Part 234 of DOT's regulations. Data are available since January 1995.
+    """
+
+    # val_timestamp = pd.Timestamp("2016-01-18")
+    # test_timestamp = pd.Timestamp("2016-01-25")
 
     def __init__(self, cache_dir: Optional[str] = None):
         super().__init__(
@@ -152,9 +168,215 @@ class Airline(CTUDataset):
         )
 
 
+class Atherosclerosis(CTUDataset):
+    """
+    The study STULONG is a longitudinal 20 years lasting primary preventive study of\
+    middle-aged men. The study aims to identify prevalence of atherosclerosis RFs in\
+    a population generally considered to be the most endangered by possible atherosclerosis\
+    complications, i.e., middle-aged men.
+    """
+
+    def __init__(self, cache_dir: Optional[str] = None):
+        super().__init__(
+            "Atherosclerosis",
+            cache_dir=cache_dir,
+            time_col_dict={},
+            keep_original_keys=False,
+        )
+
+
+class BasketballMen(CTUDataset):
+
+    def __init__(self, cache_dir: Optional[str] = None):
+        super().__init__(
+            "Basketball_men",
+            cache_dir=cache_dir,
+            time_col_dict={},
+            keep_original_keys=False,
+        )
+
+    def make_db(self) -> Database:
+        db = super().make_db()
+
+        db.table_dict["players"].df["birthDate"] = pd.to_datetime(
+            db.table_dict["players"].df["birthDate"], errors="coerce"
+        )
+        db.table_dict["players"].df["deathDate"] = pd.to_datetime(
+            db.table_dict["players"].df["deathDate"], errors="coerce"
+        )
+
+        return db
+
+
+class BasketballWoMen(CTUDataset):
+
+    def __init__(self, cache_dir: Optional[str] = None):
+        super().__init__(
+            "Basketball_women",
+            cache_dir=cache_dir,
+            time_col_dict={},
+            keep_original_keys=False,
+        )
+
+
+class Biodegradability(CTUDataset):
+    """
+    This is an older data set of chemical structures containing 328 compounds\
+    labeled by their half-life for aerobic aqueous biodegradation.
+    """
+
+    def __init__(self, cache_dir: Optional[str] = None):
+        super().__init__(
+            "Biodegradability",
+            cache_dir=cache_dir,
+            time_col_dict={},
+            keep_original_keys=False,
+        )
+
+
+class Bookstore(CTUDataset):
+    """
+    The Bookstore sample database is modeled after a book selling company.
+    """
+
+    def __init__(self, cache_dir: Optional[str] = None):
+        super().__init__(
+            "pubs",
+            cache_dir=cache_dir,
+            time_col_dict={
+                "titles": "pubdate",
+                "sales": "ord_date",
+                "employee": "hire_date",
+            },
+            keep_original_keys=False,
+        )
+
+
+class Bupa(CTUDataset):
+    """Evaluation of patients on liver disorder."""
+
+    def __init__(self, cache_dir: Optional[str] = None):
+        super().__init__(
+            "Bupa",
+            cache_dir=cache_dir,
+            time_col_dict={},
+            keep_original_keys=False,
+        )
+
+
+class Carcinogenesis(CTUDataset):
+    """
+    For prediction of whether a given molecule is carcinogenic or not.\
+    The dataset contains 182 positive carcinogenicity tests and 148 negative tests.
+    """
+
+    ""
+
+    def __init__(self, cache_dir: Optional[str] = None):
+        super().__init__(
+            "Carcinogenesis",
+            cache_dir=cache_dir,
+            time_col_dict={},
+            keep_original_keys=False,
+        )
+
+
+class CDESchools(CTUDataset):
+    """
+    A database containing geospatial information, as well as SAT average scores and\
+    Free-or-Reduced-Price Meal eligibility data, for California schools.
+    """
+
+    def __init__(self, cache_dir: Optional[str] = None):
+        super().__init__(
+            "CDESchools",
+            cache_dir=cache_dir,
+            time_col_dict={},
+            keep_original_keys=False,
+        )
+
+
+class Chess(CTUDataset):
+
+    def __init__(self, cache_dir: Optional[str] = None):
+        super().__init__(
+            "Chess",
+            cache_dir=cache_dir,
+            time_col_dict={"game": "event_date"},
+            keep_original_keys=False,
+        )
+
+
+class ClassicModels(CTUDataset):
+    """
+    The schema is for Classic Models, a retailer of scale models of classic cars.\
+    The database contains typical business data such as customers, orders, order\
+    line items, products and so on.
+    """
+
+    def __init__(self, cache_dir: Optional[str] = None):
+        super().__init__(
+            "classicmodels",
+            cache_dir=cache_dir,
+            time_col_dict={"orders": "orderDate", "payments": "paymentDate"},
+            keep_original_keys=False,
+        )
+
+
+class CORA(CTUDataset):
+    """
+    The Cora dataset consists of 2708 scientific publications classified into one of\
+    seven classes. The citation network consists of 5429 links. Each publication in the\
+    dataset is described by a 0/1-valued word vector indicating the absence/presence of\
+    the corresponding word from the dictionary. The dictionary consists of 1433 unique\
+    words.
+    """
+
+    def __init__(self, cache_dir: Optional[str] = None):
+        super().__init__(
+            "CORA",
+            cache_dir=cache_dir,
+            time_col_dict={},
+            keep_original_keys=False,
+        )
+
+
+class Countries(CTUDataset):
+    """
+    Data of forest area for 247 countries.
+    """
+
+    def __init__(self, cache_dir: Optional[str] = None):
+        super().__init__(
+            "Countries",
+            cache_dir=cache_dir,
+            time_col_dict={},
+            keep_original_keys=False,
+        )
+
+
+class CraftBeer(CTUDataset):
+    """
+    Craft beers labeled by styles and composition.\
+    A separate dataset lists breweries by state.
+    """
+
+    def __init__(self, cache_dir: Optional[str] = None):
+        super().__init__(
+            "CraftBeer",
+            cache_dir=cache_dir,
+            time_col_dict={},
+            keep_original_keys=False,
+        )
+
+
 class Credit(CTUDataset):
-    val_timestamp = pd.Timestamp("1999-09-01")
-    test_timestamp = pd.Timestamp("1999-09-23")
+    """
+    A bit more complex artificial database with loops.
+    """
+
+    # val_timestamp = pd.Timestamp("1999-09-01")
+    # test_timestamp = pd.Timestamp("1999-09-23")
 
     def __init__(self, cache_dir: Optional[str] = None):
         super().__init__(
@@ -170,77 +392,125 @@ class Credit(CTUDataset):
     def make_db(self) -> Database:
         db = super().make_db()
 
+        # TODO: Keep images and use them as features
         db.table_dict["member"].df.drop(columns=["photograph"], inplace=True)
 
         return db
 
 
-class ErgastF1(CTUDataset):
+class CS(CTUDataset):
     """
-    Ergast.com is a webservice that provides a database of Formula 1 races, \
-    starting from the 1950 season until today. The dataset includes information \
-    such as the time taken in each lap, the time taken for pit stops, the performance \
-    in the qualifying rounds etc. of all Formula 1 races from 1950 to 2017.
+    Artificial data from a Czech bank.
     """
-
-    val_timestamp = pd.Timestamp("1997-01-01")
-    test_timestamp = pd.Timestamp("2009-01-01")
-
-    TIME_ORIGIN = pd.Timestamp("1970-01-01")
 
     def __init__(self, cache_dir: Optional[str] = None):
         super().__init__(
-            "ErgastF1",
+            "cs",
             cache_dir=cache_dir,
-            time_col_dict={"drivers": "dob", "races": "date"},
+            time_col_dict={
+                "ACCOUNT_TRANSACTIONS": "ACCTRN_ACCOUNTING_DATE",
+                "ACCOUNTS": "ACCH_OPEN_DATE",
+                "PARTIES": "PTH_CLIENT_FROM_DATE",
+            },
             keep_original_keys=False,
-            keep_original_compound_keys=True,
         )
 
     def make_db(self) -> Database:
         db = super().make_db()
 
-        # Convert time column to datetime
-        db.table_dict["pitStops"].df["time"] = (
-            self.TIME_ORIGIN + db.table_dict["pitStops"].df["time"]
+        db.table_dict["ACCOUNTS"].df["ACCH_OPEN_DATE"] = pd.to_datetime(
+            db.table_dict["ACCOUNTS"].df["ACCH_OPEN_DATE"], errors="coerce"
         )
-
-        # Merge date and time columns
-        db.table_dict["races"].df["time"] = (
-            db.table_dict["races"].df["time"].fillna(pd.Timedelta(hours=12))
+        db.table_dict["ACCOUNTS"].df["ACCH_CLOSE_DATE"] = pd.to_datetime(
+            db.table_dict["ACCOUNTS"].df["ACCH_CLOSE_DATE"], errors="coerce"
         )
-        db.table_dict["races"].df["date"] += db.table_dict["races"].df["time"]
-        db.table_dict["races"].df.drop(columns=["time"], inplace=True)
 
         return db
 
 
-class Expenditures(CTUDataset):
+class Dallas(CTUDataset):
     """
-    The Consumer Expenditure Survey (CE) collects data on expenditures, income, \
-    and demographics in the United States. The public-use microdata (PUMD) files \
-    provide this information for individual respondents without any information that \
-    could identify respondents. PUMD files include adjustments for information that is \
-    missing because respondents were unwilling or unable to provide it. The files also \
-    have been adjusted to reduce the likelihood of identifying respondents, either \
-    directly or through inference. The task is to predict, whether the expenditure
-    is a gift or not. Household ids change from year to year - this is a property of the \
-    data source.
-    
-    Original source: www.bls.gov
+    Officer-involved shootings as disclosed by the Dallas Police Department.\
+    Includes separate tables for officer and subject/suspect information.
     """
 
     def __init__(self, cache_dir: Optional[str] = None):
         super().__init__(
-            "ConsumerExpenditures",
+            "Dallas",
             cache_dir=cache_dir,
+            time_col_dict={"incidents": "date"},
+            keep_original_keys=False,
+        )
+
+
+class DCG(CTUDataset):
+    """
+    The set of positive examples consists of all sentences of up to seven words that can\
+    be generated by the DCG in Bratko's book (565 positive examples). The set of negative\
+    examples was generated by randomly selecting one word in each positive example and\
+    replacing it by a randomly selected word the leads to an incorrect sentence, according\
+    to the grammar (565 negative examples).
+    """
+
+    def __init__(self, cache_dir: Optional[str] = None):
+        super().__init__(
+            "DCG",
+            cache_dir=cache_dir,
+            time_col_dict={},
+            keep_original_keys=False,
+        )
+
+
+class Diabetes(CTUDataset):
+    """
+    The Diabetes dataset consists of 19717 scientific publications from PubMed database\
+    pertaining to diabetes classified into one of three classes. The citation network\
+    consists of 44338 links. Each publication in the dataset is described by a TF/IDF\
+    weighted word vector from a dictionary which consists of 500 unique words.
+    """
+
+    def __init__(self, cache_dir: Optional[str] = None):
+        super().__init__(
+            "PubMed_Diabetes",
+            cache_dir=cache_dir,
+            time_col_dict={},
+            keep_original_keys=False,
+        )
+
+
+class Dunur(CTUDataset):
+    """
+    Dunur is a relatedness of two people due to marriage such that A is dunur of B if\
+    a child of A is married to a child of B.
+    """
+
+    def __init__(self, cache_dir: Optional[str] = None):
+        super().__init__(
+            "Dunur",
+            cache_dir=cache_dir,
+            time_col_dict={},
+            keep_original_keys=False,
+        )
+
+
+class Elti(CTUDataset):
+    """
+    Elti is a relatedness of two people due to marriage such that A is elti of B if\
+    A's husband is a brother of B's husband.
+    """
+
+    def __init__(self, cache_dir: Optional[str] = None):
+        super().__init__(
+            "Elti",
+            cache_dir=cache_dir,
+            time_col_dict={},
             keep_original_keys=False,
         )
 
 
 class Employee(CTUDataset):
-    val_timestamp = pd.Timestamp("1998-02-01")
-    test_timestamp = pd.Timestamp("2000-05-01")
+    # val_timestamp = pd.Timestamp("1998-02-01")
+    # test_timestamp = pd.Timestamp("2000-05-01")
 
     def __init__(self, cache_dir: Optional[str] = None):
         super().__init__(
@@ -284,14 +554,78 @@ class Employee(CTUDataset):
         return db
 
 
+class ErgastF1(CTUDataset):
+    """
+    Ergast.com is a webservice that provides a database of Formula 1 races, \
+    starting from the 1950 season until today. The dataset includes information \
+    such as the time taken in each lap, the time taken for pit stops, the performance \
+    in the qualifying rounds etc. of all Formula 1 races from 1950 to 2017.
+    """
+
+    # val_timestamp = pd.Timestamp("1997-01-01")
+    # test_timestamp = pd.Timestamp("2009-01-01")
+
+    TIME_ORIGIN = pd.Timestamp("1970-01-01")
+
+    def __init__(self, cache_dir: Optional[str] = None):
+        super().__init__(
+            "ErgastF1",
+            cache_dir=cache_dir,
+            time_col_dict={"drivers": "dob", "races": "date"},
+            keep_original_keys=False,
+            keep_original_compound_keys=True,
+        )
+
+    def make_db(self) -> Database:
+        db = super().make_db()
+
+        # Convert time column to datetime
+        db.table_dict["pitStops"].df["time"] = (
+            self.TIME_ORIGIN + db.table_dict["pitStops"].df["time"]
+        )
+
+        # Merge date and time columns
+        db.table_dict["races"].df["time"] = (
+            db.table_dict["races"].df["time"].fillna(pd.Timedelta(hours=12))
+        )
+        db.table_dict["races"].df["time"] = (
+            db.table_dict["races"].df["date"] + db.table_dict["races"].df["time"]
+        )
+
+        return db
+
+
+class Expenditures(CTUDataset):
+    """
+    The Consumer Expenditure Survey (CE) collects data on expenditures, income, \
+    and demographics in the United States. The public-use microdata (PUMD) files \
+    provide this information for individual respondents without any information that \
+    could identify respondents. PUMD files include adjustments for information that is \
+    missing because respondents were unwilling or unable to provide it. The files also \
+    have been adjusted to reduce the likelihood of identifying respondents, either \
+    directly or through inference. The task is to predict, whether the expenditure
+    is a gift or not. Household ids change from year to year - this is a property of the \
+    data source.
+    
+    Original source: www.bls.gov
+    """
+
+    def __init__(self, cache_dir: Optional[str] = None):
+        super().__init__(
+            "ConsumerExpenditures",
+            cache_dir=cache_dir,
+            keep_original_keys=False,
+        )
+
+
 class Financial(CTUDataset):
     """
     PKDD'99 Financial dataset contains 606 successful and 76 not \
     successful loans along with their information and transactions. 
     """
 
-    val_timestamp = pd.Timestamp("1997-08-01")
-    test_timestamp = pd.Timestamp("1998-03-01")
+    # val_timestamp = pd.Timestamp("1997-08-01")
+    # test_timestamp = pd.Timestamp("1998-03-01")
 
     def __init__(self, cache_dir: Optional[str] = None):
         super().__init__(
@@ -313,8 +647,8 @@ class FNHK(CTUDataset):
     about treatment and medication.
     """
 
-    val_timestamp = pd.Timestamp("2015-01-01")
-    test_timestamp = pd.Timestamp("2016-01-01")
+    # val_timestamp = pd.Timestamp("2015-01-01")
+    # test_timestamp = pd.Timestamp("2016-01-01")
 
     def __init__(self, cache_dir: Optional[str] = None):
         super().__init__(
@@ -339,19 +673,35 @@ class FNHK(CTUDataset):
         return db
 
 
+class FTP(CTUDataset):
+    """
+    PAKDD'15 Data Mining Competition: The data were obtained from simulations of product\
+    viewing activities of users with known gender. The data closely follow the real-life\
+    distribution in that regard.
+    """
+
+    def __init__(self, cache_dir: Optional[str] = None):
+        super().__init__(
+            "ftp",
+            cache_dir=cache_dir,
+            time_col_dict={"session": "start_time"},
+            keep_original_keys=False,
+        )
+
+
 class Geneea(CTUDataset):
     """
     Data on deputies and senators in the Czech Republic.
     """
 
-    val_timestamp = pd.Timestamp("2015-03-01")
-    test_timestamp = pd.Timestamp("2015-08-01")
+    # val_timestamp = pd.Timestamp("2015-03-01")
+    # test_timestamp = pd.Timestamp("2015-08-01")
 
     def __init__(self, cache_dir: Optional[str] = None):
         super().__init__(
             "geneea",
             cache_dir=cache_dir,
-            time_col_dict={"hl_hlasovani": "datum"},
+            time_col_dict={"hl_hlasovani": "datum", "omluvy": "den"},
             keep_original_keys=False,
         )
 
@@ -359,8 +709,282 @@ class Geneea(CTUDataset):
         db = super().make_db()
 
         # Combine date and time columns
-        db.table_dict["hl_hlasovani"].df["datum"] += db.table_dict["hl_hlasovani"].df["cas"]
-        db.table_dict["hl_hlasovani"].df.drop(columns=["cas"], inplace=True)
+        db.table_dict["hl_hlasovani"].df["cas"] = (
+            db.table_dict["hl_hlasovani"].df["datum"]
+            + db.table_dict["hl_hlasovani"].df["cas"]
+        )
+
+        db.table_dict["omluvy"].df["den"] = pd.to_datetime(
+            db.table_dict["omluvy"].df["den"]
+        )
+
+        return db
+
+
+class Genes(CTUDataset):
+    """
+    KDD Cup 2001 prediction of gene/protein function and localization.
+    """
+
+    def __init__(self, cache_dir: Optional[str] = None):
+        super().__init__(
+            "genes",
+            cache_dir=cache_dir,
+            time_col_dict={},
+            keep_original_keys=False,
+        )
+
+
+class GOSales(CTUDataset):
+    """
+    GO Sales dataset from IBM contains information about daily sales, methods, retailers,\
+    and products of a fictitious outdoor equipment retail chain “Great Outdoors” (GO).
+    """
+
+    def __init__(self, cache_dir: Optional[str] = None):
+        super().__init__(
+            "GOSales",
+            cache_dir=cache_dir,
+            time_col_dict={"go_1k": "Date", "go_daily_sales": "Date"},
+            keep_original_keys=True,
+        )
+
+    def make_db(self) -> Database:
+        db = super().make_db()
+
+        fk_col, fk_name = DBDataset.reindex_fk(
+            {name: t.df for name, t in db.table_dict.items()},
+            "go_daily_sales",
+            ["Product number"],
+            "go_products",
+            ["Product number"],
+        )
+
+        db.table_dict["go_daily_sales"].df[fk_name] = fk_col
+        db.table_dict["go_daily_sales"].fkey_col_to_pkey_table[fk_name] = "go_products"
+
+        db.table_dict["go_products"].df.drop(columns=["Product number"], inplace=True)
+        db.table_dict["go_1k"].df.drop(
+            columns=["Retailer code", "Product number"], inplace=True
+        )
+        db.table_dict["go_daily_sales"].df.drop(
+            columns=["Retailer code", "Product number"], inplace=True
+        )
+        db.table_dict["go_retailers"].df.drop(columns=["Retailer code"], inplace=True)
+
+        return db
+
+
+class Grants(CTUDataset):
+    """
+    This dataset includes funding grants from the National Science Foundation.
+    """
+
+    def __init__(self, cache_dir: Optional[str] = None):
+        super().__init__(
+            "Grants",
+            cache_dir=cache_dir,
+            time_col_dict={
+                "awards": "award_effective_date",
+                "investigator_awards": "start_date",
+            },
+            keep_original_keys=False,
+        )
+
+
+class Hepatitis(CTUDataset):
+    """
+    PKDD'02 Hepatitis dataset describes 206 instances of Hepatitis B \
+    (contrasting them against 484 cases of Hepatitis C).
+    """
+
+    def __init__(self, cache_dir: Optional[str] = None):
+        super().__init__(
+            "Hepatitis_std",
+            cache_dir=cache_dir,
+            time_col_dict={},
+            keep_original_keys=False,
+        )
+
+
+class Hockey(CTUDataset):
+    """
+    The Hockey Database, in addition to the NHL, covers the following early and\
+    alternative leagues: NHA, PCHA, WCHL and WHA. It contains individual and team\
+    statistics from 1909-10 through the 2011-12 season.
+    """
+
+    def __init__(self, cache_dir: Optional[str] = None):
+        super().__init__(
+            "Hockey",
+            cache_dir=cache_dir,
+            time_col_dict={
+                "Goalies": "year",
+                "AwardsPlayers": "year",
+                "CombinedShutouts": "date",
+                "ScoringSup": "year",
+                "GoaliesSC": "year",
+                "GoaliesShootout": "year",
+                "Scoring": "year",
+                "ScoringSC": "year",
+                "ScoringShootout": "year",
+                "AwardsMisc": "year",
+                "HOF": "year",
+                "AwardsCoaches": "year",
+                "Coaches": "year",
+                "SeriesPost": "year",
+                "TeamsHalf": "year",
+                "TeamSplits": "year",
+                "TeamsPost": "year",
+                "TeamsSC": "year",
+                "TeamVsTeam": "year",
+                "Teams": "year",
+            },
+            keep_original_keys=False,
+        )
+
+    def make_db(self) -> Database:
+        db = super().make_db()
+
+        db.table_dict["CombinedShutouts"].df = db.table_dict["CombinedShutouts"].df.rename(
+            columns={"date": "day"}
+        )
+        db.table_dict["CombinedShutouts"].df["date"] = pd.to_datetime(
+            db.table_dict["CombinedShutouts"].df[["year", "month", "day"]]
+        )
+        db.table_dict["CombinedShutouts"].df.drop(
+            columns=["year", "month", "day"], inplace=True
+        )
+
+        for t, c in self.time_col_dict.items():
+            if c != "year":
+                continue
+            db.table_dict[t].df[c] = pd.to_datetime(db.table_dict[t].df[c], format="%Y")
+
+        return db
+
+
+class IMDb(CTUDataset):
+    """
+    The IMDb database: moderately large, real database of movies.
+    """
+
+    def __init__(self, cache_dir: Optional[str] = None):
+        super().__init__(
+            "imdb_ijs",
+            cache_dir=cache_dir,
+            time_col_dict={
+                "movies": "year",
+            },
+            keep_original_keys=False,
+        )
+
+    def make_db(self) -> Database:
+        db = super().make_db()
+
+        db.table_dict["movies"].df["year"] = pd.to_datetime(
+            db.table_dict["movies"].df["year"], format="%Y"
+        )
+
+        return db
+
+
+class IMDb(CTUDataset):
+    """
+    The IMDb database: moderately large, real database of movies.
+    """
+
+    def __init__(self, cache_dir: Optional[str] = None):
+        super().__init__(
+            "imdb_ijs",
+            cache_dir=cache_dir,
+            time_col_dict={
+                "movies": "year",
+            },
+            keep_original_keys=False,
+        )
+
+    def make_db(self) -> Database:
+        db = super().make_db()
+
+        db.table_dict["movies"].df["year"] = pd.to_datetime(
+            db.table_dict["movies"].df["year"], format="%Y"
+        )
+
+        return db
+
+
+class MovieLens(CTUDataset):
+    """
+    MovieLens data set from the UC Irvine machine learning repository.
+    """
+
+    def __init__(self, cache_dir: Optional[str] = None):
+        super().__init__(
+            "imdb_MovieLens",
+            cache_dir=cache_dir,
+            time_col_dict={},
+            keep_original_keys=False,
+        )
+
+
+class KRK(CTUDataset):
+    """
+    Single table dataset of chess positions of two kings and a rook with label legal or illegal.
+    """
+
+    def __init__(self, cache_dir: Optional[str] = None):
+        super().__init__(
+            "KRK",
+            cache_dir=cache_dir,
+            time_col_dict={},
+            keep_original_keys=False,
+        )
+
+
+class Lahman(CTUDataset):
+    """
+    Lahman's baseball database contains complete batting and pitching statistics\
+    from 1871 to 2014, plus fielding statistics, standings, team stats, managerial\
+    records, post-season data, and more.
+    """
+
+    def __init__(self, cache_dir: Optional[str] = None):
+        super().__init__(
+            "lahman_2014",
+            cache_dir=cache_dir,
+            time_col_dict={
+                "fieldingpost": "yearID",
+                "battingpost": "yearID",
+                "halloffame": "yearID",
+                "salaries": "yearID",
+                "appearances": "yearID",
+                "awardsplayers": "yearID",
+                "managers": "yearID",
+                "allstarfull": "yearID",
+                "fielding": "yearID",
+                "batting": "yearID",
+                "managershalf": "yearID",
+                "awardsmanagers": "yearID",
+                "pitchingpost": "yearID",
+                "teams": "yearID",
+                "fieldingof": "yearID",
+                "awardssharemanagers": "yearID",
+                "teamshalf": "yearID",
+                "pitching": "yearID",
+                "awardsshareplayers": "yearID",
+                "seriespost": "yearID",
+            },
+            keep_original_keys=False,
+        )
+
+    def make_db(self) -> Database:
+        db = super().make_db()
+
+        for t, c in self.time_col_dict.items():
+            db.table_dict[t].df[c] = pd.to_datetime(
+                db.table_dict[t].df[c], format="%Y", errors="coerce"
+            )
 
         return db
 
@@ -370,8 +994,8 @@ class LegalActs(CTUDataset):
     Bulgarian court decision metadata.
     """
 
-    val_timestamp = pd.Timestamp("2011-08-01")
-    test_timestamp = pd.Timestamp("2012-03-01")
+    # val_timestamp = pd.Timestamp("2011-08-01")
+    # test_timestamp = pd.Timestamp("2012-03-01")
 
     def __init__(self, cache_dir: Optional[str] = None):
         super().__init__(
@@ -392,13 +1016,331 @@ class LegalActs(CTUDataset):
         return db
 
 
+class Mesh(CTUDataset):
+    """
+    This domain is about finite element methods in engineering where the number of\
+    elements in the mesh model can vary between 1 and 17.
+    """
+
+    def __init__(self, cache_dir: Optional[str] = None):
+        super().__init__(
+            "Mesh",
+            cache_dir=cache_dir,
+            time_col_dict={},
+            keep_original_keys=True,
+        )
+
+
+class Mondial(CTUDataset):
+    """
+    A geography dataset from University of Göttingen describes 114 Christian countries\
+    and 71 non-Christian countries.
+    """
+
+    def __init__(self, cache_dir: Optional[str] = None):
+        super().__init__(
+            "Mondial",
+            cache_dir=cache_dir,
+            time_col_dict={},
+            keep_original_keys=False,
+        )
+
+    def make_db(self) -> Database:
+        db = super().make_db()
+
+        db.table_dict["politics"].df["Independence"] = pd.to_datetime(
+            db.table_dict["politics"].df["Independence"], errors="coerce"
+        )
+
+        return db
+
+
+class MooneyFamily(CTUDataset):
+    """
+    The dataset describes a family composed of 86 people across 5 generations.\
+    The family dataset includes 744 positive instances and 1488 randomly generated\
+    negative instances.
+    """
+
+    def __init__(self, cache_dir: Optional[str] = None):
+        super().__init__(
+            "Mooney_Family",
+            cache_dir=cache_dir,
+            time_col_dict={},
+            keep_original_keys=True,
+        )
+
+
+class MuskSmall(CTUDataset):
+    """
+    The Musk database describes molecules occurring in different conformations.\
+    Each molecule is either musk or non-musk and one of the conformations determines\
+    this property. Such a problem is known as a multiple-instance problem, and is modeled\
+    by two tables molecule and conformation, joined by a one-to-many association.\
+    Confirmation contains a molecule identifier plus 166 continuous features.\
+    Molecule just contains the identifier and the class. There are two versions of\
+    the dataset, MuskSmall, containing 92 molecules and 476 confirmations, and MuskLarge,\
+    containing 102 molecules and 6598 confirmations.
+    """
+
+    def __init__(self, cache_dir: Optional[str] = None):
+        super().__init__(
+            "MuskSmall",
+            cache_dir=cache_dir,
+            time_col_dict={},
+            keep_original_keys=False,
+        )
+
+
+class MuskLarge(CTUDataset):
+    """
+    The Musk database describes molecules occurring in different conformations.\
+    Each molecule is either musk or non-musk and one of the conformations determines\
+    this property. Such a problem is known as a multiple-instance problem, and is modeled\
+    by two tables molecule and conformation, joined by a one-to-many association.\
+    Confirmation contains a molecule identifier plus 166 continuous features.\
+    Molecule just contains the identifier and the class. There are two versions of\
+    the dataset, MuskSmall, containing 92 molecules and 476 confirmations, and MuskLarge,\
+    containing 102 molecules and 6598 confirmations.
+    """
+
+    def __init__(self, cache_dir: Optional[str] = None):
+        super().__init__(
+            "MuskLarge",
+            cache_dir=cache_dir,
+            time_col_dict={},
+            keep_original_keys=False,
+        )
+
+
+class Mutagenesis(CTUDataset):
+    """
+    The dataset comprises of 230 molecules trialed for mutagenicity on\
+    Salmonella typhimurium. A subset of 188 molecules is learnable using linear regression.\
+    This subset was later termed the ”regression friendly” dataset. The remaining subset\
+    of 42 molecules is named the ”regression unfriendly” dataset.\
+    Note that authors use this dataset with a variable set of the background knowledge\
+    and consequently, the reported accuracies do not have to be directly comparable.
+    """
+
+    def __init__(self, cache_dir: Optional[str] = None):
+        super().__init__(
+            "mutagenesis",
+            cache_dir=cache_dir,
+            time_col_dict={},
+            keep_original_keys=False,
+        )
+
+
+class Nations(CTUDataset):
+    """
+    A sample database from alchemy.cs.washington.edu website.
+    """
+
+    def __init__(self, cache_dir: Optional[str] = None):
+        super().__init__(
+            "nations",
+            cache_dir=cache_dir,
+            time_col_dict={},
+            keep_original_keys=False,
+        )
+
+
+class NBA(CTUDataset):
+    """
+    A database with information about basketball matches from the National Basketball\
+    Association. Lists Players, Teams, and matches with action counts for each player.
+    
+    TODO: contains value errors
+    """
+
+    def __init__(self, cache_dir: Optional[str] = None):
+        super().__init__(
+            "NBA",
+            cache_dir=cache_dir,
+            time_col_dict={"Game": "Date"},
+            keep_original_keys=False,
+        )
+
+
+class NCAA(CTUDataset):
+    """
+    NCAA Basketball Tournament.
+    """
+
+    def __init__(self, cache_dir: Optional[str] = None):
+        super().__init__(
+            "NCAA",
+            cache_dir=cache_dir,
+            time_col_dict={"seasons": "dayzero"},
+            keep_original_keys=False,
+        )
+
+    def make_db(self) -> Database:
+        db = super().make_db()
+
+        db.table_dict.pop("target")
+
+        for table in db.table_dict.values():
+            for fk, ref in table.fkey_col_to_pkey_table.items():
+                if ref != "seasons":
+                    continue
+                table.df["date"] = pd.merge(
+                    left=db.table_dict["seasons"].df,
+                    right=table.df,
+                    left_on="__PK__",
+                    right_on=fk,
+                    how="right",
+                )["dayzero"]
+
+                if "daynum" in table.df.columns:
+                    table.df["date"] += pd.to_timedelta(table.df["daynum"], unit="D")
+                    table.df.drop(columns=["daynum"], inplace=True)
+
+                table.time_col = "date"
+                break
+
+        return db
+
+
+class Northwind(CTUDataset):
+    """
+    The Northwind database contains the sales data for a fictitious company called\
+    Northwind Traders, which imports and exports specialty foods from around the world.
+    """
+
+    def __init__(self, cache_dir: Optional[str] = None):
+        super().__init__(
+            "northwind",
+            cache_dir=cache_dir,
+            time_col_dict={"Orders": "OrderDate", "Employees": "HireDate"},
+            keep_original_keys=False,
+        )
+
+
+class Pima(CTUDataset):
+    """
+    The National Institute of Diabetes and Digestive and Kidney Diseases conducted\
+    a study on 768 adult female Pima Indians living near Phoenix.
+    """
+
+    def __init__(self, cache_dir: Optional[str] = None):
+        super().__init__(
+            "Pima",
+            cache_dir=cache_dir,
+            time_col_dict={},
+            keep_original_keys=False,
+        )
+
+
+class PremiereLeague(CTUDataset):
+    """
+    A database with information about football matches from the UK Premier League.\
+    Lists Players, Teams, and matches with action counts for each player.
+    """
+
+    def __init__(self, cache_dir: Optional[str] = None):
+        super().__init__(
+            "PremierLeague",
+            cache_dir=cache_dir,
+            time_col_dict={"Matches": "Date"},
+            keep_original_keys=False,
+        )
+
+
+class Pyrimidine(CTUDataset):
+    """
+    A pyrimidine QSAR dataset. The goal is to predict the inhibition of dihydrofolate\
+    reductase by pyrimidines.
+    """
+
+    def __init__(self, cache_dir: Optional[str] = None):
+        super().__init__(
+            "Pyrimidine",
+            cache_dir=cache_dir,
+            time_col_dict={},
+            keep_original_keys=False,
+        )
+
+
+class Restbase(CTUDataset):
+    """
+    A database of restaurants in the San Francisco Bay Area.
+    """
+
+    def __init__(self, cache_dir: Optional[str] = None):
+        super().__init__(
+            "restbase",
+            cache_dir=cache_dir,
+            time_col_dict={},
+            keep_original_keys=True,
+        )
+
+    def make_db(self) -> Database:
+        db = super().make_db()
+
+        db.table_dict["location"].df.drop(columns=["id_restaurant"], inplace=True)
+        db.table_dict["generalinfo"].df.drop(columns=["id_restaurant"], inplace=True)
+
+        return db
+
+
+class Sakila(CTUDataset):
+    """
+    The Sakila sample database is designed to represent a DVD rental store.
+    """
+
+    def __init__(self, cache_dir: Optional[str] = None):
+        super().__init__(
+            "sakila",
+            cache_dir=cache_dir,
+            time_col_dict={"payment": "payment_date", "rental": "rental_date"},
+            keep_original_keys=False,
+        )
+
+
+class SalesDB(CTUDataset):
+    """
+    A simple artificial database in star schema.
+    """
+
+    def __init__(self, cache_dir: Optional[str] = None):
+        super().__init__(
+            "SalesDB",
+            cache_dir=cache_dir,
+            time_col_dict={},
+            keep_original_keys=False,
+        )
+
+
+class SameGen(CTUDataset):
+    """
+    Small database of family relations.
+    """
+
+    def __init__(self, cache_dir: Optional[str] = None):
+        super().__init__(
+            "Same_gen",
+            cache_dir=cache_dir,
+            time_col_dict={},
+            keep_original_keys=True,
+        )
+
+    def make_db(self) -> Database:
+        db = super().make_db()
+
+        db.table_dict.pop("target")
+
+        return db
+
+
 class SAP(CTUDataset):
     """
     Syntetic dataset containing information about sales of a Credit++.
     """
 
-    val_timestamp = pd.Timestamp("2007-05-30")
-    test_timestamp = pd.Timestamp("2007-06-15")
+    # val_timestamp = pd.Timestamp("2007-05-30")
+    # test_timestamp = pd.Timestamp("2007-06-15")
 
     def __init__(self, cache_dir: Optional[str] = None):
         super().__init__(
@@ -420,7 +1362,7 @@ class SAP(CTUDataset):
         ][0]
 
         mailings_3 = db.table_dict["mailings3"].df
-        fk_col, _ = self._reindex_fk(
+        fk_col, _ = DBDataset.reindex_fk(
             {tn: t.df for tn, t in db.table_dict.items()},
             "mailings3",
             ["REFID"],
@@ -443,24 +1385,57 @@ class SAP(CTUDataset):
             df=mailings,
             fkey_col_to_pkey_table={fk_name: "Customers"},
             pkey_col="__PK__",
-            time_col=None,
+            time_col="REF_DATE",
         )
 
         return db
 
 
-# class Sales(CTUDataset):
-#     def __init__(self, cache_dir: Optional[str] = None):
-#         super().__init__(
-#             "SalesDB",
-#             cache_dir=cache_dir,
-#             keep_original_keys=False,
-#         )
+class Satellite(CTUDataset):
+    """
+    Communications satellite data.
+    """
+
+    def __init__(self, cache_dir: Optional[str] = None):
+        super().__init__(
+            "SAT",
+            cache_dir=cache_dir,
+            time_col_dict={},
+            keep_original_keys=True,
+        )
+
+    def make_db(self) -> Database:
+        db = super().make_db()
+
+        for table in db.table_dict.values():
+            rm_fks = []
+            for fk, ref in table.fkey_col_to_pkey_table.items():
+                if ref in ["trfl", "class"]:
+                    table.df.drop(columns=[fk], inplace=True)
+                    rm_fks.append(fk)
+            for fk in rm_fks:
+                table.fkey_col_to_pkey_table.pop(fk)
+
+        db.table_dict.pop("trfl")
+        db.table_dict.pop("class")
+
+        return db
 
 
 class Seznam(CTUDataset):
-    val_timestamp = pd.Timestamp("2014-12-01")
-    test_timestamp = pd.Timestamp("2015-05-01")
+    """
+    Seznam.cz is a web portal and search engine in the Czech Republic.\
+    The data represent online advertisement expenditures from Seznam's "wallet".
+    
+    Table description: 
+        client: location and domain field of the client (anonymized)
+        dobito: prepaid into a wallet in Czech currency 
+        probehnuto: charged from the wallet in Czech currency
+        probehnuto_mimo_penezenku: charged in Czech currency, but not from the wallet.
+    """
+
+    # val_timestamp = pd.Timestamp("2014-12-01")
+    # test_timestamp = pd.Timestamp("2015-05-01")
 
     def __init__(self, cache_dir: Optional[str] = None):
         super().__init__(
@@ -484,13 +1459,48 @@ class Seznam(CTUDataset):
         return db
 
 
+class SFScores(CTUDataset):
+    """
+    The San Francisco Dept. of Public Health's database of eateries, inspections\
+    of those eateries, and violations found during the inspections. The scores of inspections\
+    range from 1 to 100, where 100 means that the establishment meets all required standards.
+    """
+
+    def __init__(self, cache_dir: Optional[str] = None):
+        super().__init__(
+            "SFScores",
+            cache_dir=cache_dir,
+            time_col_dict={
+                "inspections": "date",
+                "violations": "date",
+            },
+            keep_original_keys=False,
+        )
+
+
+class Shakespeare(CTUDataset):
+    """
+    The Open Source Shakespeare is a collection of Shakespeare's complete works.\
+    This is a much more interesting data set than some boring imaginary online retailer.\
+    In this dataset, people die!
+    """
+
+    def __init__(self, cache_dir: Optional[str] = None):
+        super().__init__(
+            "Shakespeare",
+            cache_dir=cache_dir,
+            time_col_dict={},
+            keep_original_keys=False,
+        )
+
+
 class Stats(CTUDataset):
     """
     An anonymized dump of all user-contributed content on the Stats Stack Exchange network.
     """
 
-    val_timestamp = pd.Timestamp("2013-11-01")
-    test_timestamp = pd.Timestamp("2014-05-01")
+    # val_timestamp = pd.Timestamp("2013-11-01")
+    # test_timestamp = pd.Timestamp("2014-05-01")
 
     def __init__(self, cache_dir: Optional[str] = None):
         super().__init__(
@@ -509,17 +1519,67 @@ class Stats(CTUDataset):
         )
 
 
+class StudentLoan(CTUDataset):
+    """
+    Student Loan contains data about students enrollment and employment status, and\
+    the aim is to find rules that define a students' obligation for paying his/her loan back.
+    """
+
+    def __init__(self, cache_dir: Optional[str] = None):
+        super().__init__(
+            "Student_loan",
+            cache_dir=cache_dir,
+            time_col_dict={},
+            keep_original_keys=False,
+        )
+
+
+class Thrombosis(CTUDataset):
+    """
+    PKDD'99 Medical dataset describes 41 patients with Thrombosis.
+    """
+
+    def __init__(self, cache_dir: Optional[str] = None):
+        super().__init__(
+            "medical",
+            cache_dir=cache_dir,
+            time_col_dict={"Examination": "Examination Date", "Laboratory": "Date"},
+            keep_original_keys=False,
+        )
+
+
+class Toxicology(CTUDataset):
+    """
+    Predictive Toxicology Challenge (2000) consists of more than three hundreds of organic\
+    molecules marked according to their carcinogenicity on male and female mice and rats.
+    """
+
+    def __init__(self, cache_dir: Optional[str] = None):
+        super().__init__(
+            "Toxicology",
+            cache_dir=cache_dir,
+            time_col_dict={},
+            keep_original_keys=False,
+        )
+
+
 class TPCC(CTUDataset):
-    val_timestamp = pd.Timestamp("1996-01-01")
-    test_timestamp = pd.Timestamp("1997-05-01")
+    """
+    TPC-C is the benchmark published by the Transaction Processing Performance Council\
+    (TPC) for Online Transaction Processing (OLTP).
+    """
+
+    # val_timestamp = pd.Timestamp("1996-01-01")
+    # test_timestamp = pd.Timestamp("1997-05-01")
 
     def __init__(self, cache_dir: Optional[str] = None):
         super().__init__(
             "tpcc",
             cache_dir=cache_dir,
             time_col_dict={
-                "dss_lineitem": "l_shipdate",
-                "dss_order": "o_orderdate",
+                "C_Order_Line": "ol_delivery_d",
+                "C_Order": "o_entry_d",
+                "C_History": "h_date",
             },
             keep_original_keys=True,
         )
@@ -531,8 +1591,13 @@ class TPCC(CTUDataset):
 
 
 class TPCD(CTUDataset):
-    val_timestamp = pd.Timestamp("1996-01-01")
-    test_timestamp = pd.Timestamp("1997-05-01")
+    """
+    TPC-D represents a broad range of decision support (DS) applications that require\
+    complex, long running queries against large complex data structures.
+    """
+
+    # val_timestamp = pd.Timestamp("1996-01-01")
+    # test_timestamp = pd.Timestamp("1997-05-01")
 
     def __init__(self, cache_dir: Optional[str] = None):
         super().__init__(
@@ -549,7 +1614,7 @@ class TPCD(CTUDataset):
         db = super().make_db()
 
         # Add missing foreign keys
-        fk_col, fk_name = self._reindex_fk(
+        fk_col, fk_name = DBDataset.reindex_fk(
             {tn: t.df for tn, t in db.table_dict.items()},
             "dss_partsupp",
             ["ps_partkey"],
@@ -583,8 +1648,16 @@ class TPCD(CTUDataset):
 
 
 class TPCDS(CTUDataset):
-    val_timestamp = pd.Timestamp("1999-05-01")
-    test_timestamp = pd.Timestamp("2001-05-01")
+    """
+    TPC-DS is the new decision support benchmark that models several generally applicable\
+    aspects of a decision support system, including queries and data maintenance. Although\
+    the underlying business model of TPC-DS is a retail product supplier, the database\
+    schema, data population, queries, data maintenance model and implementation rules have\
+    been designed to be broadly representative of modern decision support systems.
+    """
+
+    # val_timestamp = pd.Timestamp("1999-05-01")
+    # test_timestamp = pd.Timestamp("2001-05-01")
 
     def __init__(self, cache_dir: Optional[str] = None):
         super().__init__(
@@ -663,8 +1736,13 @@ class TPCDS(CTUDataset):
 
 
 class TPCH(CTUDataset):
-    val_timestamp = pd.Timestamp("1996-01-01")
-    test_timestamp = pd.Timestamp("1997-05-01")
+    """
+    TPC-H is the benchmark published by the Transaction Processing Performance Council\
+    (TPC) for decision support.
+    """
+
+    # val_timestamp = pd.Timestamp("1996-01-01")
+    # test_timestamp = pd.Timestamp("1997-05-01")
 
     def __init__(self, cache_dir: Optional[str] = None):
         super().__init__(
@@ -700,12 +1778,123 @@ class TPCH(CTUDataset):
         return db
 
 
+class Triazine(CTUDataset):
+    """
+    A pyrimidine QSAR dataset. The the goal is to predict the inhibition\
+    of dihydrofolate reductase by pyrimidines.
+    """
+
+    def __init__(self, cache_dir: Optional[str] = None):
+        super().__init__(
+            "Triazine",
+            cache_dir=cache_dir,
+            time_col_dict={},
+            keep_original_keys=False,
+        )
+
+
+class University(CTUDataset):
+    """
+    An artificial database from Simon Fraser University describing students,\
+    professors and courses.
+    """
+
+    def __init__(self, cache_dir: Optional[str] = None):
+        super().__init__(
+            "university",
+            cache_dir=cache_dir,
+            time_col_dict={},
+            keep_original_keys=False,
+        )
+
+
+class UTube(CTUDataset):
+    """
+    The legal states of the U-tube dynamical system.
+    """
+
+    def __init__(self, cache_dir: Optional[str] = None):
+        super().__init__(
+            "UTube",
+            cache_dir=cache_dir,
+            time_col_dict={},
+            keep_original_keys=False,
+        )
+
+
+class UWCSE(CTUDataset):
+    """
+    This dataset lists facts about the Department of Computer Science and Engineering\
+    at the University of Washington (UW-CSE), such as entities (e.g., Student, Professor)\
+    and their relationships (i.e. AdvisedBy, Publication).
+    """
+
+    def __init__(self, cache_dir: Optional[str] = None):
+        super().__init__(
+            "UW_std",
+            cache_dir=cache_dir,
+            time_col_dict={},
+            keep_original_keys=False,
+        )
+
+
+class VisualGenome(CTUDataset):
+    """
+    Visual Genome is a dataset, a knowledge base, an ongoing effort to connect\
+    structured image concepts to language.
+    
+    TODO: add images
+    """
+
+    def __init__(self, cache_dir: Optional[str] = None):
+        super().__init__(
+            "VisualGenome",
+            cache_dir=cache_dir,
+            time_col_dict={},
+            keep_original_keys=False,
+        )
+
+    def make_db(self) -> Database:
+        db = super().make_db()
+
+        for table in db.table_dict.values():
+            rm_fks = []
+            for fk, ref in table.fkey_col_to_pkey_table.items():
+                if ref in ["ATT_CLASSES", "OBJ_CLASSES", "PRED_CLASSES"]:
+                    col = ref.removesuffix("ES")
+
+                    table.df[col] = pd.merge(
+                        left=db.table_dict[ref].df,
+                        right=table.df,
+                        left_on="__PK__",
+                        right_on=fk,
+                        how="right",
+                    )[col]
+                    table.df.drop(columns=[fk], inplace=True)
+                    rm_fks.append(fk)
+
+            for fk in rm_fks:
+                table.fkey_col_to_pkey_table.pop(fk)
+
+        db.table_dict.pop("ATT_CLASSES")
+        db.table_dict.pop("OBJ_CLASSES")
+        db.table_dict.pop("PRED_CLASSES")
+
+        return db
+
+
 class VOC(CTUDataset):
+    """
+    VOC database provides a peephole view into the administrative system of an early\
+    multi-national company, the Vereenigde geoctrooieerde Oostindische Compagnie (VOC for\
+    short - The (Dutch) East Indian Company) established on March 20, 1602.
+    """
+
     # Offset to avoid issues with pandas datetime
     YEAR_OFFSET = 100
 
-    val_timestamp = pd.Timestamp("1837-01-01")
-    test_timestamp = pd.Timestamp("1867-01-01")
+    # val_timestamp = pd.Timestamp("1837-01-01")
+    # test_timestamp = pd.Timestamp("1867-01-01")
 
     def __init__(self, cache_dir: Optional[str] = None):
         super().__init__(
@@ -720,7 +1909,7 @@ class VOC(CTUDataset):
 
         voyages_df = db.table_dict["voyages"].df
 
-        def conv(x: Union[datetime.date, None]):
+        def time_conversion(x: Union[datetime.date, None]):
             if x is None:
                 return pd.NaT
             # Ignore dates before 1678 to avoid issues with pandas datetime
@@ -729,10 +1918,10 @@ class VOC(CTUDataset):
             # Add offset to year to avoid issues with pandas datetime
             return pd.Timestamp(year=x.year + self.YEAR_OFFSET, month=x.month, day=x.day)
 
-        voyages_df["departure_date"] = voyages_df["departure_date"].apply(conv)
-        voyages_df["arrival_date"] = voyages_df["arrival_date"].apply(conv)
-        voyages_df["cape_departure"] = voyages_df["cape_departure"].apply(conv)
-        voyages_df["cape_arrival"] = voyages_df["cape_arrival"].apply(conv)
+        voyages_df["departure_date"] = voyages_df["departure_date"].apply(time_conversion)
+        voyages_df["arrival_date"] = voyages_df["arrival_date"].apply(time_conversion)
+        voyages_df["cape_departure"] = voyages_df["cape_departure"].apply(time_conversion)
+        voyages_df["cape_arrival"] = voyages_df["cape_arrival"].apply(time_conversion)
 
         db.table_dict["voyages"].df = voyages_df
 
@@ -740,16 +1929,21 @@ class VOC(CTUDataset):
 
 
 class Walmart(CTUDataset):
+    """
+    The sales of 111 potentially weather-sensitive products (like umbrellas, bread, and milk)\
+    around the time of major weather events at 45 of their retail locations.
+    """
+
     TIME_ORIGIN = pd.Timestamp("1970-01-01")
 
-    val_timestamp = pd.Timestamp("2013-09-01")
-    test_timestamp = pd.Timestamp("2014-04-01")
+    # val_timestamp = pd.Timestamp("2013-09-01")
+    # test_timestamp = pd.Timestamp("2014-04-01")
 
     def __init__(self, cache_dir: Optional[str] = None):
         super().__init__(
             "Walmart",
             cache_dir=cache_dir,
-            time_col_dict={"weather": "date"},
+            time_col_dict={"train": "date", "weather": "date"},
             keep_original_keys=True,
         )
 
@@ -763,3 +1957,34 @@ class Walmart(CTUDataset):
         db.table_dict["weather"].df = weather_df
 
         return db
+
+
+class WebKP(CTUDataset):
+    """
+    The WebKB dataset consists of 877 scientific publications classified into one of five\
+    classes. The citation network consists of 1608 links. Each publication in the dataset\
+    is described by a 0/1-valued word vector indicating the absence/presence of the\
+    corresponding word from the dictionary. The dictionary consists of 1703 unique words.
+    """
+
+    def __init__(self, cache_dir: Optional[str] = None):
+        super().__init__(
+            "WebKP",
+            cache_dir=cache_dir,
+            time_col_dict={},
+            keep_original_keys=False,
+        )
+
+
+class World(CTUDataset):
+    """
+    A database of 239 states and their cities.
+    """
+
+    def __init__(self, cache_dir: Optional[str] = None):
+        super().__init__(
+            "world",
+            cache_dir=cache_dir,
+            time_col_dict={},
+            keep_original_keys=False,
+        )
