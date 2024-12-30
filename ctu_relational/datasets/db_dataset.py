@@ -208,6 +208,8 @@ class DBDataset(Dataset):
                         df[col] = pd.to_datetime(df[col])
                     except pd.errors.OutOfBoundsDatetime:
                         print(f"Out of bounds datetime in {t_name}.{col}")
+                    except Exception as e:
+                        print(f"Error converting {t_name}.{col} to datetime: {e}")
 
             # Create index column used as artificial primary key
             df.index.name = "__PK__"
