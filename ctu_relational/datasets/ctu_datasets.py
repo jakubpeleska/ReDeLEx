@@ -7,44 +7,40 @@ from relbench.base import Database, Table
 
 from .db_dataset import DBDataset
 
+# fmt: off
 __ALL__ = [
-    "Accidents",
-    "AdventureWorks",
-    "Airline",
-    "Credit",
-    "ErgastF1",
-    "Expenditures",
-    "Employee",
-    "Financial",
-    "Geneea",
-    "FNHK",
-    "LegalActs",
-    "SAP",
-    "Seznam",
-    "Stats",
-    "TPCC",
-    "TPCD",
-    "TPCDS",
-    "TPCH",
-    "VOC",
-    "Walmart",
+    "CTUDataset", "CTUDatabaseName",
+    
+    "Accidents", "AdventureWorks", "Airline", "Atherosclerosis", "BasketballMen",
+    "BasketballWomen", "Biodegradability", "Bookstore", "Bupa", "Carcinogenesis",
+    "CDESchools", "Chess", "ClassicModels", "CORA", "Countries", "CraftBeer", "Credit",
+    "CS", "Dallas", "DCG", "Diabetes", "Dunur", "Elti", "Employee", "ErgastF1",
+    "Expenditures", "Employee", "Financial", "FNHK", "FTP", "Geneea", "Genes", "GOSales",
+    "Grants", "Hepatitis", "Hockey", "IMDb", "KRK", "Lahman", "LegalActs", "Mesh",
+    "Mondial", "Mooney", "MovieLens", "MuskLarge", "MuskSmall", "Mutagenesis", "Nations",
+    "NCAA", "Northwind", "Pima", "PremiereLeague", "Pyrimidine", "Restbase", "Sakila",
+    "Sales", "SameGen", "SAP", "Satellite", "Seznam", "SFScores", "Shakespeare", "Stats",
+    "StudentLoan", "Thrombosis", "Toxicology", "TPCC", "TPCD", "TPCDS", "TPCH", "Triazine",
+    "University", "UTube", "UWCSE", "VisualGenome", "VOC", "Walmart", "WebKP", "World"
 ]
+# fmt: on
+
 
 # fmt: off
 CTUDatabaseName = Literal[
-    'Accidents', 'AdventureWorks2014', 'Airline', 'Atherosclerosis', 'AustralianFootball', 
-    'Basketball_men', 'Basketball_women', 'Biodegradability', 'Bupa', 'Carcinogenesis', 
-    'ccs', 'CDESchools', 'Chess', 'CiteSeer', 'classicmodels', 'ConsumerExpenditures',
-    'CORA', 'Countries', 'CraftBeer', 'Credit', 'cs', 'Dallas', 'DCG', 'Dunur', 'Elti',
-    'employee', 'ErgastF1', 'Facebook', 'financial', 'FNHK', 'ftp', 'geneea', 'genes',
-    'GOSales', 'Grants', 'Hepatitis_std', 'Hockey', 'imdb_ijs', 'KRK', 'lahman_2014',
-    'legalActs', 'Mesh', 'medical', 'Mondial', 'Mooney_Family', 'imdb_MovieLens',
-    'MuskSmall', 'mutagenesis', 'nations', 'NBA', 'NCAA', 'northwind', 'Pima',
-    'PremierLeague', 'PTE', 'PubMed_Diabetes', 'pubs', 'Pyrimidine', 'restbase',
-    'sakila', 'SalesDB', 'Same_gen', 'SAP', 'SAT', 'Seznam', 'SFScores', 'Shakespeare',
-    'stats', 'Student_loan', 'Toxicology', 'tpcc', 'tpcd', 'tpcds', 'tpch', 'trains',
-    'Triazine', 'university', 'UTube', 'UW_std', 'VisualGenome', 'voc', 'Walmart','WebKP',
-    'world'
+    "Accidents", "AdventureWorks2014", "Airline", "Atherosclerosis", "AustralianFootball", 
+    "Basketball_men", "Basketball_women", "Biodegradability", "Bupa", "Carcinogenesis", 
+    "ccs", "CDESchools", "Chess", "CiteSeer", "classicmodels", "ConsumerExpenditures",
+    "CORA", "Countries", "CraftBeer", "Credit", "cs", "Dallas", "DCG", "Dunur", "Elti",
+    "employee", "ErgastF1", "Facebook", "financial", "FNHK", "ftp", "geneea", "genes",
+    "GOSales", "Grants", "Hepatitis_std", "Hockey", "imdb_ijs", "KRK", "lahman_2014",
+    "legalActs", "Mesh", "medical", "Mondial", "Mooney_Family", "imdb_MovieLens",
+    "MuskLarge", "MuskSmall", "mutagenesis", "nations", "NBA", "NCAA", "northwind", "Pima",
+    "PremierLeague", "PTE", "PubMed_Diabetes", "pubs", "Pyrimidine", "restbase",
+    "sakila", "SalesDB", "Same_gen", "SAP", "SAT", "Seznam", "SFScores", "Shakespeare",
+    "stats", "Student_loan", "Toxicology", "tpcc", "tpcd", "tpcds", "tpch", "trains",
+    "Triazine", "university", "UTube", "UW_std", "VisualGenome", "voc", "Walmart","WebKP",
+    "world"
 ]
 # fmt: on
 
@@ -208,7 +204,7 @@ class BasketballMen(CTUDataset):
         return db
 
 
-class BasketballWoMen(CTUDataset):
+class BasketballWomen(CTUDataset):
 
     def __init__(self, cache_dir: Optional[str] = None):
         super().__init__(
@@ -1055,7 +1051,7 @@ class Mondial(CTUDataset):
         return db
 
 
-class MooneyFamily(CTUDataset):
+class Mooney(CTUDataset):
     """
     The dataset describes a family composed of 86 people across 5 generations.\
     The family dataset includes 744 positive instances and 1488 randomly generated\
@@ -1299,7 +1295,7 @@ class Sakila(CTUDataset):
         )
 
 
-class SalesDB(CTUDataset):
+class Sales(CTUDataset):
     """
     A simple artificial database in star schema.
     """
