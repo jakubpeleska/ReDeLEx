@@ -7,7 +7,7 @@ from tqdm.std import tqdm
 
 from relbench.base import Dataset, Database, Table
 
-from ctu_relational.db import DBInspector, ForeignKeyDef
+from ctu_relational.db import DBInspector, ForeignKey
 
 __ALL__ = ["DBDataset"]
 
@@ -169,7 +169,7 @@ class DBDataset(Dataset):
         table_names = inspector.get_tables()
 
         df_dict: Dict[str, pd.DataFrame] = {}
-        fk_dict: Dict[str, List[ForeignKeyDef]] = {}
+        fk_dict: Dict[str, List[ForeignKey]] = {}
 
         for t_name in tqdm(table_names, desc="Downloading tables"):
 

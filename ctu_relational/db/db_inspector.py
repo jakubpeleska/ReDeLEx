@@ -3,7 +3,7 @@ from typing import Dict, List, Set, Tuple
 from sqlalchemy import Connection, Engine, inspect
 from sqlalchemy.types import TypeEngine
 
-from .schema import ForeignKeyDef
+from .column_types import ForeignKey
 
 __ALL__ = ["DBInspector"]
 
@@ -84,7 +84,7 @@ class DBInspector:
         """
         return set(self._inspect.get_pk_constraint(table)["constrained_columns"])
 
-    def get_foreign_keys(self, table: str) -> List[ForeignKeyDef]:
+    def get_foreign_keys(self, table: str) -> List[ForeignKey]:
         """
         Retrieves the foreign key constraints of a specific table in the database.
 
@@ -92,10 +92,10 @@ class DBInspector:
             table (str): The name of the table.
 
         Returns:
-            List[ForeignKeyDef]: A dictionary mapping sets of constrained columns to their corresponding ForeignKeyDef objects.
+            List[ForeignKey]: A dictionary mapping sets of constrained columns to their corresponding ForeignKey objects.
         """
         return [
-            ForeignKeyDef(
+            ForeignKey(
                 src_columns=fk["constrained_columns"],
                 ref_table=fk["referred_table"],
                 ref_columns=fk["referred_columns"],
