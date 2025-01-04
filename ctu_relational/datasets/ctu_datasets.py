@@ -89,8 +89,13 @@ class CTUDataset(DBDataset):
 
 
 class Accidents(CTUDataset):
-    # val_timestamp = pd.Timestamp("2003-01-01")
-    # test_timestamp = pd.Timestamp("2005-01-01")
+    """
+    Traffic accident database consists of all accidents that happened in Slovenia's\
+    capital city Ljubljana between the years 1995 and 2006.
+    """
+
+    val_timestamp = pd.Timestamp("2004-01-01")
+    test_timestamp = pd.Timestamp("2005-01-01")
 
     def __init__(self, cache_dir: Optional[str] = None):
         super().__init__(
@@ -109,37 +114,47 @@ class AdventureWorks(CTUDataset):
     Adventure Works Cycles.
     """
 
-    # val_timestamp = pd.Timestamp("2014-01-01")
-    # test_timestamp = pd.Timestamp("2014-04-01")
+    val_timestamp = pd.Timestamp("2014-02-01")
+    test_timestamp = pd.Timestamp("2014-04-01")
 
     def __init__(self, cache_dir: Optional[str] = None):
         super().__init__(
             "AdventureWorks2014",
             cache_dir=cache_dir,
             time_col_dict={
-                "Address": "ModifiedDate",
-                "BusinessEntityAddress": "ModifiedDate",
-                "CreditCard": "ModifiedDate",
-                "CurrencyRate": "ModifiedDate",
-                "EmailAddress": "ModifiedDate",
-                "Password": "ModifiedDate",
-                "Person": "ModifiedDate",
-                "PersonCreditCard": "ModifiedDate",
-                "PersonPhone": "ModifiedDate",
-                "PurchaseOrderDetail": "ModifiedDate",
-                "PurchaseOrderHeader": "ModifiedDate",
-                "SalesOrderDetail": "ModifiedDate",
-                "SalesOrderHeader": "ModifiedDate",
-                "SalesOrderHeaderSalesReason": "ModifiedDate",
-                "SpecialOfferProduct": "ModifiedDate",
-                "TransactionHistory": "ModifiedDate",
-                "TransactionHistoryArchive": "ModifiedDate",
-                "WorkOrder": "ModifiedDate",
-                "WorkOrderRouting": "ModifiedDate",
+                "BillOfMaterials": "StartDate",
+                "Employee": "HireDate",
+                "EmployeePayHistory": "RateChangeDate",
+                "CurrencyRate": "CurrencyRateDate",
+                "Product": "SellStartDate",
+                "ProductCostHistory": "StartDate",
+                "ProductListPriceHistory": "StartDate",
+                "ProductReview": "ReviewDate",
+                "PurchaseOrderHeader": "OrderDate",
+                "SalesOrderHeader": "OrderDate",
+                "SalesPersonQuotaHistory": "QuotaDate",
+                "SalesTerritoryHistory": "StartDate",
+                "SpecialOffer": "StartDate",
+                "TransactionHistory": "TransactionDate",
+                "WorkOrder": "StartDate",
+                "WorkOrderRouting": "ScheduledStartDate",
+                "EmployeeDepartmentHistory": "StartDate",
             },
             keep_original_keys=False,
             keep_original_compound_keys=True,
         )
+
+    def make_db(self) -> Database:
+        db = super().make_db()
+
+        db.table_dict.pop("AWBuildVersion", None)
+        db.table_dict.pop("DatabaseLog", None)
+        db.table_dict.pop("ErrorLog", None)
+        db.table_dict.pop("TransactionHistoryArchive", None)
+
+        db.table_dict["Address"].df.drop(columns=["SpatialLocation"], inplace=True)
+
+        return db
 
 
 class Airline(CTUDataset):
@@ -152,8 +167,8 @@ class Airline(CTUDataset):
     in 14 CFR Part 234 of DOT's regulations. Data are available since January 1995.
     """
 
-    # val_timestamp = pd.Timestamp("2016-01-18")
-    # test_timestamp = pd.Timestamp("2016-01-25")
+    val_timestamp = pd.Timestamp("2016-01-18")
+    test_timestamp = pd.Timestamp("2016-01-25")
 
     def __init__(self, cache_dir: Optional[str] = None):
         super().__init__(
@@ -310,6 +325,9 @@ class ClassicModels(CTUDataset):
     line items, products and so on.
     """
 
+    val_timestamp = pd.Timestamp("2004-11-01")
+    test_timestamp = pd.Timestamp("2005-02-01")
+
     def __init__(self, cache_dir: Optional[str] = None):
         super().__init__(
             "classicmodels",
@@ -371,8 +389,8 @@ class Credit(CTUDataset):
     A bit more complex artificial database with loops.
     """
 
-    # val_timestamp = pd.Timestamp("1999-09-01")
-    # test_timestamp = pd.Timestamp("1999-09-23")
+    val_timestamp = pd.Timestamp("1999-09-01")
+    test_timestamp = pd.Timestamp("1999-10-01")
 
     def __init__(self, cache_dir: Optional[str] = None):
         super().__init__(
@@ -429,6 +447,9 @@ class Dallas(CTUDataset):
     Officer-involved shootings as disclosed by the Dallas Police Department.\
     Includes separate tables for officer and subject/suspect information.
     """
+
+    val_timestamp = pd.Timestamp("2014-01-01")
+    test_timestamp = pd.Timestamp("2015-01-01")
 
     def __init__(self, cache_dir: Optional[str] = None):
         super().__init__(
@@ -505,8 +526,8 @@ class Elti(CTUDataset):
 
 
 class Employee(CTUDataset):
-    # val_timestamp = pd.Timestamp("1998-02-01")
-    # test_timestamp = pd.Timestamp("2000-05-01")
+    val_timestamp = pd.Timestamp("2000-01-01")
+    test_timestamp = pd.Timestamp("2001-01-01")
 
     def __init__(self, cache_dir: Optional[str] = None):
         super().__init__(
@@ -558,16 +579,14 @@ class ErgastF1(CTUDataset):
     in the qualifying rounds etc. of all Formula 1 races from 1950 to 2017.
     """
 
-    # val_timestamp = pd.Timestamp("1997-01-01")
-    # test_timestamp = pd.Timestamp("2009-01-01")
-
-    TIME_ORIGIN = pd.Timestamp("1970-01-01")
+    val_timestamp = pd.Timestamp("2014-01-01")
+    test_timestamp = pd.Timestamp("2016-01-01")
 
     def __init__(self, cache_dir: Optional[str] = None):
         super().__init__(
             "ErgastF1",
             cache_dir=cache_dir,
-            time_col_dict={"drivers": "dob", "races": "date"},
+            time_col_dict={"races": "date"},
             keep_original_keys=False,
             keep_original_compound_keys=True,
         )
@@ -576,17 +595,16 @@ class ErgastF1(CTUDataset):
         db = super().make_db()
 
         # Convert time column to datetime
-        db.table_dict["pitStops"].df["time"] = (
-            self.TIME_ORIGIN + db.table_dict["pitStops"].df["time"]
-        )
+        db.table_dict["pitStops"].df["time"].fillna(pd.Timedelta(hours=12), inplace=True)
+        db.table_dict["pitStops"].df["time"] += db.table_dict["pitStops"].df.join(
+            db.table_dict["races"].df["date"], on="FK_races_raceId", how="left"
+        )["date"]
+        db.table_dict["pitStops"].time_col = "time"
 
         # Merge date and time columns
-        db.table_dict["races"].df["time"] = (
-            db.table_dict["races"].df["time"].fillna(pd.Timedelta(hours=12))
-        )
-        db.table_dict["races"].df["time"] = (
-            db.table_dict["races"].df["date"] + db.table_dict["races"].df["time"]
-        )
+        db.table_dict["races"].df["time"].fillna(pd.Timedelta(hours=12), inplace=True)
+        db.table_dict["races"].df["date"] += db.table_dict["races"].df["time"]
+        db.table_dict["races"].df.drop(columns=["time"], inplace=True)
 
         return db
 
@@ -620,8 +638,8 @@ class Financial(CTUDataset):
     successful loans along with their information and transactions. 
     """
 
-    # val_timestamp = pd.Timestamp("1997-08-01")
-    # test_timestamp = pd.Timestamp("1998-03-01")
+    val_timestamp = pd.Timestamp("1998-01-01")
+    test_timestamp = pd.Timestamp("1998-07-01")
 
     def __init__(self, cache_dir: Optional[str] = None):
         super().__init__(
@@ -643,8 +661,8 @@ class FNHK(CTUDataset):
     about treatment and medication.
     """
 
-    # val_timestamp = pd.Timestamp("2015-01-01")
-    # test_timestamp = pd.Timestamp("2016-01-01")
+    val_timestamp = pd.Timestamp("2014-09-01")
+    test_timestamp = pd.Timestamp("2014-11-01")
 
     def __init__(self, cache_dir: Optional[str] = None):
         super().__init__(
@@ -676,6 +694,9 @@ class FTP(CTUDataset):
     distribution in that regard.
     """
 
+    val_timestamp = pd.Timestamp("2014-12-15")
+    test_timestamp = pd.Timestamp("2014-12-19")
+
     def __init__(self, cache_dir: Optional[str] = None):
         super().__init__(
             "ftp",
@@ -690,8 +711,8 @@ class Geneea(CTUDataset):
     Data on deputies and senators in the Czech Republic.
     """
 
-    # val_timestamp = pd.Timestamp("2015-03-01")
-    # test_timestamp = pd.Timestamp("2015-08-01")
+    val_timestamp = pd.Timestamp("2015-06-01")
+    test_timestamp = pd.Timestamp("2015-10-01")
 
     def __init__(self, cache_dir: Optional[str] = None):
         super().__init__(
@@ -737,11 +758,14 @@ class GOSales(CTUDataset):
     and products of a fictitious outdoor equipment retail chain “Great Outdoors” (GO).
     """
 
+    val_timestamp = pd.Timestamp("2017-10-01")
+    test_timestamp = pd.Timestamp("2018-03-01")
+
     def __init__(self, cache_dir: Optional[str] = None):
         super().__init__(
             "GOSales",
             cache_dir=cache_dir,
-            time_col_dict={"go_1k": "Date", "go_daily_sales": "Date"},
+            time_col_dict={"go_daily_sales": "Date"},
             keep_original_keys=True,
         )
 
@@ -755,18 +779,26 @@ class GOSales(CTUDataset):
             "go_products",
             ["Product number"],
         )
-
         db.table_dict["go_daily_sales"].df[fk_name] = fk_col
         db.table_dict["go_daily_sales"].fkey_col_to_pkey_table[fk_name] = "go_products"
 
-        db.table_dict["go_products"].df.drop(columns=["Product number"], inplace=True)
-        db.table_dict["go_1k"].df.drop(
-            columns=["Retailer code", "Product number"], inplace=True
+        fk_col, fk_name = DBDataset.reindex_fk(
+            {name: t.df for name, t in db.table_dict.items()},
+            "go_daily_sales",
+            ["Retailer code"],
+            "go_retailers",
+            ["Retailer code"],
         )
+        db.table_dict["go_daily_sales"].df[fk_name] = fk_col
+        db.table_dict["go_daily_sales"].fkey_col_to_pkey_table[fk_name] = "go_retailers"
+
+        db.table_dict["go_products"].df.drop(columns=["Product number"], inplace=True)
+        db.table_dict["go_retailers"].df.drop(columns=["Retailer code"], inplace=True)
         db.table_dict["go_daily_sales"].df.drop(
             columns=["Retailer code", "Product number"], inplace=True
         )
-        db.table_dict["go_retailers"].df.drop(columns=["Retailer code"], inplace=True)
+
+        db.table_dict.pop("go_1k")
 
         return db
 
@@ -775,6 +807,9 @@ class Grants(CTUDataset):
     """
     This dataset includes funding grants from the National Science Foundation.
     """
+
+    val_timestamp = pd.Timestamp("2010-10-01")
+    test_timestamp = pd.Timestamp("2014-01-01")
 
     def __init__(self, cache_dir: Optional[str] = None):
         super().__init__(
@@ -810,31 +845,15 @@ class Hockey(CTUDataset):
     statistics from 1909-10 through the 2011-12 season.
     """
 
+    val_timestamp = pd.Timestamp("2007-01-01")
+    test_timestamp = pd.Timestamp("2009-01-01")
+
     def __init__(self, cache_dir: Optional[str] = None):
         super().__init__(
             "Hockey",
             cache_dir=cache_dir,
             time_col_dict={
-                "Goalies": "year",
-                "AwardsPlayers": "year",
                 "CombinedShutouts": "date",
-                "ScoringSup": "year",
-                "GoaliesSC": "year",
-                "GoaliesShootout": "year",
-                "Scoring": "year",
-                "ScoringSC": "year",
-                "ScoringShootout": "year",
-                "AwardsMisc": "year",
-                "HOF": "year",
-                "AwardsCoaches": "year",
-                "Coaches": "year",
-                "SeriesPost": "year",
-                "TeamsHalf": "year",
-                "TeamSplits": "year",
-                "TeamsPost": "year",
-                "TeamsSC": "year",
-                "TeamVsTeam": "year",
-                "Teams": "year",
             },
             keep_original_keys=False,
         )
@@ -852,10 +871,10 @@ class Hockey(CTUDataset):
             columns=["year", "month", "day"], inplace=True
         )
 
-        for t, c in self.time_col_dict.items():
-            if c != "year":
-                continue
-            db.table_dict[t].df[c] = pd.to_datetime(db.table_dict[t].df[c], format="%Y")
+        for table in db.table_dict.values():
+            if "year" in table.df.columns:
+                table.df["year"] = pd.to_datetime(table.df["year"], format="%Y")
+                table.time_col = "year"
 
         return db
 
@@ -865,13 +884,14 @@ class IMDb(CTUDataset):
     The IMDb database: moderately large, real database of movies.
     """
 
+    val_timestamp = pd.Timestamp("1998-01-01")
+    test_timestamp = pd.Timestamp("2002-01-01")
+
     def __init__(self, cache_dir: Optional[str] = None):
         super().__init__(
             "imdb_ijs",
             cache_dir=cache_dir,
-            time_col_dict={
-                "movies": "year",
-            },
+            time_col_dict={},
             keep_original_keys=False,
         )
 
@@ -881,31 +901,7 @@ class IMDb(CTUDataset):
         db.table_dict["movies"].df["year"] = pd.to_datetime(
             db.table_dict["movies"].df["year"], format="%Y"
         )
-
-        return db
-
-
-class IMDb(CTUDataset):
-    """
-    The IMDb database: moderately large, real database of movies.
-    """
-
-    def __init__(self, cache_dir: Optional[str] = None):
-        super().__init__(
-            "imdb_ijs",
-            cache_dir=cache_dir,
-            time_col_dict={
-                "movies": "year",
-            },
-            keep_original_keys=False,
-        )
-
-    def make_db(self) -> Database:
-        db = super().make_db()
-
-        db.table_dict["movies"].df["year"] = pd.to_datetime(
-            db.table_dict["movies"].df["year"], format="%Y"
-        )
+        db.table_dict["movies"].time_col = "year"
 
         return db
 
@@ -945,42 +941,26 @@ class Lahman(CTUDataset):
     records, post-season data, and more.
     """
 
+    val_timestamp = pd.Timestamp("2010-01-01")
+    test_timestamp = pd.Timestamp("2012-01-01")
+
     def __init__(self, cache_dir: Optional[str] = None):
         super().__init__(
             "lahman_2014",
             cache_dir=cache_dir,
-            time_col_dict={
-                "fieldingpost": "yearID",
-                "battingpost": "yearID",
-                "halloffame": "yearID",
-                "salaries": "yearID",
-                "appearances": "yearID",
-                "awardsplayers": "yearID",
-                "managers": "yearID",
-                "allstarfull": "yearID",
-                "fielding": "yearID",
-                "batting": "yearID",
-                "managershalf": "yearID",
-                "awardsmanagers": "yearID",
-                "pitchingpost": "yearID",
-                "teams": "yearID",
-                "fieldingof": "yearID",
-                "awardssharemanagers": "yearID",
-                "teamshalf": "yearID",
-                "pitching": "yearID",
-                "awardsshareplayers": "yearID",
-                "seriespost": "yearID",
-            },
+            time_col_dict={},
             keep_original_keys=False,
         )
 
     def make_db(self) -> Database:
         db = super().make_db()
 
-        for t, c in self.time_col_dict.items():
-            db.table_dict[t].df[c] = pd.to_datetime(
-                db.table_dict[t].df[c], format="%Y", errors="coerce"
-            )
+        for table in db.table_dict.values():
+            if "yearID" in table.df.columns:
+                table.df["yearID"] = pd.to_datetime(
+                    table.df["yearID"], format="%Y", errors="coerce"
+                )
+                table.time_col = "yearID"
 
         return db
 
@@ -990,8 +970,8 @@ class LegalActs(CTUDataset):
     Bulgarian court decision metadata.
     """
 
-    # val_timestamp = pd.Timestamp("2011-08-01")
-    # test_timestamp = pd.Timestamp("2012-03-01")
+    val_timestamp = pd.Timestamp("2012-02-01")
+    test_timestamp = pd.Timestamp("2012-05-01")
 
     def __init__(self, cache_dir: Optional[str] = None):
         super().__init__(
@@ -1164,6 +1144,9 @@ class NCAA(CTUDataset):
     NCAA Basketball Tournament.
     """
 
+    val_timestamp = pd.Timestamp("2010-11-01")
+    test_timestamp = pd.Timestamp("2012-11-05")
+
     def __init__(self, cache_dir: Optional[str] = None):
         super().__init__(
             "NCAA",
@@ -1205,6 +1188,9 @@ class Northwind(CTUDataset):
     Northwind Traders, which imports and exports specialty foods from around the world.
     """
 
+    val_timestamp = pd.Timestamp("1998-02-01")
+    test_timestamp = pd.Timestamp("1998-04-01")
+
     def __init__(self, cache_dir: Optional[str] = None):
         super().__init__(
             "northwind",
@@ -1234,6 +1220,9 @@ class PremiereLeague(CTUDataset):
     A database with information about football matches from the UK Premier League.\
     Lists Players, Teams, and matches with action counts for each player.
     """
+
+    val_timestamp = pd.Timestamp("1998-04-01")
+    test_timestamp = pd.Timestamp("2012-05-01")
 
     def __init__(self, cache_dir: Optional[str] = None):
         super().__init__(
@@ -1286,6 +1275,9 @@ class Sakila(CTUDataset):
     The Sakila sample database is designed to represent a DVD rental store.
     """
 
+    val_timestamp = pd.Timestamp("2005-08-19")
+    test_timestamp = pd.Timestamp("2005-08-21")
+
     def __init__(self, cache_dir: Optional[str] = None):
         super().__init__(
             "sakila",
@@ -1335,8 +1327,8 @@ class SAP(CTUDataset):
     Syntetic dataset containing information about sales of a Credit++.
     """
 
-    # val_timestamp = pd.Timestamp("2007-05-30")
-    # test_timestamp = pd.Timestamp("2007-06-15")
+    val_timestamp = pd.Timestamp("2007-06-10")
+    test_timestamp = pd.Timestamp("2007-06-20")
 
     def __init__(self, cache_dir: Optional[str] = None):
         super().__init__(
@@ -1430,8 +1422,8 @@ class Seznam(CTUDataset):
         probehnuto_mimo_penezenku: charged in Czech currency, but not from the wallet.
     """
 
-    # val_timestamp = pd.Timestamp("2014-12-01")
-    # test_timestamp = pd.Timestamp("2015-05-01")
+    val_timestamp = pd.Timestamp("2015-03-01")
+    test_timestamp = pd.Timestamp("2015-07-01")
 
     def __init__(self, cache_dir: Optional[str] = None):
         super().__init__(
@@ -1461,6 +1453,9 @@ class SFScores(CTUDataset):
     of those eateries, and violations found during the inspections. The scores of inspections\
     range from 1 to 100, where 100 means that the establishment meets all required standards.
     """
+
+    val_timestamp = pd.Timestamp("2016-03-01")
+    test_timestamp = pd.Timestamp("2016-07-01")
 
     def __init__(self, cache_dir: Optional[str] = None):
         super().__init__(
@@ -1495,8 +1490,8 @@ class Stats(CTUDataset):
     An anonymized dump of all user-contributed content on the Stats Stack Exchange network.
     """
 
-    # val_timestamp = pd.Timestamp("2013-11-01")
-    # test_timestamp = pd.Timestamp("2014-05-01")
+    val_timestamp = pd.Timestamp("2014-03-01")
+    test_timestamp = pd.Timestamp("2014-06-01")
 
     def __init__(self, cache_dir: Optional[str] = None):
         super().__init__(
@@ -1507,7 +1502,7 @@ class Stats(CTUDataset):
                 "comments": "CreationDate",
                 "postHistory": "CreationDate",
                 "postLinks": "CreationDate",
-                "posts": "LasActivityDate",
+                "posts": "CreaionDate",
                 "users": "CreationDate",
                 "votes": "CreationDate",
             },
@@ -1534,6 +1529,9 @@ class Thrombosis(CTUDataset):
     """
     PKDD'99 Medical dataset describes 41 patients with Thrombosis.
     """
+
+    val_timestamp = pd.Timestamp("1996-01-01")
+    test_timestamp = pd.Timestamp("1997-01-01")
 
     def __init__(self, cache_dir: Optional[str] = None):
         super().__init__(
@@ -1565,25 +1563,13 @@ class TPCC(CTUDataset):
     (TPC) for Online Transaction Processing (OLTP).
     """
 
-    # val_timestamp = pd.Timestamp("1996-01-01")
-    # test_timestamp = pd.Timestamp("1997-05-01")
-
     def __init__(self, cache_dir: Optional[str] = None):
         super().__init__(
             "tpcc",
             cache_dir=cache_dir,
-            time_col_dict={
-                "C_Order_Line": "ol_delivery_d",
-                "C_Order": "o_entry_d",
-                "C_History": "h_date",
-            },
+            time_col_dict={},
             keep_original_keys=True,
         )
-
-    def make_db(self) -> Database:
-        db = super().make_db()
-
-        return db
 
 
 class TPCD(CTUDataset):
@@ -1592,8 +1578,8 @@ class TPCD(CTUDataset):
     complex, long running queries against large complex data structures.
     """
 
-    # val_timestamp = pd.Timestamp("1996-01-01")
-    # test_timestamp = pd.Timestamp("1997-05-01")
+    val_timestamp = pd.Timestamp("1997-01-01")
+    test_timestamp = pd.Timestamp("1998-01-01")
 
     def __init__(self, cache_dir: Optional[str] = None):
         super().__init__(
@@ -1652,8 +1638,8 @@ class TPCDS(CTUDataset):
     been designed to be broadly representative of modern decision support systems.
     """
 
-    # val_timestamp = pd.Timestamp("1999-05-01")
-    # test_timestamp = pd.Timestamp("2001-05-01")
+    val_timestamp = pd.Timestamp("2001-01-01")
+    test_timestamp = pd.Timestamp("2002-01-01")
 
     def __init__(self, cache_dir: Optional[str] = None):
         super().__init__(
@@ -1661,17 +1647,6 @@ class TPCDS(CTUDataset):
             cache_dir=cache_dir,
             time_col_dict={
                 "store": "s_rec_start_date",
-                "customer": "c_first_sales_date_sk",
-                "web_page": "wp_creation_date_sk",
-                "inventory": "inv_date_sk",
-                "catalog_page": "cp_start_date_sk",
-                "promotion": "p_start_date_sk",
-                "web_site": "web_open_date_sk",
-                "item": "i_rec_start_date",
-                "store_returns": "sr_returned_date_sk",
-                "catalog_sales": "cs_ship_date_sk",
-                "call_center": "cc_open_date_sk",
-                "web_sales": "ws_ship_date_sk",
             },
             keep_original_keys=False,
         )
@@ -1697,31 +1672,48 @@ class TPCDS(CTUDataset):
             for tn, t in db.table_dict.items()
         }
 
+        time_col_dict = {
+            "store": "s_rec_start_date",
+            "customer": "c_first_sales_date_sk",
+            "web_page": "wp_creation_date_sk",
+            "inventory": "inv_date_sk",
+            "catalog_page": "cp_start_date_sk",
+            "promotion": "p_start_date_sk",
+            "web_site": "web_open_date_sk",
+            "item": "i_rec_start_date",
+            "store_returns": "sr_returned_date_sk",
+            "catalog_sales": "cs_sold_date_sk",
+            "call_center": "cc_open_date_sk",
+            "web_sales": "ws_ship_date_sk",
+        }
+
         time_fk_dict = {
-            "store_returns": "FK_time_dim_sr_return_time_sk",
-            "catalog_returns": "FK_time_dim_cr_returned_time_sk",
-            "web_returns": "FK_time_dim_wr_returned_time_sk",
-            "store_sales": "FK_time_dim_ss_sold_time_sk",
-            "catalog_sales": "FK_time_dim_cs_sold_time_sk",
-            "web_sales": "FK_time_dim_ws_sold_time_sk",
+            "store_returns": ("FK_time_dim_sr_return_time_sk", "sr_returned_date_sk"),
+            "catalog_returns": ("FK_time_dim_cr_returned_time_sk", "cr_returned_date_sk"),
+            "web_returns": ("FK_time_dim_wr_returned_time_sk", "wr_returned_date_sk"),
+            "store_sales": ("FK_time_dim_ss_sold_time_sk", "ss_sold_date_sk"),
+            "catalog_sales": ("FK_time_dim_cs_sold_time_sk", "cs_sold_date_sk"),
+            "web_sales": ("FK_time_dim_ws_sold_time_sk", "ws_sold_date_sk"),
         }
 
         for t_name, fks in date_fk_dict.items():
             for fk in fks:
-                print(db.table_dict[t_name].df)
-                print(date_df)
                 db.table_dict[t_name].df[fk.removeprefix(f"FK_date_dim_")] = db.table_dict[
                     t_name
                 ].df.join(date_df["d_date"], on=fk, how="left")["d_date"]
                 db.table_dict[t_name].df.drop(columns=[fk], inplace=True)
                 db.table_dict[t_name].fkey_col_to_pkey_table.pop(fk)
+            time_col = time_col_dict.get(t_name, None)
+            if time_col is not None:
+                db.table_dict[t_name].time_col = time_col
 
-        for t_name, fk in time_fk_dict.items():
-            db.table_dict[t_name].df[
-                fk.removeprefix(f"FK_time_dim_").replace("time", "date")
-            ] = db.table_dict[t_name].df.join(time_df["time_delta"], on=fk, how="left")[
-                "time_delta"
-            ]
+        for t_name, (fk, date_col) in time_fk_dict.items():
+            db.table_dict[t_name].df[date_col] += (
+                db.table_dict[t_name]
+                .df[["__PK__", fk]]
+                .fillna(0)
+                .join(time_df["time_delta"], on=fk, how="left")["time_delta"]
+            )
             db.table_dict[t_name].df.drop(columns=[fk], inplace=True)
             db.table_dict[t_name].fkey_col_to_pkey_table.pop(fk)
 
@@ -1737,8 +1729,8 @@ class TPCH(CTUDataset):
     (TPC) for decision support.
     """
 
-    # val_timestamp = pd.Timestamp("1996-01-01")
-    # test_timestamp = pd.Timestamp("1997-05-01")
+    val_timestamp = pd.Timestamp("1997-09-01")
+    test_timestamp = pd.Timestamp("1998-03-01")
 
     def __init__(self, cache_dir: Optional[str] = None):
         super().__init__(
@@ -1887,10 +1879,10 @@ class VOC(CTUDataset):
     """
 
     # Offset to avoid issues with pandas datetime
-    YEAR_OFFSET = 100
+    TIME_OFFSET = datetime.timedelta(weeks=52.2 * 83)
 
-    # val_timestamp = pd.Timestamp("1837-01-01")
-    # test_timestamp = pd.Timestamp("1867-01-01")
+    val_timestamp = pd.Timestamp("1846-01-01")
+    test_timestamp = pd.Timestamp("1861-01-01")
 
     def __init__(self, cache_dir: Optional[str] = None):
         super().__init__(
@@ -1908,11 +1900,13 @@ class VOC(CTUDataset):
         def time_conversion(x: Union[datetime.date, None]):
             if x is None:
                 return pd.NaT
-            # Ignore dates before 1678 to avoid issues with pandas datetime
-            if x.year + self.YEAR_OFFSET < 1678:
+
+            # Ignore dates before timestamp min to avoid issues with pandas datetime
+            if x + self.TIME_OFFSET < pd.Timestamp.min.to_pydatetime().date():
                 return pd.NaT
-            # Add offset to year to avoid issues with pandas datetime
-            return pd.Timestamp(year=x.year + self.YEAR_OFFSET, month=x.month, day=x.day)
+
+            # Add offset to avoid issues with pandas datetime
+            return pd.to_datetime(x + self.TIME_OFFSET)
 
         voyages_df["departure_date"] = voyages_df["departure_date"].apply(time_conversion)
         voyages_df["arrival_date"] = voyages_df["arrival_date"].apply(time_conversion)
@@ -1930,10 +1924,8 @@ class Walmart(CTUDataset):
     around the time of major weather events at 45 of their retail locations.
     """
 
-    TIME_ORIGIN = pd.Timestamp("1970-01-01")
-
-    # val_timestamp = pd.Timestamp("2013-09-01")
-    # test_timestamp = pd.Timestamp("2014-04-01")
+    val_timestamp = pd.Timestamp("2014-01-01")
+    test_timestamp = pd.Timestamp("2014-06-01")
 
     def __init__(self, cache_dir: Optional[str] = None):
         super().__init__(
@@ -1948,8 +1940,12 @@ class Walmart(CTUDataset):
 
         # Convert sunrise and sunset to datetime
         weather_df = db.table_dict["weather"].df
-        weather_df["sunrise"] = pd.to_datetime(self.TIME_ORIGIN + weather_df["sunrise"])
-        weather_df["sunset"] = pd.to_datetime(self.TIME_ORIGIN + weather_df["sunset"])
+        weather_df["sunrise"] = weather_df["date"] + weather_df["sunrise"].fillna(
+            pd.Timedelta(hours=6)
+        )
+        weather_df["sunset"] = weather_df["date"] + weather_df["sunset"].fillna(
+            pd.Timedelta(hours=18)
+        )
         db.table_dict["weather"].df = weather_df
 
         return db

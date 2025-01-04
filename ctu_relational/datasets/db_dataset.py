@@ -203,7 +203,7 @@ class DBDataset(Dataset):
             df = pd.read_sql_query(str(query), con=remote_con, dtype=dtypes)
 
             for col, sql_type in sql_types_dict.items():
-                if sql_type in DATE_TYPES:
+                if sql_type in DATE_TYPES or self.time_col_dict.get(t_name, None) == col:
                     try:
                         df[col] = pd.to_datetime(df[col])
                     except pd.errors.OutOfBoundsDatetime:
