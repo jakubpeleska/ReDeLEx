@@ -271,7 +271,7 @@ class Bupa(CTUDataset):
             "Bupa",
             cache_dir=cache_dir,
             time_col_dict={},
-            keep_original_keys=False,
+            keep_original_keys=True,
         )
 
 
@@ -1158,8 +1158,6 @@ class NCAA(CTUDataset):
     def make_db(self) -> Database:
         db = super().make_db()
 
-        db.table_dict.pop("target")
-
         for table in db.table_dict.values():
             for fk, ref in table.fkey_col_to_pkey_table.items():
                 if ref != "seasons":
@@ -1313,13 +1311,6 @@ class SameGen(CTUDataset):
             time_col_dict={},
             keep_original_keys=True,
         )
-
-    def make_db(self) -> Database:
-        db = super().make_db()
-
-        db.table_dict.pop("target")
-
-        return db
 
 
 class SAP(CTUDataset):
@@ -1521,7 +1512,7 @@ class StudentLoan(CTUDataset):
             "Student_loan",
             cache_dir=cache_dir,
             time_col_dict={},
-            keep_original_keys=False,
+            keep_original_keys=True,
         )
 
 
@@ -1878,8 +1869,8 @@ class VOC(CTUDataset):
     short - The (Dutch) East Indian Company) established on March 20, 1602.
     """
 
-    # Offset to avoid issues with pandas datetime
-    TIME_OFFSET = datetime.timedelta(weeks=52.2 * 83)
+    # Offset (83 years) to avoid issues with pandas datetime
+    TIME_OFFSET = datetime.timedelta(weeks=4331)
 
     val_timestamp = pd.Timestamp("1846-01-01")
     test_timestamp = pd.Timestamp("1861-01-01")
