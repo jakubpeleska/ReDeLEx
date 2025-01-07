@@ -1243,6 +1243,15 @@ class Sakila(CTUDataset):
             keep_original_keys=False,
         )
 
+    def make_db(self) -> Database:
+        db = super().make_db()
+
+        fk_name = "FK_film_film_id"
+        db.table_dict["film_text"].df[fk_name] = db.table_dict["film_text"].df["__PK__"]
+        db.table_dict["film_text"].fkey_col_to_pkey_table[fk_name] = "film"
+
+        return db
+
 
 class Sales(CTUDataset):
     """
