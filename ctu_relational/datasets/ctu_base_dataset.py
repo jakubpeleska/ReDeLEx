@@ -71,7 +71,7 @@ class CTUDataset(DBDataset):
             keep_original_compound_keys=keep_original_compound_keys,
         )
 
-    def remove_target(self, db: Database) -> Database:
+    def make_db(self) -> Database:
         db = super().make_db()
 
         if self.target_table is not None:
