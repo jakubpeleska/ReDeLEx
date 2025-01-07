@@ -1,6 +1,7 @@
 from relbench.datasets import register_dataset
 
 from .db_dataset import *
+from .ctu_base_dataset import *
 from .ctu_datasets import *
 
 register_dataset("ctu-accidents", Accidents)

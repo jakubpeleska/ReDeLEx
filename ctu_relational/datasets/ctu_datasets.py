@@ -1,16 +1,13 @@
-import datetime
-from typing import Dict, Literal, Optional, Union
+from typing import Optional
 
 import pandas as pd
 
 from relbench.base import Database, Table
 
-from .db_dataset import DBDataset
+from .ctu_base_dataset import CTUDataset
 
 # fmt: off
-__ALL__ = [
-    "CTUDataset", "CTUDatabaseName",
-    
+__ALL__ = [    
     "Accidents", "AdventureWorks", "Airline", "Atherosclerosis", "BasketballMen",
     "BasketballWomen", "Biodegradability", "Bookstore", "Bupa", "Carcinogenesis",
     "CDESchools", "Chess", "ClassicModels", "CORA", "Countries", "CraftBeer", "Credit",
@@ -24,68 +21,6 @@ __ALL__ = [
     "University", "UTube", "UWCSE", "VisualGenome", "VOC", "Walmart", "WebKP", "World"
 ]
 # fmt: on
-
-
-# fmt: off
-CTUDatabaseName = Literal[
-    "Accidents", "AdventureWorks2014", "Airline", "Atherosclerosis", "AustralianFootball", 
-    "Basketball_men", "Basketball_women", "Biodegradability", "Bupa", "Carcinogenesis", 
-    "ccs", "CDESchools", "Chess", "CiteSeer", "classicmodels", "ConsumerExpenditures",
-    "CORA", "Countries", "CraftBeer", "Credit", "cs", "Dallas", "DCG", "Dunur", "Elti",
-    "employee", "ErgastF1", "Facebook", "financial", "FNHK", "ftp", "geneea", "genes",
-    "GOSales", "Grants", "Hepatitis_std", "Hockey", "imdb_ijs", "KRK", "lahman_2014",
-    "legalActs", "Mesh", "medical", "Mondial", "Mooney_Family", "imdb_MovieLens",
-    "MuskLarge", "MuskSmall", "mutagenesis", "nations", "NBA", "NCAA", "northwind", "Pima",
-    "PremierLeague", "PTE", "PubMed_Diabetes", "pubs", "Pyrimidine", "restbase",
-    "sakila", "SalesDB", "Same_gen", "SAP", "SAT", "Seznam", "SFScores", "Shakespeare",
-    "stats", "Student_loan", "Toxicology", "tpcc", "tpcd", "tpcds", "tpch", "trains",
-    "Triazine", "university", "UTube", "UW_std", "VisualGenome", "voc", "Walmart","WebKP",
-    "world"
-]
-# fmt: on
-
-
-class CTUDataset(DBDataset):
-    val_timestamp = pd.Timestamp.max
-    test_timestamp = pd.Timestamp.max
-
-    def __init__(
-        self,
-        database: CTUDatabaseName,
-        cache_dir: Optional[str] = None,
-        time_col_dict: Optional[Dict[str, str]] = None,
-        keep_original_keys: bool = False,
-        keep_original_compound_keys: bool = True,
-    ):
-        """Create a database dataset object.
-
-        Args:
-            database (CTUDatabaseName): The name of the database.
-            cache_dir (str, optional): The directory to cache the dataset. Defaults to None.
-            time_col_dict (Dict[str, str], optional): A dictionary mapping table names to time columns. Defaults to None.
-            keep_original_keys (bool, optional): Whether to keep original primary and foreign keys \
-                after duplication during re-indexing. This is useful when the keys contain information \
-                beyond just their relationship to other rows. Defaults to False.
-            keep_original_compound_keys (bool, optional): Whether to keep original compound primary \
-                and foreign keys as they often contain useful data. Defaults to True.
-        """
-        super().__init__(
-            cache_dir=cache_dir,
-            dialect="mariadb",
-            driver="pymysql",
-            user="guest",
-            password="ctu-relational",
-            host="relational.fel.cvut.cz",
-            port=3306,
-            database=database,
-            time_col_dict=time_col_dict,
-            keep_original_keys=keep_original_keys,
-            keep_original_compound_keys=keep_original_compound_keys,
-        )
-
-    def get_stats(self):
-        # TODO
-        raise NotImplementedError
 
 
 class Accidents(CTUDataset):
@@ -360,6 +295,8 @@ class Countries(CTUDataset):
     Data of forest area for 247 countries.
     """
 
+    target_table = "target"
+
     def __init__(self, cache_dir: Optional[str] = None):
         super().__init__(
             "Countries",
@@ -501,6 +438,8 @@ class Dunur(CTUDataset):
     a child of A is married to a child of B.
     """
 
+    target_table = "target"
+
     def __init__(self, cache_dir: Optional[str] = None):
         super().__init__(
             "Dunur",
@@ -515,6 +454,8 @@ class Elti(CTUDataset):
     Elti is a relatedness of two people due to marriage such that A is elti of B if\
     A's husband is a brother of B's husband.
     """
+
+    target_table = "target"
 
     def __init__(self, cache_dir: Optional[str] = None):
         super().__init__(
@@ -581,6 +522,8 @@ class ErgastF1(CTUDataset):
 
     val_timestamp = pd.Timestamp("2014-01-01")
     test_timestamp = pd.Timestamp("2016-01-01")
+
+    target_table = "target"
 
     def __init__(self, cache_dir: Optional[str] = None):
         super().__init__(
@@ -1011,6 +954,8 @@ class Mondial(CTUDataset):
     and 71 non-Christian countries.
     """
 
+    target_table = "target"
+
     def __init__(self, cache_dir: Optional[str] = None):
         super().__init__(
             "Mondial",
@@ -1158,6 +1103,8 @@ class NCAA(CTUDataset):
 
     val_timestamp = pd.Timestamp("2010-11-01")
     test_timestamp = pd.Timestamp("2012-11-05")
+
+    target_table = "target"
 
     def __init__(self, cache_dir: Optional[str] = None):
         super().__init__(
@@ -1315,6 +1262,8 @@ class SameGen(CTUDataset):
     """
     Small database of family relations.
     """
+
+    target_table = "target"
 
     def __init__(self, cache_dir: Optional[str] = None):
         super().__init__(
