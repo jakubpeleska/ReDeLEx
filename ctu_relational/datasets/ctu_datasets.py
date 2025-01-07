@@ -595,14 +595,18 @@ class ErgastF1(CTUDataset):
         db = super().make_db()
 
         # Convert time column to datetime
-        db.table_dict["pitStops"].df["time"].fillna(pd.Timedelta(hours=12), inplace=True)
+        db.table_dict["pitStops"].df["time"] = (
+            db.table_dict["pitStops"].df["time"].fillna(pd.Timedelta(hours=12))
+        )
         db.table_dict["pitStops"].df["time"] += db.table_dict["pitStops"].df.join(
             db.table_dict["races"].df["date"], on="FK_races_raceId", how="left"
         )["date"]
         db.table_dict["pitStops"].time_col = "time"
 
         # Merge date and time columns
-        db.table_dict["races"].df["time"].fillna(pd.Timedelta(hours=12), inplace=True)
+        db.table_dict["races"].df["time"] = (
+            db.table_dict["races"].df["time"].fillna(pd.Timedelta(hours=12))
+        )
         db.table_dict["races"].df["date"] += db.table_dict["races"].df["time"]
         db.table_dict["races"].df.drop(columns=["time"], inplace=True)
 
@@ -630,6 +634,14 @@ class Expenditures(CTUDataset):
             cache_dir=cache_dir,
             keep_original_keys=False,
         )
+
+    def make_db(self) -> Database:
+        db = super().make_db()
+
+        # Remove remove split column
+        db.table_dict["EXPENDITURES"].df.drop(columns=["IS_TRAINING"], inplace=True)
+
+        return db
 
 
 class Financial(CTUDataset):
@@ -906,20 +918,6 @@ class IMDb(CTUDataset):
         return db
 
 
-class MovieLens(CTUDataset):
-    """
-    MovieLens data set from the UC Irvine machine learning repository.
-    """
-
-    def __init__(self, cache_dir: Optional[str] = None):
-        super().__init__(
-            "imdb_MovieLens",
-            cache_dir=cache_dir,
-            time_col_dict={},
-            keep_original_keys=False,
-        )
-
-
 class KRK(CTUDataset):
     """
     Single table dataset of chess positions of two kings and a rook with label legal or illegal.
@@ -1044,6 +1042,20 @@ class Mooney(CTUDataset):
             cache_dir=cache_dir,
             time_col_dict={},
             keep_original_keys=True,
+        )
+
+
+class MovieLens(CTUDataset):
+    """
+    MovieLens data set from the UC Irvine machine learning repository.
+    """
+
+    def __init__(self, cache_dir: Optional[str] = None):
+        super().__init__(
+            "imdb_MovieLens",
+            cache_dir=cache_dir,
+            time_col_dict={},
+            keep_original_keys=False,
         )
 
 
@@ -1869,11 +1881,8 @@ class VOC(CTUDataset):
     short - The (Dutch) East Indian Company) established on March 20, 1602.
     """
 
-    # Offset (83 years) to avoid issues with pandas datetime
-    TIME_OFFSET = datetime.timedelta(weeks=4331)
-
-    val_timestamp = pd.Timestamp("1846-01-01")
-    test_timestamp = pd.Timestamp("1861-01-01")
+    val_timestamp = pd.Timestamp("1763-01-01")
+    test_timestamp = pd.Timestamp("1778-01-01")
 
     def __init__(self, cache_dir: Optional[str] = None):
         super().__init__(
@@ -1885,26 +1894,6 @@ class VOC(CTUDataset):
 
     def make_db(self) -> Database:
         db = super().make_db()
-
-        voyages_df = db.table_dict["voyages"].df
-
-        def time_conversion(x: Union[datetime.date, None]):
-            if x is None:
-                return pd.NaT
-
-            # Ignore dates before timestamp min to avoid issues with pandas datetime
-            if x + self.TIME_OFFSET < pd.Timestamp.min.to_pydatetime().date():
-                return pd.NaT
-
-            # Add offset to avoid issues with pandas datetime
-            return pd.to_datetime(x + self.TIME_OFFSET)
-
-        voyages_df["departure_date"] = voyages_df["departure_date"].apply(time_conversion)
-        voyages_df["arrival_date"] = voyages_df["arrival_date"].apply(time_conversion)
-        voyages_df["cape_departure"] = voyages_df["cape_departure"].apply(time_conversion)
-        voyages_df["cape_arrival"] = voyages_df["cape_arrival"].apply(time_conversion)
-
-        db.table_dict["voyages"].df = voyages_df
 
         return db
 
