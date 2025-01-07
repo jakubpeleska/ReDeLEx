@@ -1,474 +1,512 @@
 from relbench.base import TaskType
 
+from .ctu_entity_task import CTUEntityTask
 
-class CTUTask:
-    pass
-
-
-class Accidents(CTUTask):
-    target_table = "nesreca"
-    target_column = "klas_nesreca"
-    task = TaskType.MULTICLASS_CLASSIFICATION
-
-
-class AdventureWorks(CTUTask):
-    target_table = "SalesOrderHeader"
-    target_column = "TotalDue"
-    task = TaskType.REGRESSION
-
-
-# TODO: remove duplicate cols
-class Airline(CTUTask):
-    target_table = "On_Time_On_Time_Performance_2016_1"
-    target_column = "ArrDelay"
-    task = TaskType.REGRESSION
-
-
-class Atherosclerosis(CTUTask):
-    target_table = "Entry"
-    target_column = "STAV"
-    task = TaskType.MULTICLASS_CLASSIFICATION
-
-
-class BasketballMen(CTUTask):
-    target_table = "teams"
-    target_column = "rank"
-    task = TaskType.REGRESSION
+# fmt: off
+__ALL__ = [
+    "AccidentsOriginalTask", "AdventureWorksOriginalTask", "AirlineOriginalTask",
+    "AtherosclerosisOriginalTask", "BasketballMenOriginalTask",
+    "BasketballWomenOriginalTask", "BiodegradabilityOriginalTask", "BookstoreOriginalTask",
+    "BupaOriginalTask", "CarcinogenesisOriginalTask", "CDESchoolsOriginalTask", 
+    "ChessOriginalTask", "ClassicModelsOriginalTask", "CORAOriginalTask", 
+    "CountriesOriginalTask", "CraftBeerOriginalTask", "CreditOriginalTask", 
+    "CSOriginalTask", "DallasOriginalTask", "DCGOriginalTask", "DiabetesOriginalTask",
+    "DunurOriginalTask", "EltiOriginalTask", "EmployeeOriginalTask", 
+    "ErgastF1OriginalTask", "ExpendituresOriginalTask", "EmployeeOriginalTask", 
+    "FinancialOriginalTask", "FNHKOriginalTask", "FTPOriginalTask", 
+    "GeneeaOriginalTask", "GenesOriginalTask", "GOSalesOriginalTask", 
+    "GrantsOriginalTask", "HepatitisOriginalTask", "HockeyOriginalTask", 
+    "IMDbOriginalTask", "KRKOriginalTask", "LahmanOriginalTask",
+    "LegalActsOriginalTask", "MeshOriginalTask", "MondialOriginalTask", 
+    "MooneyOriginalTask", "MovieLensOriginalTask", "MuskLargeOriginalTask", 
+    "MuskSmallOriginalTask", "MutagenesisOriginalTask", "NationsOriginalTask",
+    "NCAAOriginalTask", "NorthwindOriginalTask", "PimaOriginalTask", 
+    "PremiereLeagueOriginalTask", "PyrimidineOriginalTask", "RestbaseOriginalTask",
+    "SakilaOriginalTask", "SalesOriginalTask", "SameGenOriginalTask", 
+    "SAPOriginalTask", "SatelliteOriginalTask", "SeznamOriginalTask", 
+    "SFScoresOriginalTask", "ShakespeareOriginalTask", "StatsOriginalTask",
+    "StudentLoanOriginalTask", "ThrombosisOriginalTask", "ToxicologyOriginalTask",
+    "TPCCOriginalTask", "TPCDOriginalTask", "TPCDSOriginalTask", "TPCHOriginalTask",
+    "TriazineOriginalTask", "UniversityOriginalTask", "UTubeOriginalTask", 
+    "UWCSEOriginalTask", "VisualGenomeOriginalTask", "VOCOriginalTask", 
+    "WalmartOriginalTask", "WebKPOriginalTask", "WorldOriginalTask"
+]
+# fmt: on
 
 
-class BasketballWomen(CTUTask):
-    target_table = "teams"
-    target_column = "playoff"
-    task = TaskType.BINARY_CLASSIFICATION
+class AccidentsOriginalTask(CTUEntityTask):
+    entity_table = "nesreca"
+    target_col = "klas_nesreca"
+    task_type = TaskType.MULTICLASS_CLASSIFICATION
 
 
-class Biodegradability(CTUTask):
-    target_table = "molecule"
-    target_column = "activity"
-    task = TaskType.REGRESSION
+class AdventureWorksOriginalTask(CTUEntityTask):
+    entity_table = "SalesOrderHeader"
+    target_col = "TotalDue"
+    task_type = TaskType.REGRESSION
 
 
-class Bookstore(CTUTask):
-    target_table = "titles"
-    target_column = "ytd_sales"
-    task = TaskType.REGRESSION
+# TODO: remove duplicate target cols
+class AirlineOriginalTask(CTUEntityTask):
+    entity_table = "On_Time_On_Time_Performance_2016_1"
+    target_col = "ArrDelay"
+    task_type = TaskType.REGRESSION
 
 
-class Bupa(CTUTask):
-    target_table = "bupa"
-    target_column = "arg2"
-    task = TaskType.BINARY_CLASSIFICATION
+class AtherosclerosisOriginalTask(CTUEntityTask):
+    entity_table = "Entry"
+    target_col = "STAV"
+    task_type = TaskType.MULTICLASS_CLASSIFICATION
 
 
-class Carcinogenesis(CTUTask):
-    target_table = "canc"
-    target_column = "class"
-    task = TaskType.BINARY_CLASSIFICATION
+class BasketballMenOriginalTask(CTUEntityTask):
+    entity_table = "teams"
+    target_col = "rank"
+    task_type = TaskType.REGRESSION
 
 
-class CDESchools(CTUTask):
-    target_table = "satscores"
-    target_column = "PctGE1500"
-    task = TaskType.REGRESSION
+class BasketballWomenOriginalTask(CTUEntityTask):
+    entity_table = "teams"
+    target_col = "playoff"
+    task_type = TaskType.BINARY_CLASSIFICATION
 
 
-class Chess(CTUTask):
-    target_table = "game"
-    target_column = "game_result"
-    task = TaskType.MULTICLASS_CLASSIFICATION
+class BiodegradabilityOriginalTask(CTUEntityTask):
+    entity_table = "molecule"
+    target_col = "activity"
+    task_type = TaskType.REGRESSION
 
 
-class ClassicModels(CTUTask):
-    target_table = "payments"
-    target_column = "amount"
-    task = TaskType.REGRESSION
+class BookstoreOriginalTask(CTUEntityTask):
+    entity_table = "titles"
+    target_col = "ytd_sales"
+    task_type = TaskType.REGRESSION
 
 
-class CORA(CTUTask):
-    target_table = "paper"
-    target_column = "class_label"
-    task = TaskType.MULTICLASS_CLASSIFICATION
+class BupaOriginalTask(CTUEntityTask):
+    entity_table = "bupa"
+    target_col = "arg2"
+    task_type = TaskType.BINARY_CLASSIFICATION
 
 
-class Countries(CTUTask):
+class CarcinogenesisOriginalTask(CTUEntityTask):
+    entity_table = "canc"
+    target_col = "class"
+    task_type = TaskType.BINARY_CLASSIFICATION
+
+
+class CDESchoolsOriginalTask(CTUEntityTask):
+    entity_table = "satscores"
+    target_col = "PctGE1500"
+    task_type = TaskType.REGRESSION
+
+
+class ChessOriginalTask(CTUEntityTask):
+    entity_table = "game"
+    target_col = "game_result"
+    task_type = TaskType.MULTICLASS_CLASSIFICATION
+
+
+class ClassicModelsOriginalTask(CTUEntityTask):
+    entity_table = "payments"
+    target_col = "amount"
+    task_type = TaskType.REGRESSION
+
+
+class CORAOriginalTask(CTUEntityTask):
+    entity_table = "paper"
+    target_col = "class_label"
+    task_type = TaskType.MULTICLASS_CLASSIFICATION
+
+
+# TODO
+class CountriesOriginalTask(CTUEntityTask):
+    target_col = "2012"
     target_table = "target"
-    target_column = "2012"
-    task = TaskType.REGRESSION
+    task_type = TaskType.REGRESSION
 
 
-class CraftBeer(CTUTask):
-    target_table = "breweries"
-    target_column = "state"
-    task = TaskType.MULTICLASS_CLASSIFICATION
+class CraftBeerOriginalTask(CTUEntityTask):
+    entity_table = "breweries"
+    target_col = "state"
+    task_type = TaskType.MULTICLASS_CLASSIFICATION
 
 
-class Credit(CTUTask):
-    target_table = "member"
+class CreditOriginalTask(CTUEntityTask):
+    entity_table = "member"
     link_table = "region"
-    task = TaskType.LINK_PREDICTION
+    task_type = TaskType.LINK_PREDICTION
 
 
-class CS(CTUTask):
-    target_table = "target_churn"
-    target_column = "target_churn"
-    task = TaskType.BINARY_CLASSIFICATION
+class CSOriginalTask(CTUEntityTask):
+    entity_table = "target_churn"
+    target_col = "target_churn"
+    task_type = TaskType.BINARY_CLASSIFICATION
 
 
-class Dallas(CTUTask):
-    target_table = "incidents"
-    target_column = "subject_statuses"
-    task = TaskType.MULTICLASS_CLASSIFICATION
+class DallasOriginalTask(CTUEntityTask):
+    entity_table = "incidents"
+    target_col = "subject_statuses"
+    task_type = TaskType.MULTICLASS_CLASSIFICATION
 
 
-class DCG(CTUTask):
-    target_table = "sentences"
-    target_column = "class"
-    task = TaskType.BINARY_CLASSIFICATION
+class DCGOriginalTask(CTUEntityTask):
+    entity_table = "sentences"
+    target_col = "class"
+    task_type = TaskType.BINARY_CLASSIFICATION
 
 
-class Diabetes(CTUTask):
-    target_table = "paper"
-    target_column = "class_label"
-    task = TaskType.MULTICLASS_CLASSIFICATION
+class DiabetesOriginalTask(CTUEntityTask):
+    entity_table = "paper"
+    target_col = "class_label"
+    task_type = TaskType.MULTICLASS_CLASSIFICATION
 
 
-class Dunur(CTUTask):
+# TODO
+class DunurOriginalTask(CTUEntityTask):
+    target_col = "is_dunur"
     target_table = "target"
-    target_column = "is_dunur"
-    task = TaskType.BINARY_CLASSIFICATION
+    task_type = TaskType.LINK_PREDICTION
 
 
-class Elti(CTUTask):
+# TODO
+class EltiOriginalTask(CTUEntityTask):
+    target_col = "is_elti"
     target_table = "target"
-    target_column = "is_elti"
-    task = TaskType.BINARY_CLASSIFICATION
+    task_type = TaskType.LINK_PREDICTION
 
 
-class Employee(CTUTask):
-    target_table = "salaries"
-    target_column = "salary"
-    task = TaskType.REGRESSION
+class EmployeeOriginalTask(CTUEntityTask):
+    entity_table = "salaries"
+    target_col = "salary"
+    task_type = TaskType.REGRESSION
 
 
-class ErgastF1(CTUTask):
+# TODO
+class ErgastF1OriginalTask(CTUEntityTask):
+    target_col = "win"
     target_table = "target"
-    target_column = "win"
-    task = TaskType.BINARY_CLASSIFICATION
+    task_type = TaskType.BINARY_CLASSIFICATION
 
 
-class Expenditures(CTUTask):
-    target_table = "EXPENDITURES"
-    target_column = "GIFT"
+# TODO
+class ExpendituresOriginalTask(CTUEntityTask):
+    entity_table = "EXPENDITURES"
+    target_col = "GIFT"
     split_column = "IS_TRAINING"
-    task = TaskType.BINARY_CLASSIFICATION
+    task_type = TaskType.BINARY_CLASSIFICATION
 
 
-class Financial(CTUTask):
-    target_table = "loan"
-    target_column = "status"
-    task = TaskType.MULTICLASS_CLASSIFICATION
+class FinancialOriginalTask(CTUEntityTask):
+    entity_table = "loan"
+    target_col = "status"
+    task_type = TaskType.MULTICLASS_CLASSIFICATION
 
 
-class FNHK(CTUTask):
-    target_table = "pripady"
-    target_column = "Delka_hospitalizace"
-    task = TaskType.REGRESSION
+class FNHKOriginalTask(CTUEntityTask):
+    entity_table = "pripady"
+    target_col = "Delka_hospitalizace"
+    task_type = TaskType.REGRESSION
 
 
-class FTP(CTUTask):
-    target_table = "session"
-    target_column = "gender"
-    task = TaskType.BINARY_CLASSIFICATION
+class FTPOriginalTask(CTUEntityTask):
+    entity_table = "session"
+    target_col = "gender"
+    task_type = TaskType.BINARY_CLASSIFICATION
 
 
-class Geneea(CTUTask):
-    target_table = "hl_hlasovani"
-    target_column = "vysledek"
-    task = TaskType.BINARY_CLASSIFICATION
+class GeneeaOriginalTask(CTUEntityTask):
+    entity_table = "hl_hlasovani"
+    target_col = "vysledek"
+    task_type = TaskType.BINARY_CLASSIFICATION
 
 
-class Genes(CTUTask):
-    target_table = "Classification"
-    target_column = "Localization"
-    task = TaskType.MULTICLASS_CLASSIFICATION
+class GenesOriginalTask(CTUEntityTask):
+    entity_table = "Classification"
+    target_col = "Localization"
+    task_type = TaskType.MULTICLASS_CLASSIFICATION
 
 
-class GOSales(CTUTask):
-    target_table = "go_daily_sales"
-    target_column = "Quantity"
-    task = TaskType.REGRESSION
+class GOSalesOriginalTask(CTUEntityTask):
+    entity_table = "go_daily_sales"
+    target_col = "Quantity"
+    task_type = TaskType.REGRESSION
 
 
-class Grants(CTUTask):
-    target_table = "awards"
-    target_column = "award_amount"
-    task = TaskType.REGRESSION
+class GrantsOriginalTask(CTUEntityTask):
+    entity_table = "awards"
+    target_col = "award_amount"
+    task_type = TaskType.REGRESSION
 
 
-class Hepatitis(CTUTask):
-    target_table = "dispat"
-    target_column = "Type"
-    task = TaskType.BINARY_CLASSIFICATION
+class HepatitisOriginalTask(CTUEntityTask):
+    entity_table = "dispat"
+    target_col = "Type"
+    task_type = TaskType.BINARY_CLASSIFICATION
 
 
-class Hockey(CTUTask):
-    target_table = "Master"
-    target_column = "shootCatch"
-    task = TaskType.MULTICLASS_CLASSIFICATION
+class HockeyOriginalTask(CTUEntityTask):
+    entity_table = "Master"
+    target_col = "shootCatch"
+    task_type = TaskType.MULTICLASS_CLASSIFICATION
 
 
-class IMDb(CTUTask):
+class IMDbOriginalTask(CTUEntityTask):
     arget_table = "actors"
-    target_column = "gender"
-    task = TaskType.BINARY_CLASSIFICATION
+    target_col = "gender"
+    task_type = TaskType.BINARY_CLASSIFICATION
 
 
-class MovieLens(CTUTask):
-    target_table = "users"
-    target_column = "u_gender"
-    task = TaskType.BINARY_CLASSIFICATION
+class MovieLensOriginalTask(CTUEntityTask):
+    entity_table = "users"
+    target_col = "u_gender"
+    task_type = TaskType.BINARY_CLASSIFICATION
 
 
-class KRK(CTUTask):
-    target_table = "krk"
-    target_column = "class"
-    task = TaskType.BINARY_CLASSIFICATION
+class KRKOriginalTask(CTUEntityTask):
+    entity_table = "krk"
+    target_col = "class"
+    task_type = TaskType.BINARY_CLASSIFICATION
 
 
-class Lahman(CTUTask):
-    target_table = "salaries"
-    target_column = "salary"
-    task = TaskType.REGRESSION
+class LahmanOriginalTask(CTUEntityTask):
+    entity_table = "salaries"
+    target_col = "salary"
+    task_type = TaskType.REGRESSION
 
 
-class LegalActs(CTUTask):
-    target_table = "legalacts"
-    target_column = "ActKind"
-    task = TaskType.MULTICLASS_CLASSIFICATION
+class LegalActsOriginalTask(CTUEntityTask):
+    entity_table = "legalacts"
+    target_col = "ActKind"
+    task_type = TaskType.MULTICLASS_CLASSIFICATION
 
 
-class Mesh(CTUTask):
-    target_table = "mesh"
-    target_column = "num"
-    task = TaskType.MULTICLASS_CLASSIFICATION
+class MeshOriginalTask(CTUEntityTask):
+    entity_table = "mesh"
+    target_col = "num"
+    task_type = TaskType.MULTICLASS_CLASSIFICATION
 
 
-class Mondial(CTUTask):
+# TODO
+class MondialOriginalTask(CTUEntityTask):
+    entity_table = "country"
+    target_col = "Target"
     target_table = "target"
-    target_column = "Target"
-    task = TaskType.BINARY_CLASSIFICATION
+    task_type = TaskType.BINARY_CLASSIFICATION
 
 
-class Mooney(CTUTask):
-    target_table = "uncle"
-    task = TaskType.LINK_PREDICTION
+class MooneyOriginalTask(CTUEntityTask):
+    entity_table = "uncle"
+    task_type = TaskType.LINK_PREDICTION
 
 
-class MuskSmall(CTUTask):
-    target_table = "molecule"
-    target_column = "class"
-    task = TaskType.BINARY_CLASSIFICATION
+class MuskSmallOriginalTask(CTUEntityTask):
+    entity_table = "molecule"
+    target_col = "class"
+    task_type = TaskType.BINARY_CLASSIFICATION
 
 
-class MuskLarge(CTUTask):
-    target_table = "molecule"
-    target_column = "class"
-    task = TaskType.BINARY_CLASSIFICATION
+class MuskLargeOriginalTask(CTUEntityTask):
+    entity_table = "molecule"
+    target_col = "class"
+    task_type = TaskType.BINARY_CLASSIFICATION
 
 
-class Mutagenesis(CTUTask):
-    target_table = "molecule"
-    target_column = "mutagenic"
-    task = TaskType.BINARY_CLASSIFICATION
+class MutagenesisOriginalTask(CTUEntityTask):
+    entity_table = "molecule"
+    target_col = "mutagenic"
+    task_type = TaskType.BINARY_CLASSIFICATION
 
 
-class Nations(CTUTask):
-    target_table = "stat"
-    target_column = "femaleworkers"
-    task = TaskType.BINARY_CLASSIFICATION
+class NationsOriginalTask(CTUEntityTask):
+    entity_table = "stat"
+    target_col = "femaleworkers"
+    task_type = TaskType.BINARY_CLASSIFICATION
 
 
-class NCAA(CTUTask):
+# TODO
+class NCAAOriginalTask(CTUEntityTask):
+    target_col = "team_id1_wins"
     target_table = "target"
-    target_column = "team_id1_wins"
-    task = TaskType.BINARY_CLASSIFICATION
+    task_type = TaskType.BINARY_CLASSIFICATION
 
 
-class Northwind(CTUTask):
-    target_table = "Orders"
-    target_column = "Freight"
-    task = TaskType.REGRESSION
+class NorthwindOriginalTask(CTUEntityTask):
+    entity_table = "Orders"
+    target_col = "Freight"
+    task_type = TaskType.REGRESSION
 
 
-class Pima(CTUTask):
-    target_table = "pima"
-    target_column = "arg2"
-    task = TaskType.BINARY_CLASSIFICATION
+class PimaOriginalTask(CTUEntityTask):
+    entity_table = "pima"
+    target_col = "arg2"
+    task_type = TaskType.BINARY_CLASSIFICATION
 
 
-class PremiereLeague(CTUTask):
-    target_table = "Matches"
-    target_column = "ResultOfTeamHome"
-    task = TaskType.MULTICLASS_CLASSIFICATION
+class PremiereLeagueOriginalTask(CTUEntityTask):
+    entity_table = "Matches"
+    target_col = "ResultOfTeamHome"
+    task_type = TaskType.MULTICLASS_CLASSIFICATION
 
 
-class Pyrimidine(CTUTask):
-    target_table = "molecule"
-    target_column = "activity"
-    task = TaskType.REGRESSION
+class PyrimidineOriginalTask(CTUEntityTask):
+    entity_table = "molecule"
+    target_col = "activity"
+    task_type = TaskType.REGRESSION
 
 
-class Restbase(CTUTask):
-    target_table = "generalinfo"
-    target_column = "review"
-    task = TaskType.REGRESSION
+class RestbaseOriginalTask(CTUEntityTask):
+    entity_table = "generalinfo"
+    target_col = "review"
+    task_type = TaskType.REGRESSION
 
 
-class Sakila(CTUTask):
-    target_table = "payment"
-    target_column = "amount"
-    task = TaskType.REGRESSION
+class SakilaOriginalTask(CTUEntityTask):
+    entity_table = "payment"
+    target_col = "amount"
+    task_type = TaskType.REGRESSION
 
 
-class Sales(CTUTask):
-    target_table = "Sales"
-    target_column = "Quantity"
-    task = TaskType.REGRESSION
+class SalesOriginalTask(CTUEntityTask):
+    entity_table = "Sales"
+    target_col = "Quantity"
+    task_type = TaskType.REGRESSION
 
 
-class SameGen(CTUTask):
+# TODO
+class SameGenOriginalTask(CTUEntityTask):
+    target_col = "target"
     target_table = "target"
-    target_column = "target"
-    task = TaskType.LINK_PREDICTION
+    task_type = TaskType.LINK_PREDICTION
 
 
-class SAP(CTUTask):
-    target_table = "Mailings"
-    target_column = "RESPONSE"
-    task = TaskType.BINARY_CLASSIFICATION
+class SAPOriginalTask(CTUEntityTask):
+    entity_table = "Mailings"
+    target_col = "RESPONSE"
+    task_type = TaskType.BINARY_CLASSIFICATION
 
 
-class Satellite(CTUTask):
-    target_table = "tm"
+class SatelliteOriginalTask(CTUEntityTask):
+    entity_table = "tm"
     link_table = "fault"
-    task = TaskType.LINK_PREDICTION
+    task_type = TaskType.LINK_PREDICTION
 
 
-class Seznam(CTUTask):
-    target_table = "probehnuto"
-    target_column = "kc_proklikano"
-    task = TaskType.REGRESSION
+class SeznamOriginalTask(CTUEntityTask):
+    entity_table = "probehnuto"
+    target_col = "kc_proklikano"
+    task_type = TaskType.REGRESSION
 
 
-class SFScores(CTUTask):
-    target_table = "inspections"
-    target_column = "score"
-    task = TaskType.REGRESSION
+class SFScoresOriginalTask(CTUEntityTask):
+    entity_table = "inspections"
+    target_col = "score"
+    task_type = TaskType.REGRESSION
 
 
-class Shakespeare(CTUTask):
-    target_table = "paragraphs"
+class ShakespeareOriginalTask(CTUEntityTask):
+    entity_table = "paragraphs"
     link_table = "characters"
-    task = TaskType.LINK_PREDICTION
+    task_type = TaskType.LINK_PREDICTION
 
 
-class Stats(CTUTask):
-    target_table = "users"
-    target_column = "Reputation"
-    task = TaskType.REGRESSION
+class StatsOriginalTask(CTUEntityTask):
+    entity_table = "users"
+    target_col = "Reputation"
+    task_type = TaskType.REGRESSION
 
 
-class StudentLoan(CTUTask):
-    target_table = "no_payment_due"
-    target_column = "bool"
-    task = TaskType.BINARY_CLASSIFICATION
+class StudentLoanOriginalTask(CTUEntityTask):
+    entity_table = "no_payment_due"
+    target_col = "bool"
+    task_type = TaskType.BINARY_CLASSIFICATION
 
 
-class Thrombosis(CTUTask):
-    target_table = "Examination"
-    target_column = "Thrombosis"
-    task = TaskType.MULTICLASS_CLASSIFICATION
+class ThrombosisOriginalTask(CTUEntityTask):
+    entity_table = "Examination"
+    target_col = "Thrombosis"
+    task_type = TaskType.MULTICLASS_CLASSIFICATION
 
 
-class Toxicology(CTUTask):
-    target_table = "molecule"
-    target_column = "label"
-    task = TaskType.BINARY_CLASSIFICATION
+class ToxicologyOriginalTask(CTUEntityTask):
+    entity_table = "molecule"
+    target_col = "label"
+    task_type = TaskType.BINARY_CLASSIFICATION
 
 
-class TPCC(CTUTask):
-    target_table = "C_Customer"
-    target_column = "c_credit"
-    task = TaskType.BINARY_CLASSIFICATION
+class TPCCOriginalTask(CTUEntityTask):
+    entity_table = "C_Customer"
+    target_col = "c_credit"
+    task_type = TaskType.BINARY_CLASSIFICATION
 
 
-class TPCD(CTUTask):
-    target_table = "dss_customer"
-    target_column = "c_mktsegment"
-    task = TaskType.MULTICLASS_CLASSIFICATION
+class TPCDOriginalTask(CTUEntityTask):
+    entity_table = "dss_customer"
+    target_col = "c_mktsegment"
+    task_type = TaskType.MULTICLASS_CLASSIFICATION
 
 
-class TPCDS(CTUTask):
-    target_table = "customer"
-    target_column = "c_preferred_cust_flag"
-    task = TaskType.BINARY_CLASSIFICATION
+class TPCDSOriginalTask(CTUEntityTask):
+    entity_table = "customer"
+    target_col = "c_preferred_cust_flag"
+    task_type = TaskType.BINARY_CLASSIFICATION
 
 
-class TPCH(CTUTask):
-    target_table = "customer"
-    target_column = "c_acctbal"
-    task = TaskType.REGRESSION
+class TPCHOriginalTask(CTUEntityTask):
+    entity_table = "customer"
+    target_col = "c_acctbal"
+    task_type = TaskType.REGRESSION
 
 
-class Triazine(CTUTask):
-    target_table = "molecule"
-    target_column = "activity"
-    task = TaskType.REGRESSION
+class TriazineOriginalTask(CTUEntityTask):
+    entity_table = "molecule"
+    target_col = "activity"
+    task_type = TaskType.REGRESSION
 
 
-class University(CTUTask):
-    target_table = "student"
-    target_column = "intelligence"
-    task = TaskType.MULTICLASS_CLASSIFICATION
+class UniversityOriginalTask(CTUEntityTask):
+    entity_table = "student"
+    target_col = "intelligence"
+    task_type = TaskType.MULTICLASS_CLASSIFICATION
 
 
-class UTube(CTUTask):
-    target_table = "utube_states"
-    target_column = "class"
-    task = TaskType.BINARY_CLASSIFICATION
+class UTubeOriginalTask(CTUEntityTask):
+    entity_table = "utube_states"
+    target_col = "class"
+    task_type = TaskType.BINARY_CLASSIFICATION
 
 
-class UWCSE(CTUTask):
-    target_table = "person"
-    target_column = "inPhase"
-    task = TaskType.MULTICLASS_CLASSIFICATION
+class UWCSEOriginalTask(CTUEntityTask):
+    entity_table = "person"
+    target_col = "inPhase"
+    task_type = TaskType.MULTICLASS_CLASSIFICATION
 
 
-class VisualGenome(CTUTask):
-    target_table = "IMG_OBJ"
-    target_column = "OBJ_CLASS"
-    task = TaskType.MULTICLASS_CLASSIFICATION
+class VisualGenomeOriginalTask(CTUEntityTask):
+    entity_table = "IMG_OBJ"
+    target_col = "OBJ_CLASS"
+    task_type = TaskType.MULTICLASS_CLASSIFICATION
 
 
-class VOC(CTUTask):
-    target_table = "voyages"
-    target_column = "arrival_harbour"
-    task = TaskType.MULTICLASS_CLASSIFICATION
+class VOCOriginalTask(CTUEntityTask):
+    entity_table = "voyages"
+    target_col = "arrival_harbour"
+    task_type = TaskType.MULTICLASS_CLASSIFICATION
 
 
-class Walmart(CTUTask):
-    target_table = "train"
-    target_column = "units"
-    task = TaskType.REGRESSION
+class WalmartOriginalTask(CTUEntityTask):
+    entity_table = "train"
+    target_col = "units"
+    task_type = TaskType.REGRESSION
 
 
-class WebKP(CTUTask):
-    target_table = "webpage"
-    target_column = "class_label"
-    task = TaskType.MULTICLASS_CLASSIFICATION
+class WebKPOriginalTask(CTUEntityTask):
+    entity_table = "webpage"
+    target_col = "class_label"
+    task_type = TaskType.MULTICLASS_CLASSIFICATION
 
 
-class World(CTUTask):
-    target_table = "Country"
-    target_column = "Continent"
+class WorldOriginalTask(CTUEntityTask):
+    entity_table = "Country"
+    target_col = "Continent"
     task_type = TaskType.MULTICLASS_CLASSIFICATION
