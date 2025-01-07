@@ -772,7 +772,7 @@ class GOSales(CTUDataset):
     def make_db(self) -> Database:
         db = super().make_db()
 
-        fk_col, fk_name = DBDataset.reindex_fk(
+        fk_col, fk_name = self._reindex_fk(
             {name: t.df for name, t in db.table_dict.items()},
             "go_daily_sales",
             ["Product number"],
@@ -782,7 +782,7 @@ class GOSales(CTUDataset):
         db.table_dict["go_daily_sales"].df[fk_name] = fk_col
         db.table_dict["go_daily_sales"].fkey_col_to_pkey_table[fk_name] = "go_products"
 
-        fk_col, fk_name = DBDataset.reindex_fk(
+        fk_col, fk_name = self._reindex_fk(
             {name: t.df for name, t in db.table_dict.items()},
             "go_daily_sales",
             ["Retailer code"],
@@ -1341,7 +1341,7 @@ class SAP(CTUDataset):
         ][0]
 
         mailings_3 = db.table_dict["mailings3"].df
-        fk_col, _ = DBDataset.reindex_fk(
+        fk_col, _ = self._reindex_fk(
             {tn: t.df for tn, t in db.table_dict.items()},
             "mailings3",
             ["REFID"],
@@ -1587,7 +1587,7 @@ class TPCD(CTUDataset):
         db = super().make_db()
 
         # Add missing foreign keys
-        fk_col, fk_name = DBDataset.reindex_fk(
+        fk_col, fk_name = self._reindex_fk(
             {tn: t.df for tn, t in db.table_dict.items()},
             "dss_partsupp",
             ["ps_partkey"],

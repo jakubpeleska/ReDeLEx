@@ -227,7 +227,7 @@ class DBDataset(Dataset):
             fkey_col_to_pkey_table: Dict[str, str] = {}
 
             for fk in fk_dict[t_name]:
-                fk_col, fk_name = self.reindex_fk(
+                fk_col, fk_name = self._reindex_fk(
                     df_dict, t_name, fk.src_columns, fk.ref_table, fk.ref_columns
                 )
 
@@ -266,9 +266,8 @@ class DBDataset(Dataset):
 
         return Database(table_dict)
 
-    @classmethod
-    def reindex_fk(
-        cls,
+    def _reindex_fk(
+        self,
         df_dict: Dict[str, pd.DataFrame],
         src_table: str,
         src_columns: List[str],
