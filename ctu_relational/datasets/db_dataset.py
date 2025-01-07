@@ -1,5 +1,6 @@
 from typing import Dict, List, Optional
 
+import numpy as np
 import pandas as pd
 import sqlalchemy as sa
 
@@ -294,19 +295,19 @@ DATE_TYPES = (sa.types.Date, sa.types.DateTime)
 SQL_TO_PANDAS = {
     sa.types.BigInteger: pd.Int64Dtype(),
     sa.types.Boolean: pd.BooleanDtype(),
-    sa.types.Date: "object",
-    sa.types.DateTime: "object",
+    sa.types.Date: np.dtype("datetime64[s]"),
+    sa.types.DateTime: np.dtype("datetime64[us]"),
     sa.types.Double: pd.Float64Dtype(),
     sa.types.Enum: pd.CategoricalDtype(),
     sa.types.Float: pd.Float64Dtype(),
     sa.types.Integer: pd.Int32Dtype(),
-    sa.types.Interval: "object",
+    sa.types.Interval: np.dtype("timedelta64[us]"),
     sa.types.LargeBinary: "object",
     sa.types.Numeric: pd.Float64Dtype(),
     sa.types.SmallInteger: pd.Int16Dtype(),
     sa.types.String: "string",
     sa.types.Text: "string",
-    sa.types.Time: "object",
+    sa.types.Time: np.dtype("timedelta64[us]"),
     sa.types.Unicode: "string",
     sa.types.UnicodeText: "string",
     sa.types.Uuid: "object",
