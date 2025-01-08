@@ -7,7 +7,7 @@ from relbench.base import Database, Table
 from .ctu_base_dataset import CTUDataset
 
 # fmt: off
-__ALL__ = [    
+__all__ = [    
     "Accidents", "AdventureWorks", "Airline", "Atherosclerosis", "BasketballMen",
     "BasketballWomen", "Biodegradability", "Bookstore", "Bupa", "Carcinogenesis",
     "CDESchools", "Chess", "ClassicModels", "CORA", "Countries", "CraftBeer", "Credit",

@@ -5,7 +5,7 @@ from sqlalchemy.types import TypeEngine
 
 from .column_types import ForeignKey
 
-__ALL__ = ["DBInspector"]
+__all__ = ["DBInspector"]
 
 
 class DBInspector:

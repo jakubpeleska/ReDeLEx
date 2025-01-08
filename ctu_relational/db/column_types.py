@@ -1,7 +1,7 @@
 from attr import field, define
 from typing import List
 
-__ALL__ = ["ForeignKey"]
+__all__ = ["ForeignKey"]
 
 
 @define

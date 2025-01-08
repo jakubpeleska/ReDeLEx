@@ -10,7 +10,7 @@ from relbench.base import Dataset, Database, Table
 
 from ctu_relational.db import DBInspector, ForeignKey
 
-__ALL__ = ["DBDataset"]
+__all__ = ["DBDataset"]
 
 
 class DBDataset(Dataset):

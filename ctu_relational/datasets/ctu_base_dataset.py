@@ -7,7 +7,7 @@ from relbench.base import Database, Table
 
 from .db_dataset import DBDataset
 
-__ALL__ = ["CTUDatabaseName", "CTUDataset"]
+__all__ = ["CTUDatabaseName", "CTUDataset"]
 
 
 # fmt: off

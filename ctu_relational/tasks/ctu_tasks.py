@@ -3,7 +3,7 @@ from relbench.base import TaskType
 from .ctu_entity_task import CTUEntityTask
 
 # fmt: off
-__ALL__ = [
+__all__ = [
     "AccidentsOriginalTask", "AdventureWorksOriginalTask", "AirlineOriginalTask",
     "AtherosclerosisOriginalTask", "BasketballMenOriginalTask",
     "BasketballWomenOriginalTask", "BiodegradabilityOriginalTask", "BookstoreOriginalTask",
