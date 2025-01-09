@@ -9,16 +9,16 @@ from .ctu_base_dataset import CTUDataset
 # fmt: off
 __all__ = [    
     "Accidents", "AdventureWorks", "Airline", "Atherosclerosis", "BasketballMen",
-    "BasketballWomen", "Biodegradability", "Bookstore", "Bupa", "Carcinogenesis",
+    "BasketballWomen", "Biodegradability", "Bupa", "Carcinogenesis",
     "CDESchools", "Chess", "ClassicModels", "CORA", "Countries", "CraftBeer", "Credit",
-    "CS", "Dallas", "DCG", "Diabetes", "Dunur", "Elti", "Employee", "ErgastF1",
+    "Dallas", "DCG", "Diabetes", "Dunur", "Elti", "Employee", "ErgastF1",
     "Expenditures", "Employee", "Financial", "FNHK", "FTP", "Geneea", "Genes", "GOSales",
-    "Grants", "Hepatitis", "Hockey", "IMDb", "KRK", "Lahman", "LegalActs", "Mesh",
-    "Mondial", "Mooney", "MovieLens", "MuskLarge", "MuskSmall", "Mutagenesis", "Nations",
-    "NCAA", "Northwind", "Pima", "PremiereLeague", "Pyrimidine", "Restbase", "Sakila",
+    "Grants", "Hepatitis", "Hockey", "IMDb", "Lahman", "LegalActs", "Mesh",
+    "Mondial", "Mooney", "MovieLens", "MuskLarge", "MuskSmall", "Mutagenesis",
+    "NCAA", "Northwind", "Pima", "PremiereLeague", "Restbase", "Sakila",
     "Sales", "SameGen", "SAP", "Satellite", "Seznam", "SFScores", "Shakespeare", "Stats",
     "StudentLoan", "Thrombosis", "Toxicology", "TPCC", "TPCD", "TPCDS", "TPCH", "Triazine",
-    "University", "UTube", "UWCSE", "VisualGenome", "VOC", "Walmart", "WebKP", "World"
+    "UWCSE", "VisualGenome", "VOC", "Walmart", "WebKP", "World"
 ]
 # fmt: on
 
@@ -180,24 +180,6 @@ class Biodegradability(CTUDataset):
         )
 
 
-class Bookstore(CTUDataset):
-    """
-    The Bookstore sample database is modeled after a book selling company.
-    """
-
-    def __init__(self, cache_dir: Optional[str] = None):
-        super().__init__(
-            "pubs",
-            cache_dir=cache_dir,
-            time_col_dict={
-                "titles": "pubdate",
-                "sales": "ord_date",
-                "employee": "hire_date",
-            },
-            keep_original_keys=False,
-        )
-
-
 class Bupa(CTUDataset):
     """Evaluation of patients on liver disorder."""
 
@@ -345,36 +327,6 @@ class Credit(CTUDataset):
 
         # TODO: Keep images and use them as features
         db.table_dict["member"].df.drop(columns=["photograph"], inplace=True)
-
-        return db
-
-
-class CS(CTUDataset):
-    """
-    Artificial data from a Czech bank.
-    """
-
-    def __init__(self, cache_dir: Optional[str] = None):
-        super().__init__(
-            "cs",
-            cache_dir=cache_dir,
-            time_col_dict={
-                "ACCOUNT_TRANSACTIONS": "ACCTRN_ACCOUNTING_DATE",
-                "ACCOUNTS": "ACCH_OPEN_DATE",
-                "PARTIES": "PTH_CLIENT_FROM_DATE",
-            },
-            keep_original_keys=False,
-        )
-
-    def make_db(self) -> Database:
-        db = super().make_db()
-
-        db.table_dict["ACCOUNTS"].df["ACCH_OPEN_DATE"] = pd.to_datetime(
-            db.table_dict["ACCOUNTS"].df["ACCH_OPEN_DATE"], errors="coerce"
-        )
-        db.table_dict["ACCOUNTS"].df["ACCH_CLOSE_DATE"] = pd.to_datetime(
-            db.table_dict["ACCOUNTS"].df["ACCH_CLOSE_DATE"], errors="coerce"
-        )
 
         return db
 
@@ -861,20 +813,6 @@ class IMDb(CTUDataset):
         return db
 
 
-class KRK(CTUDataset):
-    """
-    Single table dataset of chess positions of two kings and a rook with label legal or illegal.
-    """
-
-    def __init__(self, cache_dir: Optional[str] = None):
-        super().__init__(
-            "KRK",
-            cache_dir=cache_dir,
-            time_col_dict={},
-            keep_original_keys=False,
-        )
-
-
 class Lahman(CTUDataset):
     """
     Lahman's baseball database contains complete batting and pitching statistics\
@@ -1065,20 +1003,6 @@ class Mutagenesis(CTUDataset):
         )
 
 
-class Nations(CTUDataset):
-    """
-    A sample database from alchemy.cs.washington.edu website.
-    """
-
-    def __init__(self, cache_dir: Optional[str] = None):
-        super().__init__(
-            "nations",
-            cache_dir=cache_dir,
-            time_col_dict={},
-            keep_original_keys=False,
-        )
-
-
 class NBA(CTUDataset):
     """
     A database with information about basketball matches from the National Basketball\
@@ -1186,21 +1110,6 @@ class PremiereLeague(CTUDataset):
             "PremierLeague",
             cache_dir=cache_dir,
             time_col_dict={"Matches": "Date"},
-            keep_original_keys=False,
-        )
-
-
-class Pyrimidine(CTUDataset):
-    """
-    A pyrimidine QSAR dataset. The goal is to predict the inhibition of dihydrofolate\
-    reductase by pyrimidines.
-    """
-
-    def __init__(self, cache_dir: Optional[str] = None):
-        super().__init__(
-            "Pyrimidine",
-            cache_dir=cache_dir,
-            time_col_dict={},
             keep_original_keys=False,
         )
 
@@ -1736,35 +1645,6 @@ class Triazine(CTUDataset):
     def __init__(self, cache_dir: Optional[str] = None):
         super().__init__(
             "Triazine",
-            cache_dir=cache_dir,
-            time_col_dict={},
-            keep_original_keys=False,
-        )
-
-
-class University(CTUDataset):
-    """
-    An artificial database from Simon Fraser University describing students,\
-    professors and courses.
-    """
-
-    def __init__(self, cache_dir: Optional[str] = None):
-        super().__init__(
-            "university",
-            cache_dir=cache_dir,
-            time_col_dict={},
-            keep_original_keys=False,
-        )
-
-
-class UTube(CTUDataset):
-    """
-    The legal states of the U-tube dynamical system.
-    """
-
-    def __init__(self, cache_dir: Optional[str] = None):
-        super().__init__(
-            "UTube",
             cache_dir=cache_dir,
             time_col_dict={},
             keep_original_keys=False,

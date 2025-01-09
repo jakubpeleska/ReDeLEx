@@ -7,28 +7,28 @@ from .ctu_link_task import CTULinkTask
 __all__ = [
     "AccidentsOriginalTask", "AdventureWorksOriginalTask", "AirlineOriginalTask",
     "AtherosclerosisOriginalTask", "BasketballMenOriginalTask",
-    "BasketballWomenOriginalTask", "BiodegradabilityOriginalTask", "BookstoreOriginalTask",
+    "BasketballWomenOriginalTask", "BiodegradabilityOriginalTask",
     "BupaOriginalTask", "CarcinogenesisOriginalTask", "CDESchoolsOriginalTask", 
     "ChessOriginalTask", "ClassicModelsOriginalTask", "CORAOriginalTask", 
     "CountriesOriginalTask", "CraftBeerOriginalTask", "CreditOriginalTask", 
-    "CSOriginalTask", "DallasOriginalTask", "DCGOriginalTask", "DiabetesOriginalTask",
+    "DallasOriginalTask", "DCGOriginalTask", "DiabetesOriginalTask",
     "DunurOriginalTask", "EltiOriginalTask", "EmployeeOriginalTask", 
     "ErgastF1OriginalTask", "ExpendituresOriginalTask", "EmployeeOriginalTask", 
     "FinancialOriginalTask", "FNHKOriginalTask", "FTPOriginalTask", 
     "GeneeaOriginalTask", "GenesOriginalTask", "GOSalesOriginalTask", 
     "GrantsOriginalTask", "HepatitisOriginalTask", "HockeyOriginalTask", 
-    "IMDbOriginalTask", "KRKOriginalTask", "LahmanOriginalTask",
+    "IMDbOriginalTask", "LahmanOriginalTask",
     "LegalActsOriginalTask", "MeshOriginalTask", "MondialOriginalTask", 
     "MooneyOriginalTask", "MovieLensOriginalTask", "MuskLargeOriginalTask", 
-    "MuskSmallOriginalTask", "MutagenesisOriginalTask", "NationsOriginalTask",
+    "MuskSmallOriginalTask", "MutagenesisOriginalTask",
     "NCAAOriginalTask", "NorthwindOriginalTask", "PimaOriginalTask", 
-    "PremiereLeagueOriginalTask", "PyrimidineOriginalTask", "RestbaseOriginalTask",
+    "PremiereLeagueOriginalTask", "RestbaseOriginalTask",
     "SakilaOriginalTask", "SalesOriginalTask", "SameGenOriginalTask", 
     "SAPOriginalTask", "SatelliteOriginalTask", "SeznamOriginalTask", 
     "SFScoresOriginalTask", "ShakespeareOriginalTask", "StatsOriginalTask",
     "StudentLoanOriginalTask", "ThrombosisOriginalTask", "ToxicologyOriginalTask",
     "TPCCOriginalTask", "TPCDOriginalTask", "TPCDSOriginalTask", "TPCHOriginalTask",
-    "TriazineOriginalTask", "UniversityOriginalTask", "UTubeOriginalTask", 
+    "TriazineOriginalTask",
     "UWCSEOriginalTask", "VisualGenomeOriginalTask", "VOCOriginalTask", 
     "WalmartOriginalTask", "WebKPOriginalTask", "WorldOriginalTask"
 ]
@@ -75,12 +75,6 @@ class BasketballWomenOriginalTask(CTUEntityTask):
 class BiodegradabilityOriginalTask(CTUEntityTask):
     entity_table = "molecule"
     target_col = "activity"
-    task_type = TaskType.REGRESSION
-
-
-class BookstoreOriginalTask(CTUEntityTask):
-    entity_table = "titles"
-    target_col = "ytd_sales"
     task_type = TaskType.REGRESSION
 
 
@@ -136,12 +130,6 @@ class CreditOriginalTask(CTULinkTask):
     entity_table = "member"
     link_table = "region"
     task_type = TaskType.LINK_PREDICTION
-
-
-class CSOriginalTask(CTUEntityTask):
-    entity_table = "target_churn"
-    target_col = "target_churn"
-    task_type = TaskType.BINARY_CLASSIFICATION
 
 
 class DallasOriginalTask(CTUEntityTask):
@@ -258,12 +246,6 @@ class MovieLensOriginalTask(CTUEntityTask):
     task_type = TaskType.BINARY_CLASSIFICATION
 
 
-class KRKOriginalTask(CTUEntityTask):
-    entity_table = "krk"
-    target_col = "class"
-    task_type = TaskType.BINARY_CLASSIFICATION
-
-
 class LahmanOriginalTask(CTUEntityTask):
     entity_table = "salaries"
     target_col = "salary"
@@ -312,12 +294,6 @@ class MutagenesisOriginalTask(CTUEntityTask):
     task_type = TaskType.BINARY_CLASSIFICATION
 
 
-class NationsOriginalTask(CTUEntityTask):
-    entity_table = "stat"
-    target_col = "femaleworkers"
-    task_type = TaskType.BINARY_CLASSIFICATION
-
-
 class NCAAOriginalTask(CTUEntityTask):
     target_col = "team_id1_wins"
     target_table = "target"
@@ -340,12 +316,6 @@ class PremiereLeagueOriginalTask(CTUEntityTask):
     entity_table = "Matches"
     target_col = "ResultOfTeamHome"
     task_type = TaskType.MULTICLASS_CLASSIFICATION
-
-
-class PyrimidineOriginalTask(CTUEntityTask):
-    entity_table = "molecule"
-    target_col = "activity"
-    task_type = TaskType.REGRESSION
 
 
 class RestbaseOriginalTask(CTUEntityTask):
@@ -454,18 +424,6 @@ class TriazineOriginalTask(CTUEntityTask):
     entity_table = "molecule"
     target_col = "activity"
     task_type = TaskType.REGRESSION
-
-
-class UniversityOriginalTask(CTUEntityTask):
-    entity_table = "student"
-    target_col = "intelligence"
-    task_type = TaskType.MULTICLASS_CLASSIFICATION
-
-
-class UTubeOriginalTask(CTUEntityTask):
-    entity_table = "utube_states"
-    target_col = "class"
-    task_type = TaskType.BINARY_CLASSIFICATION
 
 
 class UWCSEOriginalTask(CTUEntityTask):
