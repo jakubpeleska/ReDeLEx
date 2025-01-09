@@ -1,6 +1,7 @@
 from relbench.base import TaskType
 
 from .ctu_entity_task import CTUEntityTask
+from .ctu_link_task import CTULinkTask
 
 # fmt: off
 __all__ = [
@@ -119,7 +120,6 @@ class CORAOriginalTask(CTUEntityTask):
     task_type = TaskType.MULTICLASS_CLASSIFICATION
 
 
-# TODO
 class CountriesOriginalTask(CTUEntityTask):
     target_col = "2012"
     target_table = "target"
@@ -132,7 +132,7 @@ class CraftBeerOriginalTask(CTUEntityTask):
     task_type = TaskType.MULTICLASS_CLASSIFICATION
 
 
-class CreditOriginalTask(CTUEntityTask):
+class CreditOriginalTask(CTULinkTask):
     entity_table = "member"
     link_table = "region"
     task_type = TaskType.LINK_PREDICTION
@@ -162,15 +162,13 @@ class DiabetesOriginalTask(CTUEntityTask):
     task_type = TaskType.MULTICLASS_CLASSIFICATION
 
 
-# TODO
-class DunurOriginalTask(CTUEntityTask):
+class DunurOriginalTask(CTULinkTask):
     target_col = "is_dunur"
     target_table = "target"
     task_type = TaskType.LINK_PREDICTION
 
 
-# TODO
-class EltiOriginalTask(CTUEntityTask):
+class EltiOriginalTask(CTULinkTask):
     target_col = "is_elti"
     target_table = "target"
     task_type = TaskType.LINK_PREDICTION
@@ -182,18 +180,15 @@ class EmployeeOriginalTask(CTUEntityTask):
     task_type = TaskType.REGRESSION
 
 
-# TODO
 class ErgastF1OriginalTask(CTUEntityTask):
     target_col = "win"
     target_table = "target"
     task_type = TaskType.BINARY_CLASSIFICATION
 
 
-# TODO
 class ExpendituresOriginalTask(CTUEntityTask):
     entity_table = "EXPENDITURES"
     target_col = "GIFT"
-    split_column = "IS_TRAINING"
     task_type = TaskType.BINARY_CLASSIFICATION
 
 
@@ -287,7 +282,6 @@ class MeshOriginalTask(CTUEntityTask):
     task_type = TaskType.MULTICLASS_CLASSIFICATION
 
 
-# TODO
 class MondialOriginalTask(CTUEntityTask):
     entity_table = "country"
     target_col = "Target"
@@ -295,7 +289,7 @@ class MondialOriginalTask(CTUEntityTask):
     task_type = TaskType.BINARY_CLASSIFICATION
 
 
-class MooneyOriginalTask(CTUEntityTask):
+class MooneyOriginalTask(CTULinkTask):
     entity_table = "uncle"
     task_type = TaskType.LINK_PREDICTION
 
@@ -324,7 +318,6 @@ class NationsOriginalTask(CTUEntityTask):
     task_type = TaskType.BINARY_CLASSIFICATION
 
 
-# TODO
 class NCAAOriginalTask(CTUEntityTask):
     target_col = "team_id1_wins"
     target_table = "target"
@@ -373,8 +366,7 @@ class SalesOriginalTask(CTUEntityTask):
     task_type = TaskType.REGRESSION
 
 
-# TODO
-class SameGenOriginalTask(CTUEntityTask):
+class SameGenOriginalTask(CTULinkTask):
     target_col = "target"
     target_table = "target"
     task_type = TaskType.LINK_PREDICTION
@@ -386,7 +378,7 @@ class SAPOriginalTask(CTUEntityTask):
     task_type = TaskType.BINARY_CLASSIFICATION
 
 
-class SatelliteOriginalTask(CTUEntityTask):
+class SatelliteOriginalTask(CTULinkTask):
     entity_table = "tm"
     link_table = "fault"
     task_type = TaskType.LINK_PREDICTION
@@ -404,7 +396,7 @@ class SFScoresOriginalTask(CTUEntityTask):
     task_type = TaskType.REGRESSION
 
 
-class ShakespeareOriginalTask(CTUEntityTask):
+class ShakespeareOriginalTask(CTULinkTask):
     entity_table = "paragraphs"
     link_table = "characters"
     task_type = TaskType.LINK_PREDICTION
