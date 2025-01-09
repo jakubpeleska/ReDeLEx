@@ -204,7 +204,17 @@ class DBDataset(Dataset):
             df = pd.read_sql_query(str(query), con=remote_con, dtype=dtypes)
 
             for col, sql_type in sql_types_dict.items():
-                if sql_type in DATE_TYPES or self.time_col_dict.get(t_name, None) == col:
+                if DATE_MAP.get(sql_type, None) is not None:
+                    try:
+                        if sql_type in DATE_TYPES:
+                            df[col] = pd.to_datetime(df[col])
+                        df[col] = df[col].astype(DATE_MAP[sql_type], errors="raise")
+                    except pd.errors.OutOfBoundsDatetime:
+                        print(f"Out of bounds datetime in {t_name}.{col}")
+                    except Exception as e:
+                        print(f"Error converting {t_name}.{col} to datetime: {e}")
+
+                elif self.time_col_dict.get(t_name, None) == col:
                     try:
                         df[col] = pd.to_datetime(df[col])
                     except pd.errors.OutOfBoundsDatetime:
@@ -292,22 +302,29 @@ class DBDataset(Dataset):
 
 DATE_TYPES = (sa.types.Date, sa.types.DateTime)
 
+DATE_MAP = {
+    sa.types.Date: np.dtype("datetime64[s]"),
+    sa.types.DateTime: np.dtype("datetime64[us]"),
+    sa.types.Time: np.dtype("timedelta64[us]"),
+    sa.types.Interval: np.dtype("timedelta64[us]"),
+}
+
 SQL_TO_PANDAS = {
     sa.types.BigInteger: pd.Int64Dtype(),
     sa.types.Boolean: pd.BooleanDtype(),
-    sa.types.Date: np.dtype("datetime64[s]"),
-    sa.types.DateTime: np.dtype("datetime64[us]"),
+    sa.types.Date: "object",
+    sa.types.DateTime: "object",
     sa.types.Double: pd.Float64Dtype(),
     sa.types.Enum: pd.CategoricalDtype(),
     sa.types.Float: pd.Float64Dtype(),
     sa.types.Integer: pd.Int32Dtype(),
-    sa.types.Interval: np.dtype("timedelta64[us]"),
+    sa.types.Interval: "object",
     sa.types.LargeBinary: "object",
     sa.types.Numeric: pd.Float64Dtype(),
     sa.types.SmallInteger: pd.Int16Dtype(),
     sa.types.String: "string",
     sa.types.Text: "string",
-    sa.types.Time: np.dtype("timedelta64[us]"),
+    sa.types.Time: "object",
     sa.types.Unicode: "string",
     sa.types.UnicodeText: "string",
     sa.types.Uuid: "object",
