@@ -219,19 +219,17 @@ class DBDataset(Dataset):
             df = pd.read_sql_query(str(query), con=remote_con, dtype=dtypes)
 
             for col, sql_type in sql_types_dict.items():
-                if DATE_MAP.get(sql_type, None) is not None:
+                if sql_type in DATE_TYPES or self.time_col_dict.get(t_name, None) == col:
                     try:
-                        if sql_type in DATE_TYPES:
-                            df[col] = pd.to_datetime(df[col])
-                        df[col] = df[col].astype(DATE_MAP[sql_type], errors="raise")
+                        df[col] = pd.to_datetime(df[col])
                     except pd.errors.OutOfBoundsDatetime:
                         print(f"Out of bounds datetime in {t_name}.{col}")
                     except Exception as e:
                         print(f"Error converting {t_name}.{col} to datetime: {e}")
 
-                elif self.time_col_dict.get(t_name, None) == col:
+                if DATE_MAP.get(sql_type, None) is not None:
                     try:
-                        df[col] = pd.to_datetime(df[col])
+                        df[col] = df[col].astype(DATE_MAP[sql_type], errors="raise")
                     except pd.errors.OutOfBoundsDatetime:
                         print(f"Out of bounds datetime in {t_name}.{col}")
                     except Exception as e:
@@ -293,6 +291,9 @@ class DBDataset(Dataset):
                     drop_cols |= {c.name for c in sql_table.primary_key.columns}
 
                 for fk in sql_table.foreign_key_constraints:
+                    if fk.referred_table not in db.table_dict:
+                        continue
+
                     if not self.keep_original_compound_keys or len(fk.columns) == 1:
                         # Drop foreign key columns
                         drop_cols |= {c.name for c in fk.columns}

@@ -96,8 +96,3 @@ class CTUDataset(DBDataset):
             return Table.load(f"{self.cache_dir}/db/__target__.parquet")
 
         raise ValueError("Target table not found in cache.")
-
-    def get_info(self):
-        url = DBDataset.get_url(
-            "mariadb",
-            "pymysql",

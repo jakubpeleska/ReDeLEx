@@ -1692,8 +1692,8 @@ class VOC(CTUDataset):
     short - The (Dutch) East Indian Company) established on March 20, 1602.
     """
 
-    val_timestamp = pd.Timestamp("1763-01-01")
-    test_timestamp = pd.Timestamp("1778-01-01")
+    val_timestamp = pd.Timestamp("1763-01-01").date()
+    test_timestamp = pd.Timestamp("1778-01-01").date()
 
     def __init__(self, cache_dir: Optional[str] = None):
         super().__init__(
