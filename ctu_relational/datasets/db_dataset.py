@@ -1,4 +1,4 @@
-from typing import Dict, List, Optional
+from typing import Dict, List, Optional, override
 
 import numpy as np
 import pandas as pd
@@ -153,6 +153,21 @@ class DBDataset(Dataset):
 
         return table_sql__types
 
+    def customize_db(self, db: Database) -> Database:
+        """
+        Override this method to add custom modifications to the database object.
+        Function is called after the database is created and before the original
+        primary and foreign keys are removed.
+
+        Args:
+            db (Database): The database object to customize.
+
+        Returns:
+            Database: The customized database object.
+        """
+        raise NotImplementedError
+
+    @override
     def make_db(self) -> Database:
         """
         Create a Database instance from the remote database.
@@ -252,11 +267,22 @@ class DBDataset(Dataset):
                 time_col=self.time_col_dict.get(t_name, None),
             )
 
+        db = Database(table_dict)
+
+        # Add function for custom modifications here (e.g. dropping columns, etc.)
+        try:
+            db = self.customize_db(db)
+        except NotImplementedError:
+            pass
+
         # Remove original primary and foreign keys
         if not self.keep_original_keys:
             for t_name in table_names:
+                if t_name not in db.table_dict:
+                    continue
+
                 sql_table = sa.Table(t_name, remote_md)
-                table = table_dict[t_name]
+                table = db.table_dict[t_name]
                 drop_cols = set()
 
                 # Drop primary key columns
@@ -275,7 +301,7 @@ class DBDataset(Dataset):
 
         remote_con.close()
 
-        return Database(table_dict)
+        return db
 
     def _reindex_fk(
         self,

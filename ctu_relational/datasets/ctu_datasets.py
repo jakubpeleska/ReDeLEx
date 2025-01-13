@@ -1,4 +1,4 @@
-from typing import Optional
+from typing import Optional, override
 
 import pandas as pd
 
@@ -49,8 +49,8 @@ class AdventureWorks(CTUDataset):
     Adventure Works Cycles.
     """
 
-    val_timestamp = pd.Timestamp("2014-02-01")
-    test_timestamp = pd.Timestamp("2014-04-01")
+    val_timestamp = pd.Timestamp("2014-03-01")
+    test_timestamp = pd.Timestamp("2014-05-01")
 
     def __init__(self, cache_dir: Optional[str] = None):
         super().__init__(
@@ -79,9 +79,8 @@ class AdventureWorks(CTUDataset):
             keep_original_compound_keys=True,
         )
 
-    def make_db(self) -> Database:
-        db = super().make_db()
-
+    @override
+    def customize_db(self, db: Database) -> Database:
         db.table_dict.pop("AWBuildVersion", None)
         db.table_dict.pop("DatabaseLog", None)
         db.table_dict.pop("ErrorLog", None)
@@ -141,9 +140,8 @@ class BasketballMen(CTUDataset):
             keep_original_keys=False,
         )
 
-    def make_db(self) -> Database:
-        db = super().make_db()
-
+    @override
+    def customize_db(self, db: Database) -> Database:
         db.table_dict["players"].df["birthDate"] = pd.to_datetime(
             db.table_dict["players"].df["birthDate"], errors="coerce"
         )
@@ -322,9 +320,8 @@ class Credit(CTUDataset):
             keep_original_keys=False,
         )
 
-    def make_db(self) -> Database:
-        db = super().make_db()
-
+    @override
+    def customize_db(self, db: Database) -> Database:
         # TODO: Keep images and use them as features
         db.table_dict["member"].df.drop(columns=["photograph"], inplace=True)
 
@@ -436,9 +433,8 @@ class Employee(CTUDataset):
             keep_original_keys=True,
         )
 
-    def make_db(self) -> Database:
-        db = super().make_db()
-
+    @override
+    def customize_db(self, db: Database) -> Database:
         # Drop redundant key columns
         db.table_dict["titles"].df.drop(columns=["emp_no"], inplace=True)
         db.table_dict["dept_manager"].df.drop(columns=["emp_no", "dept_no"], inplace=True)
@@ -486,8 +482,10 @@ class ErgastF1(CTUDataset):
             keep_original_compound_keys=True,
         )
 
-    def make_db(self) -> Database:
-        db = super().make_db()
+    @override
+    def customize_db(self, db: Database) -> Database:
+        # save the target table and remove it from the database
+        db = super().customize_db(db)
 
         # Convert time column to datetime
         db.table_dict["pitStops"].df["time"] = (
@@ -530,9 +528,8 @@ class Expenditures(CTUDataset):
             keep_original_keys=False,
         )
 
-    def make_db(self) -> Database:
-        db = super().make_db()
-
+    @override
+    def customize_db(self, db: Database) -> Database:
         # Remove remove split column
         db.table_dict["EXPENDITURES"].df.drop(columns=["IS_TRAINING"], inplace=True)
 
@@ -583,9 +580,8 @@ class FNHK(CTUDataset):
             keep_original_keys=True,
         )
 
-    def make_db(self) -> Database:
-        db = super().make_db()
-
+    @override
+    def customize_db(self, db: Database) -> Database:
         # Drop redundant key columns
         db.table_dict["pripady"].df.drop(columns=["Identifikace_pripadu"], inplace=True)
         db.table_dict["vykony"].df.drop(columns=["Identifikace_pripadu"], inplace=True)
@@ -629,9 +625,8 @@ class Geneea(CTUDataset):
             keep_original_keys=False,
         )
 
-    def make_db(self) -> Database:
-        db = super().make_db()
-
+    @override
+    def customize_db(self, db: Database) -> Database:
         # Combine date and time columns
         db.table_dict["hl_hlasovani"].df["cas"] = (
             db.table_dict["hl_hlasovani"].df["datum"]
@@ -676,9 +671,8 @@ class GOSales(CTUDataset):
             keep_original_keys=True,
         )
 
-    def make_db(self) -> Database:
-        db = super().make_db()
-
+    @override
+    def customize_db(self, db: Database) -> Database:
         fk_col, fk_name = self._reindex_fk(
             {name: t.df for name, t in db.table_dict.items()},
             "go_daily_sales",
@@ -765,9 +759,8 @@ class Hockey(CTUDataset):
             keep_original_keys=False,
         )
 
-    def make_db(self) -> Database:
-        db = super().make_db()
-
+    @override
+    def customize_db(self, db: Database) -> Database:
         db.table_dict["CombinedShutouts"].df = db.table_dict["CombinedShutouts"].df.rename(
             columns={"date": "day"}
         )
@@ -782,6 +775,10 @@ class Hockey(CTUDataset):
             if "year" in table.df.columns:
                 table.df["year"] = pd.to_datetime(table.df["year"], format="%Y")
                 table.time_col = "year"
+
+        # Remove tables with no foreign keys
+        db.table_dict.pop("abbrev")
+        db.table_dict.pop("AwardsMisc")
 
         return db
 
@@ -802,9 +799,8 @@ class IMDb(CTUDataset):
             keep_original_keys=False,
         )
 
-    def make_db(self) -> Database:
-        db = super().make_db()
-
+    @override
+    def customize_db(self, db: Database) -> Database:
         db.table_dict["movies"].df["year"] = pd.to_datetime(
             db.table_dict["movies"].df["year"], format="%Y"
         )
@@ -831,9 +827,8 @@ class Lahman(CTUDataset):
             keep_original_keys=False,
         )
 
-    def make_db(self) -> Database:
-        db = super().make_db()
-
+    @override
+    def customize_db(self, db: Database) -> Database:
         for table in db.table_dict.values():
             if "yearID" in table.df.columns:
                 table.df["yearID"] = pd.to_datetime(
@@ -862,9 +857,8 @@ class LegalActs(CTUDataset):
             keep_original_keys=False,
         )
 
-    def make_db(self) -> Database:
-        db = super().make_db()
-
+    @override
+    def customize_db(self, db: Database) -> Database:
         # Remove scrape fix table
         db.table_dict.pop("scrapefix")
 
@@ -902,8 +896,10 @@ class Mondial(CTUDataset):
             keep_original_keys=False,
         )
 
-    def make_db(self) -> Database:
-        db = super().make_db()
+    @override
+    def customize_db(self, db: Database) -> Database:
+        # Save target table and remove it from the database
+        db = super().customize_db(db)
 
         db.table_dict["politics"].df["Independence"] = pd.to_datetime(
             db.table_dict["politics"].df["Independence"], errors="coerce"
@@ -1038,8 +1034,10 @@ class NCAA(CTUDataset):
             keep_original_keys=False,
         )
 
-    def make_db(self) -> Database:
-        db = super().make_db()
+    @override
+    def customize_db(self, db: Database) -> Database:
+        # Save target table and remove it from the database
+        db = super().customize_db(db)
 
         for table in db.table_dict.values():
             for fk, ref in table.fkey_col_to_pkey_table.items():
@@ -1127,9 +1125,8 @@ class Restbase(CTUDataset):
             keep_original_keys=True,
         )
 
-    def make_db(self) -> Database:
-        db = super().make_db()
-
+    @override
+    def customize_db(self, db: Database) -> Database:
         db.table_dict["location"].df.drop(columns=["id_restaurant"], inplace=True)
         db.table_dict["generalinfo"].df.drop(columns=["id_restaurant"], inplace=True)
 
@@ -1152,9 +1149,8 @@ class Sakila(CTUDataset):
             keep_original_keys=False,
         )
 
-    def make_db(self) -> Database:
-        db = super().make_db()
-
+    @override
+    def customize_db(self, db: Database) -> Database:
         fk_name = "FK_film_film_id"
         db.table_dict["film_text"].df[fk_name] = db.table_dict["film_text"].df["__PK__"]
         db.table_dict["film_text"].fkey_col_to_pkey_table[fk_name] = "film"
@@ -1208,9 +1204,8 @@ class SAP(CTUDataset):
             keep_original_keys=True,
         )
 
-    def make_db(self) -> Database:
-        db = super().make_db()
-
+    @override
+    def customize_db(self, db: Database) -> Database:
         mailings_1_2 = db.table_dict["Mailings1_2"].df
         mailings_1_2.drop(columns=["KxIndex", "REFID"], inplace=True)
         fk_name = [
@@ -1262,9 +1257,8 @@ class Satellite(CTUDataset):
             keep_original_keys=True,
         )
 
-    def make_db(self) -> Database:
-        db = super().make_db()
-
+    @override
+    def customize_db(self, db: Database) -> Database:
         for table in db.table_dict.values():
             rm_fks = []
             for fk, ref in table.fkey_col_to_pkey_table.items():
@@ -1307,9 +1301,8 @@ class Seznam(CTUDataset):
             keep_original_keys=False,
         )
 
-    def make_db(self) -> Database:
-        db = super().make_db()
-
+    @override
+    def customize_db(self, db: Database) -> Database:
         db.table_dict["probehnuto_mimo_penezenku"].df.rename(
             columns={"Month/Year": "Month_Year"}, inplace=True
         )
@@ -1411,6 +1404,14 @@ class Thrombosis(CTUDataset):
             keep_original_keys=False,
         )
 
+    @override
+    def customize_db(self, db: Database) -> Database:
+        db.table_dict["Examination"].df = db.table_dict["Examination"].df[
+            db.table_dict["Examination"].df["Examination Date"].notna()
+        ]
+
+        return db
+
 
 class Toxicology(CTUDataset):
     """
@@ -1462,9 +1463,8 @@ class TPCD(CTUDataset):
             keep_original_keys=True,
         )
 
-    def make_db(self) -> Database:
-        db = super().make_db()
-
+    @override
+    def customize_db(self, db: Database) -> Database:
         # Add missing foreign keys
         fk_col, fk_name = self._reindex_fk(
             {tn: t.df for tn, t in db.table_dict.items()},
@@ -1521,9 +1521,8 @@ class TPCDS(CTUDataset):
             keep_original_keys=False,
         )
 
-    def make_db(self) -> Database:
-        db = super().make_db()
-
+    @override
+    def customize_db(self, db: Database) -> Database:
         # Replace date and time tables with simple datetime columns
         time_df = db.table_dict["time_dim"].df
         date_df = db.table_dict["date_dim"].df
@@ -1607,33 +1606,8 @@ class TPCH(CTUDataset):
             "tpch",
             cache_dir=cache_dir,
             time_col_dict={"lineitem": "l_shipdate", "orders": "o_orderdate"},
-            keep_original_keys=True,
+            keep_original_keys=False,
         )
-
-    def make_db(self) -> Database:
-        db = super().make_db()
-
-        # Drop redundant key columns
-        db.table_dict["lineitem"].df.drop(
-            columns=["l_orderkey", "l_partkey", "l_suppkey"], inplace=True
-        )
-        db.table_dict["part"].df.drop(columns=["p_partkey"], inplace=True)
-        db.table_dict["partsupp"].df.drop(
-            columns=["ps_partkey", "ps_suppkey"], inplace=True
-        )
-        db.table_dict["region"].df.drop(columns=["r_regionkey"], inplace=True)
-        db.table_dict["nation"].df.drop(
-            columns=["n_nationkey", "n_regionkey"], inplace=True
-        )
-        db.table_dict["customer"].df.drop(
-            columns=["c_custkey", "c_nationkey"], inplace=True
-        )
-        db.table_dict["supplier"].df.drop(
-            columns=["s_suppkey", "s_nationkey"], inplace=True
-        )
-        db.table_dict["orders"].df.drop(columns=["o_orderkey", "o_custkey"], inplace=True)
-
-        return db
 
 
 class Triazine(CTUDataset):
@@ -1683,9 +1657,8 @@ class VisualGenome(CTUDataset):
             keep_original_keys=False,
         )
 
-    def make_db(self) -> Database:
-        db = super().make_db()
-
+    @override
+    def customize_db(self, db: Database) -> Database:
         for table in db.table_dict.values():
             rm_fks = []
             for fk, ref in table.fkey_col_to_pkey_table.items():
@@ -1730,11 +1703,6 @@ class VOC(CTUDataset):
             keep_original_keys=False,
         )
 
-    def make_db(self) -> Database:
-        db = super().make_db()
-
-        return db
-
 
 class Walmart(CTUDataset):
     """
@@ -1753,9 +1721,8 @@ class Walmart(CTUDataset):
             keep_original_keys=True,
         )
 
-    def make_db(self) -> Database:
-        db = super().make_db()
-
+    @override
+    def customize_db(self, db: Database) -> Database:
         # Convert sunrise and sunset to datetime
         weather_df = db.table_dict["weather"].df
         weather_df["sunrise"] = weather_df["date"] + weather_df["sunrise"].fillna(

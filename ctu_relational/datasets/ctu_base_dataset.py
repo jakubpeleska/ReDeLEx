@@ -1,5 +1,5 @@
 import os
-from typing import Dict, Literal, Optional
+from typing import Dict, Literal, Optional, override
 
 import pandas as pd
 
@@ -31,8 +31,8 @@ CTUDatabaseName = Literal[
 
 class CTUDataset(DBDataset):
     # To be set by subclass if available.
-    val_timestamp = pd.Timestamp.max
-    test_timestamp = pd.Timestamp.max
+    val_timestamp = pd.Timestamp.max.date()
+    test_timestamp = pd.Timestamp.max.date()
 
     target_table: Optional[str] = None
 
@@ -71,10 +71,11 @@ class CTUDataset(DBDataset):
             keep_original_compound_keys=keep_original_compound_keys,
         )
 
-    def make_db(self) -> Database:
-        db = super().make_db()
+    @override
+    def customize_db(self, db: Database) -> Database:
 
         if self.target_table is not None:
+            # Save the target table and remove it from the database.
             if self.cache_dir is not None:
                 db.reindex_pkeys_and_fkeys()
                 db.table_dict[self.target_table].save(
@@ -94,9 +95,9 @@ class CTUDataset(DBDataset):
         ):
             return Table.load(f"{self.cache_dir}/db/__target__.parquet")
 
-        db = super().make_db()
-        db.reindex_pkeys_and_fkeys()
-        target = db.table_dict[self.target_table]
-        if self.cache_dir is not None:
-            target.save(f"{self.cache_dir}/db/__target__.parquet")
-        return target
+        raise ValueError("Target table not found in cache.")
+
+    def get_info(self):
+        url = DBDataset.get_url(
+            "mariadb",
+            "pymysql",
