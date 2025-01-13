@@ -235,7 +235,7 @@ class HockeyOriginalTask(CTUEntityTask):
 
 
 class IMDbOriginalTask(CTUEntityTask):
-    arget_table = "actors"
+    entity_table = "actors"
     target_col = "gender"
     task_type = TaskType.BINARY_CLASSIFICATION
 

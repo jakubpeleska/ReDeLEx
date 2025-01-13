@@ -57,23 +57,23 @@ class AdventureWorks(CTUDataset):
             "AdventureWorks2014",
             cache_dir=cache_dir,
             time_col_dict={
-                "BillOfMaterials": "StartDate",
-                "Employee": "HireDate",
-                "EmployeePayHistory": "RateChangeDate",
-                "CurrencyRate": "CurrencyRateDate",
-                "Product": "SellStartDate",
-                "ProductCostHistory": "StartDate",
-                "ProductListPriceHistory": "StartDate",
-                "ProductReview": "ReviewDate",
-                "PurchaseOrderHeader": "OrderDate",
+                # "BillOfMaterials": "StartDate",
+                # "Employee": "HireDate",
+                # "EmployeePayHistory": "RateChangeDate",
+                # "CurrencyRate": "CurrencyRateDate",
+                # "Product": "SellStartDate",
+                # "ProductCostHistory": "StartDate",
+                # "ProductListPriceHistory": "StartDate",
+                # "ProductReview": "ReviewDate",
+                # "PurchaseOrderHeader": "OrderDate",
                 "SalesOrderHeader": "OrderDate",
-                "SalesPersonQuotaHistory": "QuotaDate",
-                "SalesTerritoryHistory": "StartDate",
-                "SpecialOffer": "StartDate",
-                "TransactionHistory": "TransactionDate",
-                "WorkOrder": "StartDate",
-                "WorkOrderRouting": "ScheduledStartDate",
-                "EmployeeDepartmentHistory": "StartDate",
+                # "SalesPersonQuotaHistory": "QuotaDate",
+                # "SalesTerritoryHistory": "StartDate",
+                # "SpecialOffer": "StartDate",
+                # "TransactionHistory": "TransactionDate",
+                # "WorkOrder": "StartDate",
+                # "WorkOrderRouting": "ScheduledStartDate",
+                # "EmployeeDepartmentHistory": "StartDate",
             },
             keep_original_keys=False,
             keep_original_compound_keys=True,
@@ -779,6 +779,8 @@ class Hockey(CTUDataset):
         # Remove tables with no foreign keys
         db.table_dict.pop("abbrev")
         db.table_dict.pop("AwardsMisc")
+        # TODO: Possibly keep the table and fix FK to Master
+        db.table_dict.pop("HOF")
 
         return db
 
@@ -1400,7 +1402,7 @@ class Thrombosis(CTUDataset):
         super().__init__(
             "medical",
             cache_dir=cache_dir,
-            time_col_dict={"Examination": "Examination Date", "Laboratory": "Date"},
+            time_col_dict={"Laboratory": "Date"},
             keep_original_keys=False,
         )
 
