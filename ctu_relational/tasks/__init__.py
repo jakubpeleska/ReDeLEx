@@ -115,7 +115,8 @@ register_task("ctu-sales", "sales-original", SalesOriginalTask)
 register_task("ctu-samegen", "samegen-original", SameGenOriginalTask)
 
 register_task("ctu-sap", "sap-original", SAPOriginalTask)
-register_task("ctu-sap", "sap-temporal", SAPTemporalTask)
+register_task("ctu-sap", "sap-sales", SAPSalesTask)
+register_task("ctu-sap", "sap-sales-temporal", SAPSalesTemporalTask)
 
 register_task("ctu-satellite", "satellite-original", SatelliteOriginalTask)
 
@@ -184,7 +185,7 @@ __all__ = [
     "MuskSmallOriginalTask", "MutagenesisOriginalTask", "NCAAOriginalTask", "NCAATemporalTask",
     "NorthwindOriginalTask", "NorthwindTemporalTask", "PimaOriginalTask", "PremiereLeagueOriginalTask",
     "PremiereLeagueTemporalTask", "RestbaseOriginalTask", "SakilaOriginalTask", "SakilaTemporalTask",
-    "SalesOriginalTask", "SameGenOriginalTask", "SAPOriginalTask", "SAPTemporalTask",
+    "SalesOriginalTask", "SameGenOriginalTask", "SAPOriginalTask", "SAPSalesTask", "SAPSalesTemporalTask",
     "SatelliteOriginalTask", "SeznamOriginalTask", "SeznamTemporalTask", "SFScoresOriginalTask",
     "SFScoresTemporalTask", "ShakespeareOriginalTask", "StatsOriginalTask", "StatsTemporalTask",
     "StudentLoanOriginalTask", "ThrombosisOriginalTask", "ThrombosisTemporalTask",

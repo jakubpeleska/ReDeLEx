@@ -58,7 +58,7 @@ __all__ = [
     "SakilaOriginalTask", "SakilaTemporalTask",
     "SalesOriginalTask", 
     "SameGenOriginalTask", 
-    "SAPOriginalTask", "SAPTemporalTask",
+    "SAPOriginalTask", "SAPSalesTask", "SAPSalesTemporalTask",
     "SatelliteOriginalTask", 
     "SeznamOriginalTask", "SeznamTemporalTask",
     "SFScoresOriginalTask", "SFScoresTemporalTask",
@@ -566,10 +566,16 @@ class SAPOriginalTask(CTUEntityTask):
     task_type = TaskType.BINARY_CLASSIFICATION
 
 
-class SAPTemporalTask(CTUEntityTaskTemporal):
-    entity_table = "Mailings"
-    target_col = "RESPONSE"
-    task_type = TaskType.BINARY_CLASSIFICATION
+class SAPSalesTask(CTUEntityTask):
+    entity_table = "Sales"
+    target_col = "AMOUNT"
+    task_type = TaskType.REGRESSION
+
+
+class SAPSalesTemporalTask(CTUEntityTaskTemporal):
+    entity_table = "Sales"
+    target_col = "AMOUNT"
+    task_type = TaskType.REGRESSION
     val_timestamp = pd.Timestamp("2007-06-10")
     test_timestamp = pd.Timestamp("2007-06-20")
 
