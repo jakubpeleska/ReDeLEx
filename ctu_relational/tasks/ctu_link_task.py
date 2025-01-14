@@ -2,11 +2,13 @@ from typing import Callable, Dict, List, Optional
 from numpy.typing import NDArray
 
 import numpy as np
+import pandas as pd
 
 from relbench.base import BaseTask, Database, Table
 
 
 class CTULinkTask(BaseTask):
+    timedelta = pd.Timedelta(-1)
     entity_col = "__PK__"
     entity_table: str
     target_col: str

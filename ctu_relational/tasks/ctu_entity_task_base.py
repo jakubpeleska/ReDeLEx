@@ -126,7 +126,7 @@ class CTUBaseEntityTask(BaseTask):
         else:
             full_table.df[self.target_col] = full_table.df[self.target_col].astype(int)
 
-        split_table = self.make_table(split, full_table)
+        split_table = self.make_split(split, full_table)
 
         return split_table
 
