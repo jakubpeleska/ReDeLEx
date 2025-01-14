@@ -49,7 +49,7 @@ register_task("ctu-employee", "employee-original", EmployeeOriginalTask)
 register_task("ctu-employee", "employee-temporal", EmployeeTemporalTask)
 
 register_task("ctu-ergastf1", "ergastf1-original", ErgastF1OriginalTask)
-register_task("ctu-ergastf1", "ergastf1-temporal", ErgastF1TemporalTask)
+# register_task("ctu-ergastf1", "ergastf1-temporal", ErgastF1TemporalTask)
 
 register_task("ctu-expenditures", "expenditures-original", ExpendituresOriginalTask)
 
@@ -76,10 +76,10 @@ register_task("ctu-grants", "grants-temporal", GrantsTemporalTask)
 register_task("ctu-hepatitis", "hepatitis-original", HepatitisOriginalTask)
 
 register_task("ctu-hockey", "hockey-original", HockeyOriginalTask)
-register_task("ctu-hockey", "hockey-temporal", HockeyTemporalTask)
+# register_task("ctu-hockey", "hockey-temporal", HockeyTemporalTask)
 
 register_task("ctu-imdb", "imdb-original", IMDbOriginalTask)
-register_task("ctu-imdb", "imdb-temporal", IMDbTemporalTask)
+# register_task("ctu-imdb", "imdb-temporal", IMDbTemporalTask)
 
 register_task("ctu-lahman", "lahman-original", LahmanOriginalTask)
 register_task("ctu-lahman", "lahman-temporal", LahmanTemporalTask)
@@ -96,7 +96,7 @@ register_task("ctu-musksmall", "musksmall-original", MuskSmallOriginalTask)
 register_task("ctu-mutagenesis", "mutagenesis-original", MutagenesisOriginalTask)
 
 register_task("ctu-ncaa", "ncaa-original", NCAAOriginalTask)
-register_task("ctu-ncaa", "ncaa-temporal", NCAATemporalTask)
+# register_task("ctu-ncaa", "ncaa-temporal", NCAATemporalTask)
 
 register_task("ctu-northwind", "northwind-original", NorthwindOriginalTask)
 register_task("ctu-northwind", "northwind-temporal", NorthwindTemporalTask)
@@ -134,19 +134,19 @@ register_task("ctu-stats", "stats-temporal", StatsTemporalTask)
 register_task("ctu-studentloan", "studentloan-original", StudentLoanOriginalTask)
 
 register_task("ctu-thrombosis", "thrombosis-original", ThrombosisOriginalTask)
-register_task("ctu-thrombosis", "thrombosis-temporal", ThrombosisTemporalTask)
+# register_task("ctu-thrombosis", "thrombosis-temporal", ThrombosisTemporalTask)
 
 register_task("ctu-toxicology", "toxicology-original", ToxicologyOriginalTask)
 register_task("ctu-tpcc", "tpcc-original", TPCCOriginalTask)
 
 register_task("ctu-tpcd", "tpcd-original", TPCDOriginalTask)
-register_task("ctu-tpcd", "tpcd-temporal", TPCDTemporalTask)
+# register_task("ctu-tpcd", "tpcd-temporal", TPCDTemporalTask)
 
 register_task("ctu-tpcds", "tpcds-original", TPCDSOriginalTask)
 register_task("ctu-tpcds", "tpcds-temporal", TPCDSTemporalTask)
 
 register_task("ctu-tpch", "tpch-original", TPCHOriginalTask)
-register_task("ctu-tpch", "tpch-temporal", TPCHTemporalTask)
+# register_task("ctu-tpch", "tpch-temporal", TPCHTemporalTask)
 
 register_task("ctu-triazine", "triazine-original", TriazineOriginalTask)
 register_task("ctu-uwcse", "uwcse-original", UWCSEOriginalTask)
