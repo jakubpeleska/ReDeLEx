@@ -3,12 +3,10 @@ from numpy.typing import NDArray
 
 import numpy as np
 
-from relbench.base import Database, Table
-
-from .ctu_base_task import CTUBaseTask
+from relbench.base import BaseTask, Database, Table
 
 
-class CTULinkTask(CTUBaseTask):
+class CTULinkTask(BaseTask):
     entity_col = "__PK__"
     entity_table: str
     target_col: str
