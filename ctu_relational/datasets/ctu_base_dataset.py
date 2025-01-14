@@ -7,7 +7,7 @@ from relbench.base import Database, Table
 
 from .db_dataset import DBDataset
 
-__all__ = ["CTUDatabaseName", "CTUDataset"]
+__all__ = ["CTUDataset"]
 
 
 # fmt: off
@@ -23,7 +23,7 @@ CTUDatabaseName = Literal[
     "PremierLeague", "PTE", "PubMed_Diabetes", "pubs", "Pyrimidine", "restbase",
     "sakila", "SalesDB", "Same_gen", "SAP", "SAT", "Seznam", "SFScores", "Shakespeare",
     "stats", "Student_loan", "Toxicology", "tpcc", "tpcd", "tpcds", "tpch", "trains",
-    "Triazine", "university", "UTube", "UW_std", "VisualGenome", "voc", "Walmart","WebKP",
+    "Triazine", "university", "UTube", "UW_std", "VisualGenome", "voc", "Walmart", "WebKP",
     "world"
 ]
 # fmt: on

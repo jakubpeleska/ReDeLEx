@@ -7,6 +7,8 @@ from relbench.base import Table
 
 from .ctu_entity_task_base import CTUBaseEntityTask
 
+__all__ = ["CTUEntityTaskTemporal"]
+
 
 class CTUEntityTaskTemporal(CTUBaseEntityTask):
 

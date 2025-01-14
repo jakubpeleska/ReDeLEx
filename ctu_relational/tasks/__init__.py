@@ -1,5 +1,8 @@
 from relbench.tasks import register_task
 
+from .ctu_entity_task_base import CTUBaseEntityTask
+from .ctu_entity_task_classic import CTUEntityTask
+from .ctu_entity_task_temporal import CTUEntityTaskTemporal
 from .ctu_tasks import *
 
 register_task("ctu-accidents", "accidents-original", AccidentsOriginalTask)
@@ -156,3 +159,38 @@ register_task("ctu-walmart", "walmart-temporal", WalmartTemporalTask)
 
 register_task("ctu-webkp", "webkp-original", WebKPOriginalTask)
 register_task("ctu-world", "world-original", WorldOriginalTask)
+
+
+# fmt: off
+__all__ = [
+    "CTUBaseEntityTask", "CTUEntityTask", "CTUEntityTaskTemporal",
+    
+    "AccidentsOriginalTask", "AccidentsTemporalTask", "AdventureWorksOriginalTask", 
+    "AdventureWorksTemporalTask", "AirlineOriginalTask", "AirlineTemporalTask", 
+    "AtherosclerosisOriginalTask", "BasketballMenOriginalTask", "BasketballWomenOriginalTask",
+    "BiodegradabilityOriginalTask", "BupaOriginalTask", "CarcinogenesisOriginalTask",
+    "CDESchoolsOriginalTask", "ChessOriginalTask", "ClassicModelsOriginalTask",
+    "ClassicModelsTemporalTask", "CORAOriginalTask", "CountriesOriginalTask",
+    "CraftBeerOriginalTask", "CreditOriginalTask", "DallasOriginalTask", "DallasTemporalTask",
+    "DCGOriginalTask", "DiabetesOriginalTask", "DunurOriginalTask", "EltiOriginalTask",
+    "EmployeeOriginalTask", "EmployeeTemporalTask", "ErgastF1OriginalTask", "ErgastF1TemporalTask",
+    "ExpendituresOriginalTask", "FinancialOriginalTask", "FinancialTemporalTask", "FNHKOriginalTask",
+    "FNHKTemporalTask", "FTPOriginalTask", "FTPTemporalTask", "GeneeaOriginalTask",
+    "GeneeaTemporalTask", "GenesOriginalTask", "GOSalesOriginalTask", "GOSalesTemporalTask",
+    "GrantsOriginalTask", "GrantsTemporalTask", "HepatitisOriginalTask", "HockeyOriginalTask",
+    "HockeyTemporalTask", "IMDbOriginalTask", "IMDbTemporalTask", "LahmanOriginalTask",
+    "LahmanTemporalTask", "LegalActsOriginalTask", "LegalActsTemporalTask", "MeshOriginalTask",
+    "MondialOriginalTask", "MooneyOriginalTask", "MovieLensOriginalTask", "MuskLargeOriginalTask",
+    "MuskSmallOriginalTask", "MutagenesisOriginalTask", "NCAAOriginalTask", "NCAATemporalTask",
+    "NorthwindOriginalTask", "NorthwindTemporalTask", "PimaOriginalTask", "PremiereLeagueOriginalTask",
+    "PremiereLeagueTemporalTask", "RestbaseOriginalTask", "SakilaOriginalTask", "SakilaTemporalTask",
+    "SalesOriginalTask", "SameGenOriginalTask", "SAPOriginalTask", "SAPTemporalTask",
+    "SatelliteOriginalTask", "SeznamOriginalTask", "SeznamTemporalTask", "SFScoresOriginalTask",
+    "SFScoresTemporalTask", "ShakespeareOriginalTask", "StatsOriginalTask", "StatsTemporalTask",
+    "StudentLoanOriginalTask", "ThrombosisOriginalTask", "ThrombosisTemporalTask",
+    "ToxicologyOriginalTask", "TPCCOriginalTask", "TPCDOriginalTask", "TPCDTemporalTask",
+    "TPCDSOriginalTask", "TPCDSTemporalTask", "TPCHOriginalTask", "TPCHTemporalTask",
+    "TriazineOriginalTask", "UWCSEOriginalTask", "VisualGenomeOriginalTask", "VOCOriginalTask",
+    "VOCTemporalTask", "WalmartOriginalTask", "WalmartTemporalTask", "WebKPOriginalTask", "WorldOriginalTask"
+]
+# fmt: on

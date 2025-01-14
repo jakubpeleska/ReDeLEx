@@ -86,3 +86,23 @@ register_dataset("ctu-voc", VOC)
 register_dataset("ctu-walmart", Walmart)
 register_dataset("ctu-webkp", WebKP)
 register_dataset("ctu-world", World)
+
+# fmt: off
+__all__ = [
+    "get_dataset_info",
+    
+    "DBDataset", "CTUDataset",
+    
+    "Accidents", "AdventureWorks", "Airline", "Atherosclerosis", "BasketballMen",
+    "BasketballWomen", "Biodegradability", "Bupa", "Carcinogenesis",
+    "CDESchools", "Chess", "ClassicModels", "CORA", "Countries", "CraftBeer", "Credit",
+    "Dallas", "DCG", "Diabetes", "Dunur", "Elti", "Employee", "ErgastF1",
+    "Expenditures", "Employee", "Financial", "FNHK", "FTP", "Geneea", "Genes", "GOSales",
+    "Grants", "Hepatitis", "Hockey", "IMDb", "Lahman", "LegalActs", "Mesh",
+    "Mondial", "Mooney", "MovieLens", "MuskLarge", "MuskSmall", "Mutagenesis",
+    "NCAA", "Northwind", "Pima", "PremiereLeague", "Restbase", "Sakila",
+    "Sales", "SameGen", "SAP", "Satellite", "Seznam", "SFScores", "Shakespeare", "Stats",
+    "StudentLoan", "Thrombosis", "Toxicology", "TPCC", "TPCD", "TPCDS", "TPCH", "Triazine",
+    "UWCSE", "VisualGenome", "VOC", "Walmart", "WebKP", "World"
+]
+# fmt: on
