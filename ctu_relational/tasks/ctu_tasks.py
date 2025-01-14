@@ -524,7 +524,7 @@ class PremiereLeagueTemporalTask(CTUEntityTaskTemporal):
     entity_table = "Matches"
     target_col = "ResultOfTeamHome"
     task_type = TaskType.MULTICLASS_CLASSIFICATION
-    val_timestamp = pd.Timestamp("1998-04-01")
+    val_timestamp = pd.Timestamp("2012-04-01")
     test_timestamp = pd.Timestamp("2012-05-01")
 
 
