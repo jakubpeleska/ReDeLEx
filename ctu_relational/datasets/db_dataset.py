@@ -118,8 +118,8 @@ class DBDataset(Dataset):
         """
         return sa.Connection(sa.create_engine(remote_url))
 
-    def get_scheme(self) -> Dict[str, Dict[str, sa.types.TypeEngine]]:
-        """Get the type scheme of the remote database.
+    def get_schema(self) -> Dict[str, Dict[str, sa.types.TypeEngine]]:
+        """Get the type schema of the remote database.
 
         Returns:
             Dict[str, Dict[str, TypeEngine]]: A dictionary mapping table names to column names and their types.
@@ -133,25 +133,17 @@ class DBDataset(Dataset):
 
         table_names = inspector.get_tables()
 
-        table_sql__types = {}
+        schema = {}
 
         for t_name in table_names:
 
             sql_table = sa.Table(t_name, remote_md)
 
-            table_sql__types[t_name] = {}
-
-            for c in sql_table.columns:
-                try:
-                    sql_type = type(c.type.as_generic())
-                except NotImplementedError:
-                    sql_type = type(c.type)
-
-                table_sql__types[t_name][c.name] = sql_type
+            schema[t_name] = {c.name: c.type for c in sql_table.columns}
 
         remote_con.close()
 
-        return table_sql__types
+        return schema
 
     def customize_db(self, db: Database) -> Database:
         """
