@@ -1,8 +1,11 @@
 from typing import Optional, override
 
+import numpy as np
 import pandas as pd
 
 from relbench.base import Database, Table
+
+from ctu_relational.utils import TIMESTAMP_MIN, TIMESTAMP_MAX
 
 from .ctu_base_dataset import CTUDataset
 
@@ -81,6 +84,9 @@ class AdventureWorks(CTUDataset):
         db.table_dict.pop("TransactionHistoryArchive", None)
 
         db.table_dict["Address"].df.drop(columns=["SpatialLocation"], inplace=True)
+        db.table_dict["Document"].df.drop(columns=["Document"], inplace=True)
+        db.table_dict["ProductPhoto"].df.drop(columns=["ThumbNailPhoto"], inplace=True)
+        db.table_dict["ProductPhoto"].df.drop(columns=["LargePhoto"], inplace=True)
 
         return db
 
@@ -479,6 +485,22 @@ class ErgastF1(CTUDataset):
         )
         db.table_dict["races"].df["date"] += db.table_dict["races"].df["time"]
         db.table_dict["races"].df.drop(columns=["time"], inplace=True)
+
+        # Convert time columns to datetime
+        db.table_dict["qualifying"].df["q1"] = pd.to_datetime(
+            db.table_dict["qualifying"].df["q1"], format="%M:%S.%f", errors="coerce"
+        )
+        db.table_dict["qualifying"].df["q2"] = pd.to_datetime(
+            db.table_dict["qualifying"].df["q2"], format="%M:%S.%f", errors="coerce"
+        )
+        db.table_dict["qualifying"].df["q3"] = pd.to_datetime(
+            db.table_dict["qualifying"].df["q3"], format="%M:%S.%f", errors="coerce"
+        )
+        db.table_dict["results"].df["fastestLapTime"] = pd.to_datetime(
+            db.table_dict["results"].df["fastestLapTime"],
+            format="%M:%S.%f",
+            errors="coerce",
+        )
 
         return db
 
@@ -1612,6 +1634,27 @@ class VOC(CTUDataset):
             time_col_dict={"voyages": "departure_date"},
             keep_original_keys=False,
         )
+
+    @override
+    def customize_db(self, db: Database) -> Database:
+
+        dtcols = db.table_dict["voyages"].df.select_dtypes(include="datetime")
+        dtcols[dtcols < pd.Timestamp("1300-01-01")] = pd.NaT
+        dtcols[dtcols > pd.Timestamp("1900-01-01")] = pd.NaT
+        min_date = dtcols.min().min()
+        max_date = dtcols.max().max()
+        delta: pd.Timedelta
+        if min_date < TIMESTAMP_MIN:
+            delta = TIMESTAMP_MIN - min_date
+            delta = pd.Timedelta(days=delta.days + 1)
+        elif max_date > TIMESTAMP_MAX:
+            delta = TIMESTAMP_MAX - max_date
+            delta = pd.Timedelta(days=delta.days - 1)
+        dtcols += delta.to_numpy().astype(np.dtype("timedelta64[D]"))
+
+        db.table_dict["voyages"].df[dtcols.columns] = dtcols
+
+        return db
 
 
 class Walmart(CTUDataset):

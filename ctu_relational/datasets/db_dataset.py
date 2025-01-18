@@ -338,7 +338,8 @@ SQL_TO_PANDAS = {
     sa.types.Float: pd.Float64Dtype(),
     sa.types.Integer: pd.Int32Dtype(),
     sa.types.Interval: "object",
-    sa.types.LargeBinary: "object",
+    # TODO: Handle binary data
+    # sa.types.LargeBinary: "object",
     sa.types.Numeric: pd.Float64Dtype(),
     sa.types.SmallInteger: pd.Int16Dtype(),
     sa.types.String: "string",
