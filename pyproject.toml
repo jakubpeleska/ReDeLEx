@@ -19,7 +19,8 @@ dependencies=[
   "pandas",
   "sqlalchemy",
   "pymysql",
-  "tqdm"
+  "tqdm",
+  "inflect"
 ]
 
 [project.urls]
