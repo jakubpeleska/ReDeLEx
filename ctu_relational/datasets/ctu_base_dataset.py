@@ -79,7 +79,7 @@ class CTUDataset(DBDataset):
             if self.cache_dir is not None:
                 db.reindex_pkeys_and_fkeys()
                 db.table_dict[self.target_table].save(
-                    f"{self.cache_dir}/db/__target__.parquet"
+                    f"{self.cache_dir}/tasks/__target__.parquet"
                 )
             db.table_dict.pop(self.target_table)
 
@@ -91,8 +91,8 @@ class CTUDataset(DBDataset):
             raise ValueError("Dataset does not have a target table.")
 
         if self.cache_dir is not None and os.path.exists(
-            f"{self.cache_dir}/db/__target__.parquet"
+            f"{self.cache_dir}/tasks/__target__.parquet"
         ):
-            return Table.load(f"{self.cache_dir}/db/__target__.parquet")
+            return Table.load(f"{self.cache_dir}/tasks/__target__.parquet")
 
         raise ValueError("Target table not found in cache.")
