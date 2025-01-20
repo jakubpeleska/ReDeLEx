@@ -27,6 +27,7 @@ class CTUEntityTask(CTUBaseEntityTask):
                 table.df = table.df.drop(val_df.index)
 
         table.df = table.df[[self.entity_col, self.target_col]]
+        table.time_col = None
 
         return table
 

@@ -21,6 +21,8 @@ class CTUEntityTaskTemporal(CTUBaseEntityTask):
         if table.time_col is None:
             raise ValueError("The table must have a time column.")
 
+        table.df = table.df[table.df[table.time_col].notna()]
+
         if split == "train":
             table.df = table.df[table.df[table.time_col] < self.val_timestamp]
         elif split == "val":
