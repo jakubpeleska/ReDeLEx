@@ -736,8 +736,8 @@ class VOCTemporalTask(CTUEntityTaskTemporal):
     entity_table = "voyages"
     target_col = "arrival_harbour"
     task_type = TaskType.MULTICLASS_CLASSIFICATION
-    val_timestamp = pd.Timestamp("1763-01-01").date()
-    test_timestamp = pd.Timestamp("1778-01-01").date()
+    val_timestamp = pd.Timestamp("1887-01-01")
+    test_timestamp = pd.Timestamp("1902-01-01")
 
 
 class WalmartOriginalTask(CTUEntityTask):
