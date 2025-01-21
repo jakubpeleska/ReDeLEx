@@ -8,11 +8,6 @@ from datetime import datetime
 from pathlib import Path
 from timeit import default_timer as timer
 
-# import mlflow
-# from mlflow.tracking import MlflowClient
-# from mlflow.entities import Param
-# from mlflow.utils.mlflow_tags import MLFLOW_USER, MLFLOW_PARENT_RUN_ID
-
 import ray
 from ray import tune, train as ray_train
 from ray.train.torch import enable_reproducibility
