@@ -1,52 +1,37 @@
+from typing import List
+
+import json, sys, traceback
+
 from multiprocessing import Process
-import os, sys
-import traceback
-
-sys.path.append("../")
-
-import copy
-import json
-import math
 from pathlib import Path
-from typing import Dict, List, Optional
 
-import numpy as np
-import pandas as pd
 import torch
-from sentence_transformers import SentenceTransformer
-from torch.nn import BCEWithLogitsLoss, L1Loss
-from torch_frame import stype
-from torch_frame.data import StatType
-from torch_frame.config.text_embedder import TextEmbedderConfig
-from torch_geometric.loader import NeighborLoader
-from torch_geometric.seed import seed_everything
-from tqdm import tqdm
 
-from relbench.base import Dataset, EntityTask, TaskType
+from sentence_transformers import SentenceTransformer
+
+from torch_frame import stype
+from torch_frame.config.text_embedder import TextEmbedderConfig
+
 from relbench.datasets import get_dataset, get_dataset_names
-from relbench.modeling.graph import get_node_train_table_input, make_pkey_fkey_graph
-from relbench.modeling.utils import get_stype_proposal
-from relbench.tasks import get_task, get_task_names
+from relbench.modeling.graph import make_pkey_fkey_graph
+
+sys.path.append(".")
 
 import ctu_relational
 from ctu_relational.datasets import DBDataset
-from ctu_relational.tasks import CTUEntityTask
 from ctu_relational.utils import guess_schema, convert_timedelta, standardize_datetime
 
 args = {
     "seed": 42,
-    "cache_dir": "../.cache",
+    "cache_dir": ".cache",
 }
-
-device = torch.device("cpu")
-seed_everything(42)
 
 
 class GloveTextEmbedding:
-    def __init__(self, device: Optional[torch.device] = None):
+    def __init__(self):
         self.model = SentenceTransformer(
             "sentence-transformers/average_word_embeddings_glove.6B.300d",
-            device=device,
+            device=torch.device("cpu"),
         )
 
     def __call__(self, sentences: List[str]) -> torch.Tensor:
@@ -80,7 +65,7 @@ def materialize_dataset(dataset_name: str):
                 db,
                 col_to_stype_dict=col_to_stype_dict,
                 text_embedder_cfg=TextEmbedderConfig(
-                    text_embedder=GloveTextEmbedding(device=device), batch_size=256
+                    text_embedder=GloveTextEmbedding(), batch_size=256
                 ),
                 cache_dir=f"{cache_path}/materialized",
             )
