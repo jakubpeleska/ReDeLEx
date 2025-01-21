@@ -19,7 +19,7 @@ sys.path.append(".")
 
 import ctu_relational
 from ctu_relational.datasets import DBDataset
-from ctu_relational.utils import guess_schema, convert_timedelta, standardize_datetime
+from ctu_relational.utils import guess_schema, convert_timedelta, standardize_db_dt
 
 args = {
     "seed": 42,
@@ -60,7 +60,7 @@ def materialize_dataset(dataset_name: str):
             with open(stypes_cache_path, "w") as f:
                 json.dump(col_to_stype_dict, f, indent=2, default=str)
 
-            standardize_datetime(db, col_to_stype_dict)
+            standardize_db_dt(db, col_to_stype_dict)
             data, col_stats_dict = make_pkey_fkey_graph(
                 db,
                 col_to_stype_dict=col_to_stype_dict,

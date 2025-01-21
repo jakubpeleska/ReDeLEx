@@ -5,82 +5,6 @@ from .ctu_entity_task_classic import CTUEntityTask
 from .ctu_entity_task_temporal import CTUEntityTaskTemporal
 from .ctu_link_task import CTULinkTask
 
-# fmt: off
-__all__ = [
-    "AccidentsOriginalTask", "AccidentsTemporalTask",
-    "AdventureWorksOriginalTask", "AdventureWorksTemporalTask",
-    "AirlineOriginalTask", "AirlineTemporalTask",
-    "AtherosclerosisOriginalTask", 
-    "BasketballMenOriginalTask",
-    "BasketballWomenOriginalTask", 
-    "BiodegradabilityOriginalTask",
-    "BupaOriginalTask", 
-    "CarcinogenesisOriginalTask", 
-    "CDESchoolsOriginalTask", 
-    "ChessOriginalTask", 
-    "ClassicModelsOriginalTask", "ClassicModelsTemporalTask",
-    "CORAOriginalTask", 
-    "CountriesOriginalTask", 
-    "CraftBeerOriginalTask", 
-    "CreditOriginalTask", 
-    "DallasOriginalTask", "DallasTemporalTask",
-    "DCGOriginalTask", 
-    "DiabetesOriginalTask",
-    "DunurOriginalTask", 
-    "EltiOriginalTask", 
-    "EmployeeOriginalTask", "EmployeeTemporalTask",
-    "ErgastF1OriginalTask", "ErgastF1TemporalTask",
-    "ExpendituresOriginalTask", 
-    "FinancialOriginalTask", "FinancialTemporalTask",
-    "FNHKOriginalTask", "FNHKTemporalTask",
-    "FTPOriginalTask", "FTPTemporalTask",
-    "GeneeaOriginalTask", "GeneeaTemporalTask",
-    "GenesOriginalTask", 
-    "GOSalesOriginalTask", "GOSalesTemporalTask",
-    "GrantsOriginalTask", "GrantsTemporalTask",
-    "HepatitisOriginalTask", 
-    "HockeyOriginalTask", "HockeyTemporalTask",
-    "IMDbOriginalTask", "IMDbTemporalTask",
-    "LahmanOriginalTask", "LahmanTemporalTask",
-    "LegalActsOriginalTask", "LegalActsTemporalTask",
-    "MeshOriginalTask", 
-    "MondialOriginalTask", 
-    "MooneyOriginalTask", 
-    "MovieLensOriginalTask", 
-    "MuskLargeOriginalTask", 
-    "MuskSmallOriginalTask", 
-    "MutagenesisOriginalTask",
-    "NCAAOriginalTask", "NCAATemporalTask",
-    "NorthwindOriginalTask", "NorthwindTemporalTask",
-    "PimaOriginalTask", 
-    "PremiereLeagueOriginalTask", "PremiereLeagueTemporalTask",
-    "RestbaseOriginalTask",
-    "SakilaOriginalTask", "SakilaTemporalTask",
-    "SalesOriginalTask", 
-    "SameGenOriginalTask", 
-    "SAPOriginalTask", "SAPSalesTask", "SAPSalesTemporalTask",
-    "SatelliteOriginalTask", 
-    "SeznamOriginalTask", "SeznamTemporalTask",
-    "SFScoresOriginalTask", "SFScoresTemporalTask",
-    "ShakespeareOriginalTask", 
-    "StatsOriginalTask", "StatsTemporalTask",
-    "StudentLoanOriginalTask", 
-    "ThrombosisOriginalTask", "ThrombosisTemporalTask",
-    "ToxicologyOriginalTask",
-    "TPCCOriginalTask", 
-    "TPCDOriginalTask", "TPCDTemporalTask",
-    "TPCDSOriginalTask", "TPCDSTemporalTask",
-    "TPCHOriginalTask", "TPCHTemporalTask",
-    "TriazineOriginalTask",
-    "UWCSEOriginalTask", 
-    "VisualGenomeOriginalTask", 
-    "VOCOriginalTask", "VOCTemporalTask",
-    "WalmartOriginalTask", "WalmartTemporalTask",
-    "WebKPOriginalTask", 
-    "WorldOriginalTask"
-]
-# fmt: on
-
 
 class AccidentsOriginalTask(CTUEntityTask):
     entity_table = "nesreca"
@@ -92,8 +16,8 @@ class AccidentsTemporalTask(CTUEntityTaskTemporal):
     entity_table = "nesreca"
     target_col = "klas_nesreca"
     task_type = TaskType.MULTICLASS_CLASSIFICATION
-    val_timestamp = pd.Timestamp("2004-01-01")
-    test_timestamp = pd.Timestamp("2005-01-01")
+    val_timestamp = pd.Timestamp("2004-03-01")
+    test_timestamp = pd.Timestamp("2005-03-01")
 
 
 class AdventureWorksOriginalTask(CTUEntityTask):
@@ -764,3 +688,80 @@ class WorldOriginalTask(CTUEntityTask):
     entity_table = "Country"
     target_col = "Continent"
     task_type = TaskType.MULTICLASS_CLASSIFICATION
+
+
+# fmt: off
+__all__ = [
+    "AccidentsOriginalTask", "AccidentsTemporalTask",
+    "AdventureWorksOriginalTask", "AdventureWorksTemporalTask",
+    "AirlineOriginalTask", "AirlineTemporalTask",
+    "AtherosclerosisOriginalTask", 
+    "BasketballMenOriginalTask",
+    "BasketballWomenOriginalTask", 
+    "BiodegradabilityOriginalTask",
+    "BupaOriginalTask", 
+    "CarcinogenesisOriginalTask", 
+    "CDESchoolsOriginalTask", 
+    "ChessOriginalTask", 
+    "ClassicModelsOriginalTask", "ClassicModelsTemporalTask",
+    "CORAOriginalTask", 
+    "CountriesOriginalTask", 
+    "CraftBeerOriginalTask", 
+    "CreditOriginalTask", 
+    "DallasOriginalTask", "DallasTemporalTask",
+    "DCGOriginalTask", 
+    "DiabetesOriginalTask",
+    "DunurOriginalTask", 
+    "EltiOriginalTask", 
+    "EmployeeOriginalTask", "EmployeeTemporalTask",
+    "ErgastF1OriginalTask", "ErgastF1TemporalTask",
+    "ExpendituresOriginalTask", 
+    "FinancialOriginalTask", "FinancialTemporalTask",
+    "FNHKOriginalTask", "FNHKTemporalTask",
+    "FTPOriginalTask", "FTPTemporalTask",
+    "GeneeaOriginalTask", "GeneeaTemporalTask",
+    "GenesOriginalTask", 
+    "GOSalesOriginalTask", "GOSalesTemporalTask",
+    "GrantsOriginalTask", "GrantsTemporalTask",
+    "HepatitisOriginalTask", 
+    "HockeyOriginalTask", "HockeyTemporalTask",
+    "IMDbOriginalTask", "IMDbTemporalTask",
+    "LahmanOriginalTask", "LahmanTemporalTask",
+    "LegalActsOriginalTask", "LegalActsTemporalTask",
+    "MeshOriginalTask", 
+    "MondialOriginalTask", 
+    "MooneyOriginalTask", 
+    "MovieLensOriginalTask", 
+    "MuskLargeOriginalTask", 
+    "MuskSmallOriginalTask", 
+    "MutagenesisOriginalTask",
+    "NCAAOriginalTask", "NCAATemporalTask",
+    "NorthwindOriginalTask", "NorthwindTemporalTask",
+    "PimaOriginalTask", 
+    "PremiereLeagueOriginalTask", "PremiereLeagueTemporalTask",
+    "RestbaseOriginalTask",
+    "SakilaOriginalTask", "SakilaTemporalTask",
+    "SalesOriginalTask", 
+    "SameGenOriginalTask", 
+    "SAPOriginalTask", "SAPSalesTask", "SAPSalesTemporalTask",
+    "SatelliteOriginalTask", 
+    "SeznamOriginalTask", "SeznamTemporalTask",
+    "SFScoresOriginalTask", "SFScoresTemporalTask",
+    "ShakespeareOriginalTask", 
+    "StatsOriginalTask", "StatsTemporalTask",
+    "StudentLoanOriginalTask", 
+    "ThrombosisOriginalTask", "ThrombosisTemporalTask",
+    "ToxicologyOriginalTask",
+    "TPCCOriginalTask", 
+    "TPCDOriginalTask", "TPCDTemporalTask",
+    "TPCDSOriginalTask", "TPCDSTemporalTask",
+    "TPCHOriginalTask", "TPCHTemporalTask",
+    "TriazineOriginalTask",
+    "UWCSEOriginalTask", 
+    "VisualGenomeOriginalTask", 
+    "VOCOriginalTask", "VOCTemporalTask",
+    "WalmartOriginalTask", "WalmartTemporalTask",
+    "WebKPOriginalTask", 
+    "WorldOriginalTask"
+]
+# fmt: on
