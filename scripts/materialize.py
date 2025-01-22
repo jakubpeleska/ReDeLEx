@@ -12,13 +12,16 @@ from sentence_transformers import SentenceTransformer
 from torch_frame import stype
 from torch_frame.config.text_embedder import TextEmbedderConfig
 
+from relbench.base import TaskType
 from relbench.datasets import get_dataset, get_dataset_names
+from relbench.tasks import get_task_names, get_task
 from relbench.modeling.graph import make_pkey_fkey_graph
 
 sys.path.append(".")
 
 import ctu_relational
 from ctu_relational.datasets import DBDataset
+from ctu_relational.tasks import CTUBaseEntityTask
 from ctu_relational.utils import guess_schema, convert_timedelta, standardize_db_dt
 
 args = {
@@ -38,12 +41,13 @@ class GloveTextEmbedding:
         return self.model.encode(sentences, convert_to_tensor=True)
 
 
-def materialize_dataset(dataset_name: str):
+def materialize_task_data(dataset_name: str, task_name):
     try:
-        cache_path = Path(f"{args["cache_dir"]}/{dataset_name}")
+        cache_path = Path(f"{args["cache_dir"]}/{dataset_name}/{task_name}")
 
         dataset: DBDataset = get_dataset(dataset_name)
-        db = dataset.get_db(upto_test_timestamp=False)
+        task: CTUBaseEntityTask = get_task(dataset_name, task_name)
+        db = task.get_sanitized_db(upto_test_timestamp=False)
         convert_timedelta(db)
 
         stypes_cache_path = Path(f"{cache_path}/stypes.json")
@@ -80,11 +84,24 @@ ctu_datasets = list(filter(lambda x: x.startswith("ctu"), get_dataset_names()))
 
 ps: List[Process] = []
 for dataset_name in ctu_datasets:
-    print(f"Processing {dataset_name}...")
-    p = Process(target=materialize_dataset, args=(dataset_name,))
-    ps.append(p)
-    p.start()
-    # p.join()
+    for task_name in get_task_names(dataset_name):
+        task: CTUBaseEntityTask = get_task(dataset_name, task_name)
+        if (
+            task.task_type
+            in [
+                TaskType.LINK_PREDICTION,
+                TaskType.MULTILABEL_CLASSIFICATION,
+            ]
+            or task.target_table is not None
+        ):
+            print(f"Skipping {dataset_name} - {task_name}...")
+
+        else:
+            print(f"Processing {dataset_name}...")
+            p = Process(target=materialize_task_data, args=(dataset_name, task_name))
+            ps.append(p)
+            p.start()
+            # p.join()
 
 for p in ps:
     p.join()
