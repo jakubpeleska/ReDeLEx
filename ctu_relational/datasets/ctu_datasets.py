@@ -443,6 +443,12 @@ class Employee(CTUDataset):
             db.table_dict["dept_emp"].df["to_date"], errors="coerce"
         )
 
+        for table in db.table_dict.values():
+            dtcols = table.df.select_dtypes(include=["datetime"])
+            dtcols[dtcols > pd.Timestamp("2100-01-01")] = pd.NaT
+            dtcols[dtcols < pd.Timestamp("1900-01-01")] = pd.NaT
+            table.df[dtcols.columns] = dtcols
+
         return db
 
 
