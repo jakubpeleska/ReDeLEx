@@ -309,7 +309,7 @@ def run_experiment(
 def get_task_config(dataset_name: str, task_name: str, cache_path: str) -> Dict:
     dataset: DBDataset = get_dataset(dataset_name)
     task: CTUBaseEntityTask = get_task(dataset_name, task_name)
-    db = dataset.get_db(upto_test_timestamp=False)
+    db = task.get_sanitized_db(upto_test_timestamp=False)
     convert_timedelta(db)
 
     stypes_cache_path = Path(f"{cache_path}/stypes.json")
@@ -376,7 +376,7 @@ def run_ray_tuner(
     scheduler = None
 
     task, data, col_stats_dict = get_task_config(
-        dataset_name, task_name, Path(f"{cache_dir}/{dataset_name}")
+        dataset_name, task_name, Path(f"{cache_dir}/{dataset_name}/{task_name}")
     )
 
     if ray_experiment_name is None:
