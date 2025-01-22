@@ -389,7 +389,7 @@ def run_ray_tuner(
     metric_mode = "max" if task_info["higher_is_better"] else "min"
 
     train_table: pd.DataFrame = task.get_table("train").df
-    use_gpu = len(train_table) > 50000
+    use_gpu = len(train_table) > 40000
 
     ray_callbacks = []
     if mlflow_uri is not None:
