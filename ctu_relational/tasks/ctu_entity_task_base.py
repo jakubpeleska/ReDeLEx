@@ -1,6 +1,8 @@
 from typing import Callable, Dict, List, Optional, Union, override
 from numpy.typing import NDArray
 
+from copy import deepcopy
+
 import numpy as np
 import pandas as pd
 
@@ -96,7 +98,9 @@ class CTUBaseEntityTask(BaseTask):
             Database: The database object.
         """
 
-        db = self.dataset.get_db(upto_test_timestamp=upto_test_timestamp)
+        _db = self.dataset.get_db(upto_test_timestamp=upto_test_timestamp)
+
+        db = deepcopy(_db)
 
         if self.target_table is not None:
             return db
