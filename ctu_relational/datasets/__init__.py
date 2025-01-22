@@ -10,7 +10,7 @@ from .ctu_datasets import *
 
 
 def get_dataset_info(dataset_name: str):
-    info_df = pd.read_csv(os.path.join(os.path.dirname(__file__), "ctu-dataset-info.csv"))
+    info_df = pd.read_csv(os.path.join(os.path.dirname(__file__), "dataset-info.csv"))
     return info_df[info_df["dataset"] == dataset_name].iloc[0]
 
 
