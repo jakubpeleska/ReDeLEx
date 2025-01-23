@@ -269,8 +269,6 @@ class Countries(CTUDataset):
     Data of forest area for 247 countries.
     """
 
-    target_table = "target"
-
     def __init__(self, cache_dir: Optional[str] = None):
         super().__init__(
             "Countries",
@@ -375,8 +373,6 @@ class Dunur(CTUDataset):
     a child of A is married to a child of B.
     """
 
-    target_table = "target"
-
     def __init__(self, cache_dir: Optional[str] = None):
         super().__init__(
             "Dunur",
@@ -391,8 +387,6 @@ class Elti(CTUDataset):
     Elti is a relatedness of two people due to marriage such that A is elti of B if\
     A's husband is a brother of B's husband.
     """
-
-    target_table = "target"
 
     def __init__(self, cache_dir: Optional[str] = None):
         super().__init__(
@@ -460,8 +454,6 @@ class ErgastF1(CTUDataset):
     in the qualifying rounds etc. of all Formula 1 races from 1950 to 2017.
     """
 
-    target_table = "target"
-
     def __init__(self, cache_dir: Optional[str] = None):
         super().__init__(
             "ErgastF1",
@@ -473,9 +465,6 @@ class ErgastF1(CTUDataset):
 
     @override
     def customize_db(self, db: Database) -> Database:
-        # save the target table and remove it from the database
-        db = super().customize_db(db)
-
         # Convert time column to datetime
         db.table_dict["pitStops"].df["time"] = (
             db.table_dict["pitStops"].df["time"].fillna(pd.Timedelta(hours=12))
@@ -507,6 +496,12 @@ class ErgastF1(CTUDataset):
             format="%M:%S.%f",
             errors="coerce",
         )
+
+        db.table_dict["target"].df["date"] = db.table_dict["target"].df.join(
+            db.table_dict["races"].df.set_index("__PK__")["date"], on="raceId", how="left"
+        )["date"]
+        db.table_dict["target"].time_col = "date"
+        db.table_dict["target"].df.drop(columns=["raceId", "driverId"], inplace=True)
 
         return db
 
@@ -863,8 +858,6 @@ class Mondial(CTUDataset):
     and 71 non-Christian countries.
     """
 
-    target_table = "target"
-
     def __init__(self, cache_dir: Optional[str] = None):
         super().__init__(
             "Mondial",
@@ -875,11 +868,12 @@ class Mondial(CTUDataset):
 
     @override
     def customize_db(self, db: Database) -> Database:
-        # Save target table and remove it from the database
-        db = super().customize_db(db)
 
-        db.table_dict["politics"].df["Independence"] = pd.to_datetime(
-            db.table_dict["politics"].df["Independence"], errors="coerce"
+        db.table_dict["organization"].df["Established"] = (
+            db.table_dict["organization"].df["Established"].dt.year
+        )
+        db.table_dict["politics"].df["Independence"] = (
+            db.table_dict["politics"].df["Independence"].dt.year
         )
 
         return db
@@ -998,8 +992,6 @@ class NCAA(CTUDataset):
     NCAA Basketball Tournament.
     """
 
-    target_table = "target"
-
     def __init__(self, cache_dir: Optional[str] = None):
         super().__init__(
             "NCAA",
@@ -1010,8 +1002,6 @@ class NCAA(CTUDataset):
 
     @override
     def customize_db(self, db: Database) -> Database:
-        # Save target table and remove it from the database
-        db = super().customize_db(db)
 
         for table in db.table_dict.values():
             for fk, ref in table.fkey_col_to_pkey_table.items():
@@ -1031,6 +1021,8 @@ class NCAA(CTUDataset):
 
                 table.time_col = "date"
                 break
+
+        db.table_dict["target"].df.drop(columns=["pred", "team_id2_wins"], inplace=True)
 
         return db
 
@@ -1141,8 +1133,6 @@ class SameGen(CTUDataset):
     """
     Small database of family relations.
     """
-
-    target_table = "target"
 
     def __init__(self, cache_dir: Optional[str] = None):
         super().__init__(
@@ -1673,7 +1663,7 @@ class Walmart(CTUDataset):
         super().__init__(
             "Walmart",
             cache_dir=cache_dir,
-            time_col_dict={"train": "date", "weather": "date"},
+            time_col_dict={"weather": "date"},
             keep_original_keys=True,
         )
 
@@ -1688,6 +1678,10 @@ class Walmart(CTUDataset):
             pd.Timedelta(hours=18)
         )
         db.table_dict["weather"].df = weather_df
+
+        table = db.table_dict.pop("train")
+        table.time_col = "date"
+        db.table_dict["train_table"] = table
 
         return db
 

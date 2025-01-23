@@ -34,8 +34,6 @@ class CTUDataset(DBDataset):
     val_timestamp = pd.Timestamp.max.date()
     test_timestamp = pd.Timestamp.max.date()
 
-    target_table: Optional[str] = None
-
     def __init__(
         self,
         database: CTUDatabaseName,
@@ -70,29 +68,3 @@ class CTUDataset(DBDataset):
             keep_original_keys=keep_original_keys,
             keep_original_compound_keys=keep_original_compound_keys,
         )
-
-    @override
-    def customize_db(self, db: Database) -> Database:
-
-        if self.target_table is not None:
-            # Save the target table and remove it from the database.
-            if self.cache_dir is not None:
-                db.reindex_pkeys_and_fkeys()
-                db.table_dict[self.target_table].save(
-                    f"{self.cache_dir}/tasks/__target__.parquet"
-                )
-            db.table_dict.pop(self.target_table)
-
-        return db
-
-    def load_target_table(self) -> Table:
-        """Load the target table."""
-        if self.target_table is None:
-            raise ValueError("Dataset does not have a target table.")
-
-        if self.cache_dir is not None and os.path.exists(
-            f"{self.cache_dir}/tasks/__target__.parquet"
-        ):
-            return Table.load(f"{self.cache_dir}/tasks/__target__.parquet")
-
-        raise ValueError("Target table not found in cache.")
