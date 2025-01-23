@@ -119,8 +119,8 @@ class CORAOriginalTask(CTUEntityTask):
 
 
 class CountriesOriginalTask(CTUEntityTask):
+    entity_table = "target"
     target_col = "2012"
-    target_table = "target"
     task_type = TaskType.REGRESSION
 
 
@@ -165,14 +165,14 @@ class DiabetesOriginalTask(CTUEntityTask):
 
 
 class DunurOriginalTask(CTULinkTask):
+    entity_table = "target"
     target_col = "is_dunur"
-    target_table = "target"
     task_type = TaskType.LINK_PREDICTION
 
 
 class EltiOriginalTask(CTULinkTask):
+    entity_table = "target"
     target_col = "is_elti"
-    target_table = "target"
     task_type = TaskType.LINK_PREDICTION
 
 
@@ -191,14 +191,14 @@ class EmployeeTemporalTask(CTUEntityTaskTemporal):
 
 
 class ErgastF1OriginalTask(CTUEntityTask):
+    entity_table = "target"
     target_col = "win"
-    target_table = "target"
     task_type = TaskType.BINARY_CLASSIFICATION
 
 
 class ErgastF1TemporalTask(CTUEntityTaskTemporal):
+    entity_table = "target"
     target_col = "win"
-    target_table = "target"
     task_type = TaskType.BINARY_CLASSIFICATION
     val_timestamp = pd.Timestamp("2014-01-01")
     test_timestamp = pd.Timestamp("2016-01-01")
@@ -369,9 +369,8 @@ class MeshOriginalTask(CTUEntityTask):
 
 
 class MondialOriginalTask(CTUEntityTask):
-    entity_table = "country"
+    entity_table = "target"
     target_col = "Target"
-    target_table = "target"
     task_type = TaskType.BINARY_CLASSIFICATION
 
 
@@ -405,14 +404,14 @@ class MutagenesisOriginalTask(CTUEntityTask):
 
 
 class NCAAOriginalTask(CTUEntityTask):
+    entity_table = "target"
     target_col = "team_id1_wins"
-    target_table = "target"
     task_type = TaskType.BINARY_CLASSIFICATION
 
 
 class NCAATemporalTask(CTUEntityTaskTemporal):
+    entity_table = "target"
     target_col = "team_id1_wins"
-    target_table = "target"
     task_type = TaskType.BINARY_CLASSIFICATION
     val_timestamp = pd.Timestamp("2010-11-01")
     test_timestamp = pd.Timestamp("2012-11-05")
@@ -479,9 +478,9 @@ class SalesOriginalTask(CTUEntityTask):
 
 
 class SameGenOriginalTask(CTULinkTask):
+    entity_table = "target"
     target_col = "target"
-    target_table = "target"
-    task_type = TaskType.LINK_PREDICTION
+    task_type = TaskType.BINARY_CLASSIFICATION
 
 
 class SAPOriginalTask(CTUEntityTask):
@@ -665,13 +664,13 @@ class VOCTemporalTask(CTUEntityTaskTemporal):
 
 
 class WalmartOriginalTask(CTUEntityTask):
-    entity_table = "train"
+    entity_table = "train_table"
     target_col = "units"
     task_type = TaskType.REGRESSION
 
 
 class WalmartTemporalTask(CTUEntityTaskTemporal):
-    entity_table = "train"
+    entity_table = "train_table"
     target_col = "units"
     task_type = TaskType.REGRESSION
     val_timestamp = pd.Timestamp("2014-01-01")

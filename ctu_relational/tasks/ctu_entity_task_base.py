@@ -31,9 +31,6 @@ class CTUBaseEntityTask(BaseTask):
     timedelta = pd.Timedelta(-1)
     dataset: CTUDataset
 
-    # To be set by subclass is necessary.
-    target_table: Optional[str] = None
-
     entity_col = "__PK__"
     entity_table: Optional[str] = None
     target_col: str
@@ -102,9 +99,6 @@ class CTUBaseEntityTask(BaseTask):
 
         db = deepcopy(_db)
 
-        if self.target_table is not None:
-            return db
-
         db.table_dict[self.entity_table].df.drop(columns=[self.target_col], inplace=True)
 
         return db
@@ -136,17 +130,14 @@ class CTUBaseEntityTask(BaseTask):
 
     def _get_full_table(self, db: Database) -> Table:
 
-        if self.target_table is not None:
-            table = self.dataset.load_target_table()
-        else:
-            time_col = db.table_dict[self.entity_table].time_col
+        time_col = db.table_dict[self.entity_table].time_col
 
-            table = Table(
-                df=db.table_dict[self.entity_table].df.copy(),
-                fkey_col_to_pkey_table={self.entity_col: self.entity_table},
-                pkey_col=None,
-                time_col=time_col,
-            )
+        table = Table(
+            df=db.table_dict[self.entity_table].df.copy(),
+            fkey_col_to_pkey_table={self.entity_col: self.entity_table},
+            pkey_col=None,
+            time_col=time_col,
+        )
 
         table.df = table.df[table.df[self.target_col].notna()]
 
