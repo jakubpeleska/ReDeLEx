@@ -450,14 +450,10 @@ if __name__ == "__main__":
     task_name = args.task
 
     task: CTUBaseEntityTask = get_task(dataset_name, task_name)
-    if (
-        task.task_type
-        in [
-            TaskType.LINK_PREDICTION,
-            TaskType.MULTILABEL_CLASSIFICATION,
-        ]
-        or task.target_table is not None
-    ):
+    if task.task_type in [
+        TaskType.LINK_PREDICTION,
+        TaskType.MULTILABEL_CLASSIFICATION,
+    ]:
         print(f"Skipping {dataset_name} - {task_name}...")
 
     else:
