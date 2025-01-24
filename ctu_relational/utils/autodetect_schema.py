@@ -6,6 +6,8 @@ import warnings
 from sqlalchemy.dialects.mysql import types as mysql_types
 from sqlalchemy import types as sql_types
 
+import numpy as np
+
 import pandas as pd
 from pandas.api import types as pd_types
 from dateutil.parser import ParserError
@@ -13,6 +15,8 @@ from dateutil.parser import ParserError
 import inflect
 
 from torch_frame import stype
+from torch_frame.utils import infer_series_stype
+
 from relbench.base import BaseTask, Database, Dataset, Table, TaskType
 
 from ctu_relational.datasets import DBDataset
@@ -97,6 +101,12 @@ def guess_column_stype(
     if sql_type is None:
         sql_type = sql_types.NullType()
     sql_generic_type = sql_type.as_generic(allow_nulltype=True)
+
+    # Handle list data with torch frame infer
+    if isinstance(ser.iloc[0], (list, np.ndarray)):
+        if isinstance(ser.iloc[0], np.ndarray):
+            ser = ser.apply(np.ndarray.tolist)
+        return infer_series_stype(ser)
 
     predeter_type = check_predetermined_types(ser, sql_type)
     if predeter_type is not None:
