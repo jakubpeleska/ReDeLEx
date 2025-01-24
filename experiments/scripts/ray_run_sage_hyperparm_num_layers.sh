@@ -135,9 +135,11 @@ declare -a dataset_pairs=(
 )
 
 
-run_timeout=$(expr 60 \* 60 \* 24) # 24 hours
+run_timeout=$(expr 60 \* 60 \* 24 \* 3) # 3 days
 
-EXPERIMENT_ID="sage_hyperparams_num_layers_$(date '+%d-%m-%Y_%H:%M:%S')"
+EXPERIMENT_NAME="sage_hyperparam_num_layers"
+
+EXPERIMENT_ID="${EXPERIMENT_NAME}_$(date '+%d-%m-%Y_%H:%M:%S')"
 
 NUM_GPUS=2
 NUM_CPUS=40
@@ -164,7 +166,7 @@ ray_dashboard_address=$ip:$port_dashboard
 
 ray start --head --block --node-ip-address=$ip --port=$port_head \
  --dashboard-host=$ip --dashboard-port=$port_dashboard \
- --num-cpus=${NUM_CPUS} --num-gpus=${NUM_GPUS} --memory=250000000000 --object-store-memory=8000000000 \
+ --num-cpus=${NUM_CPUS} --num-gpus=${NUM_GPUS} --memory=250000000000 --object-store-memory=50000000000 \
  --log-style=record &> "${experiment_dir}/ray_head.log" &
 ray_head=$!
 
@@ -183,17 +185,16 @@ for pair in "${dataset_pairs[@]}"; do
     dataset=${strarr[0]}
     task=${strarr[1]}
 
-    for num_layers in "${NUM_LAYERS[@]}"; do
+    log_dir=${experiment_dir}/${dataset}_${task}
+    mkdir -p $log_dir
 
-        log_dir=${experiment_dir}/${dataset}_${task}/num_layers_${num_layers}
-        mkdir -p $log_dir
-
-        python -u experiments/sage_hyperparams.py --ray_address=${ray_address} \
-        --ray_storage=${log_dir} --run_name=${EXPERIMENT_ID}_${dataset}_${task} --dataset=${dataset} \
-        --mlflow_uri=${MLFLOW_TRACKING_URI} --aim_repo=logs/.aim \
-        --task=${task} --num_samples=${NUM_SAMPLES} --num_layers=${num_layers} &> "${log_dir}/run.log" &
-        dataset_runs+=($!)
-        sleep 5
+    python -u experiments/sage_hyperparams_num_layers.py --ray_address=${ray_address} \
+    --ray_storage=${log_dir} --run_name=${EXPERIMENT_ID}_${dataset}_${task} --dataset=${dataset} \
+    --mlflow_uri=${MLFLOW_TRACKING_URI} --mlflow_experiment=pelesjak_${EXPERIMENT_NAME} \
+    --aim_repo=logs/.aim --task=${task} --num_samples=${NUM_SAMPLES} \
+    --num_layers "${NUM_LAYERS[@]}" &> "${log_dir}/run.log" &
+    dataset_runs+=($!)
+    sleep 5
 done
 
 
