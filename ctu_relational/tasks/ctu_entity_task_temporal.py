@@ -1,4 +1,4 @@
-from typing import Callable, Dict, List, Optional, override
+from typing import Callable, Dict, List, Optional
 from numpy.typing import NDArray
 
 import pandas as pd
@@ -16,7 +16,6 @@ class CTUEntityTaskTemporal(CTUBaseEntityTask):
     val_timestamp: pd.Timestamp
     test_timestamp: pd.Timestamp
 
-    @override
     def make_split(self, split: str, table: Table) -> Table:
         if table.time_col is None:
             raise ValueError("The table must have a time column.")
@@ -39,7 +38,6 @@ class CTUEntityTaskTemporal(CTUBaseEntityTask):
 
         return table
 
-    @override
     def evaluate(
         self,
         pred: NDArray,

@@ -1,5 +1,5 @@
 import os
-from typing import Dict, Literal, Optional, override
+from typing import Dict, Literal, Optional
 
 import pandas as pd
 

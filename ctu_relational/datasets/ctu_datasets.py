@@ -1,4 +1,4 @@
-from typing import Optional, override
+from typing import Optional
 
 import numpy as np
 import pandas as pd
@@ -76,7 +76,6 @@ class AdventureWorks(CTUDataset):
             keep_original_compound_keys=True,
         )
 
-    @override
     def customize_db(self, db: Database) -> Database:
         db.table_dict.pop("AWBuildVersion", None)
         db.table_dict.pop("DatabaseLog", None)
@@ -137,7 +136,6 @@ class BasketballMen(CTUDataset):
             keep_original_keys=False,
         )
 
-    @override
     def customize_db(self, db: Database) -> Database:
         db.table_dict["players"].df["birthDate"] = pd.to_datetime(
             db.table_dict["players"].df["birthDate"], errors="coerce"
@@ -309,7 +307,6 @@ class Credit(CTUDataset):
             keep_original_keys=False,
         )
 
-    @override
     def customize_db(self, db: Database) -> Database:
         # TODO: Keep images and use them as features
         db.table_dict["member"].df.drop(columns=["photograph"], inplace=True)
@@ -413,7 +410,6 @@ class Employee(CTUDataset):
             keep_original_keys=True,
         )
 
-    @override
     def customize_db(self, db: Database) -> Database:
         # Drop redundant key columns
         db.table_dict["titles"].df.drop(columns=["emp_no"], inplace=True)
@@ -463,7 +459,6 @@ class ErgastF1(CTUDataset):
             keep_original_compound_keys=True,
         )
 
-    @override
     def customize_db(self, db: Database) -> Database:
         # Convert time column to datetime
         db.table_dict["pitStops"].df["time"] = (
@@ -528,7 +523,6 @@ class Expenditures(CTUDataset):
             keep_original_keys=False,
         )
 
-    @override
     def customize_db(self, db: Database) -> Database:
         # Remove remove split column
         db.table_dict["EXPENDITURES"].df.drop(columns=["IS_TRAINING"], inplace=True)
@@ -574,7 +568,6 @@ class FNHK(CTUDataset):
             keep_original_keys=True,
         )
 
-    @override
     def customize_db(self, db: Database) -> Database:
         # Drop redundant key columns
         db.table_dict["pripady"].df.drop(columns=["Identifikace_pripadu"], inplace=True)
@@ -613,7 +606,6 @@ class Geneea(CTUDataset):
             keep_original_keys=False,
         )
 
-    @override
     def customize_db(self, db: Database) -> Database:
         # Combine date and time columns
         db.table_dict["hl_hlasovani"].df["cas"] = (
@@ -656,7 +648,6 @@ class GOSales(CTUDataset):
             keep_original_keys=True,
         )
 
-    @override
     def customize_db(self, db: Database) -> Database:
         fk_col, fk_name = self._reindex_fk(
             {name: t.df for name, t in db.table_dict.items()},
@@ -738,7 +729,6 @@ class Hockey(CTUDataset):
             keep_original_keys=False,
         )
 
-    @override
     def customize_db(self, db: Database) -> Database:
         db.table_dict["CombinedShutouts"].df = db.table_dict["CombinedShutouts"].df.rename(
             columns={"date": "day"}
@@ -777,7 +767,6 @@ class IMDb(CTUDataset):
             keep_original_keys=False,
         )
 
-    @override
     def customize_db(self, db: Database) -> Database:
         db.table_dict["movies"].df["year"] = pd.to_datetime(
             db.table_dict["movies"].df["year"], format="%Y"
@@ -802,7 +791,6 @@ class Lahman(CTUDataset):
             keep_original_keys=False,
         )
 
-    @override
     def customize_db(self, db: Database) -> Database:
         for table in db.table_dict.values():
             if "yearID" in table.df.columns:
@@ -829,7 +817,6 @@ class LegalActs(CTUDataset):
             keep_original_keys=False,
         )
 
-    @override
     def customize_db(self, db: Database) -> Database:
         # Remove scrape fix table
         db.table_dict.pop("scrapefix")
@@ -866,7 +853,6 @@ class Mondial(CTUDataset):
             keep_original_keys=False,
         )
 
-    @override
     def customize_db(self, db: Database) -> Database:
 
         db.table_dict["organization"].df["Established"] = (
@@ -1000,7 +986,6 @@ class NCAA(CTUDataset):
             keep_original_keys=False,
         )
 
-    @override
     def customize_db(self, db: Database) -> Database:
 
         for table in db.table_dict.values():
@@ -1085,7 +1070,6 @@ class Restbase(CTUDataset):
             keep_original_keys=True,
         )
 
-    @override
     def customize_db(self, db: Database) -> Database:
         db.table_dict["location"].df.drop(columns=["id_restaurant"], inplace=True)
         db.table_dict["generalinfo"].df.drop(columns=["id_restaurant"], inplace=True)
@@ -1106,7 +1090,6 @@ class Sakila(CTUDataset):
             keep_original_keys=False,
         )
 
-    @override
     def customize_db(self, db: Database) -> Database:
         fk_name = "FK_film_film_id"
         db.table_dict["film_text"].df[fk_name] = db.table_dict["film_text"].df["__PK__"]
@@ -1156,7 +1139,6 @@ class SAP(CTUDataset):
             keep_original_keys=True,
         )
 
-    @override
     def customize_db(self, db: Database) -> Database:
         mailings_1_2 = db.table_dict["Mailings1_2"].df
         mailings_1_2.drop(columns=["KxIndex", "REFID"], inplace=True)
@@ -1209,7 +1191,6 @@ class Satellite(CTUDataset):
             keep_original_keys=True,
         )
 
-    @override
     def customize_db(self, db: Database) -> Database:
         for table in db.table_dict.values():
             rm_fks = []
@@ -1250,7 +1231,6 @@ class Seznam(CTUDataset):
             keep_original_keys=False,
         )
 
-    @override
     def customize_db(self, db: Database) -> Database:
         db.table_dict["probehnuto_mimo_penezenku"].df.rename(
             columns={"Month/Year": "Month_Year"}, inplace=True
@@ -1344,7 +1324,6 @@ class Thrombosis(CTUDataset):
             keep_original_keys=False,
         )
 
-    @override
     def customize_db(self, db: Database) -> Database:
         db.table_dict["Examination"].df = db.table_dict["Examination"].df[
             db.table_dict["Examination"].df["Examination Date"].notna()
@@ -1400,7 +1379,6 @@ class TPCD(CTUDataset):
             keep_original_keys=True,
         )
 
-    @override
     def customize_db(self, db: Database) -> Database:
         # Add missing foreign keys
         fk_col, fk_name = self._reindex_fk(
@@ -1455,7 +1433,6 @@ class TPCDS(CTUDataset):
             keep_original_keys=False,
         )
 
-    @override
     def customize_db(self, db: Database) -> Database:
         # Replace date and time tables with simple datetime columns
         time_df = db.table_dict["time_dim"].df
@@ -1588,7 +1565,6 @@ class VisualGenome(CTUDataset):
             keep_original_keys=False,
         )
 
-    @override
     def customize_db(self, db: Database) -> Database:
         for table in db.table_dict.values():
             rm_fks = []
@@ -1631,7 +1607,6 @@ class VOC(CTUDataset):
             keep_original_keys=False,
         )
 
-    @override
     def customize_db(self, db: Database) -> Database:
 
         dtcols = db.table_dict["voyages"].df.select_dtypes(include="datetime")
@@ -1667,7 +1642,6 @@ class Walmart(CTUDataset):
             keep_original_keys=True,
         )
 
-    @override
     def customize_db(self, db: Database) -> Database:
         # Convert sunrise and sunset to datetime
         weather_df = db.table_dict["weather"].df

@@ -1,4 +1,4 @@
-from typing import Dict, List, Optional, override
+from typing import Dict, List, Optional
 
 import numpy as np
 import pandas as pd
@@ -159,7 +159,6 @@ class DBDataset(Dataset):
         """
         raise NotImplementedError
 
-    @override
     def make_db(self) -> Database:
         """
         Create a Database instance from the remote database.
