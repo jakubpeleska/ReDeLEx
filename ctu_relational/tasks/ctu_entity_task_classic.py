@@ -1,4 +1,4 @@
-from typing import Callable, Dict, List, Optional, override
+from typing import Callable, Dict, List, Optional
 from numpy.typing import NDArray
 
 import numpy as np
@@ -12,7 +12,6 @@ __all__ = ["CTUEntityTask"]
 
 class CTUEntityTask(CTUBaseEntityTask):
 
-    @override
     def make_split(self, split: str, table: Table) -> Table:
         random_state = np.random.RandomState(seed=42)
         train_df = table.df.sample(frac=0.8, random_state=random_state)
@@ -31,7 +30,6 @@ class CTUEntityTask(CTUBaseEntityTask):
 
         return table
 
-    @override
     def evaluate(
         self,
         pred: NDArray,

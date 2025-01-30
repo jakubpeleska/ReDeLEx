@@ -1,4 +1,4 @@
-from typing import Callable, Dict, List, Optional, Union, override
+from typing import Callable, Dict, List, Optional, Union
 from numpy.typing import NDArray
 
 from copy import deepcopy
@@ -103,7 +103,6 @@ class CTUBaseEntityTask(BaseTask):
 
         return db
 
-    @override
     def _get_table(self, split: str) -> Table:
         r"""Helper function to get a table for a split."""
 
