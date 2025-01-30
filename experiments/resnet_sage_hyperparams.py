@@ -371,6 +371,8 @@ def run_ray_tuner(
     mlflow_experiment: str = "pelesjak_resnet_sage_hyperparams",
     aim_repo: Optional[str] = None,
     num_samples: Optional[int] = 1,
+    num_gpus: int = 0,
+    num_cpus: int = 1,
     random_seed: int = 42,
     cache_dir: str = ".cache",
 ):
@@ -379,7 +381,13 @@ def run_ray_tuner(
     np.random.seed(random_seed)
     torch.manual_seed(random_seed)
 
-    ray.init(address=ray_address, ignore_reinit_error=True, log_to_driver=False)
+    ray.init(
+        address=ray_address,
+        ignore_reinit_error=True,
+        log_to_driver=False,
+        num_cpus=num_cpus if ray_address == "local" else None,
+        num_gpus=num_gpus if ray_address == "local" else None,
+    )
 
     config = {
         "dataset_name": dataset_name,
@@ -440,7 +448,7 @@ def run_ray_tuner(
     tuner = tune.Tuner(
         tune.with_resources(
             tune.with_parameters(run_experiment, cache_path=cache_path),
-            resources={"CPU": 1, "GPU": use_gpu, "memory": memory_limit},
+            resources={"CPU": 1, "GPU": use_gpu},
         ),
         run_config=ray_train.RunConfig(
             callbacks=ray_callbacks,
@@ -463,7 +471,8 @@ def run_ray_tuner(
         best_result = results.get_best_result(tune_metric, metric_mode)
 
         print("Best trial config: {}".format(best_result.config))
-        print(f"Best trial test {metric}: {best_result.metrics[f"test_{metric}"]}")
+        test_metric = f"test_{metric}"
+        print(f"Best trial test {metric}: {best_result.metrics[test_metric]}")
     except Exception as e:
         print(f"Error: {e}")
 
@@ -482,6 +491,8 @@ if __name__ == "__main__":
     parser.add_argument("--aim_repo", type=str, default=None)
     parser.add_argument("--seed", type=int, default=42)
     parser.add_argument("--num_samples", type=int, default=1)
+    parser.add_argument("--num_gpus", type=int, default=None)
+    parser.add_argument("--num_cpus", type=int, default=1)
 
     args = parser.parse_args()
     print(args)
@@ -513,4 +524,6 @@ if __name__ == "__main__":
             aim_repo=args.aim_repo,
             random_seed=args.seed,
             num_samples=args.num_samples,
+            num_gpus=args.num_gpus,
+            num_cpus=args.num_cpus,
         )
