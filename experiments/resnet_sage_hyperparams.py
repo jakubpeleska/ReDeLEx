@@ -1,7 +1,8 @@
-from typing import Dict, List, Optional
-
+from typing import Any, Dict, List, Optional
 
 import json, math, os, random, sys
+
+os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
 
 from argparse import ArgumentParser
 
@@ -16,7 +17,6 @@ from ray.tune.schedulers import ASHAScheduler
 from ray.tune.logger.aim import AimLoggerCallback
 from ray.tune.logger.mlflow import MLflowLoggerCallback
 
-
 import numpy as np
 import pandas as pd
 
@@ -30,10 +30,11 @@ from torch_frame import stype
 from torch_frame.data import StatType
 from torch_frame.config.text_embedder import TextEmbedderConfig
 
+from torch_geometric.data import HeteroData
 from torch_geometric.loader import NeighborLoader
 
 
-from relbench.base import EntityTask, TaskType
+from relbench.base import BaseTask, EntityTask, TaskType
 from relbench.datasets import get_dataset
 from relbench.modeling.graph import get_node_train_table_input, make_pkey_fkey_graph
 from relbench.tasks import get_task
@@ -176,10 +177,17 @@ def get_data(dataset_name: str, task_name: str, cache_path: str):
     return task, data, col_stats_dict
 
 
-def run_experiment(config: tune.TuneConfig, cache_path: str):
+def run_experiment(
+    config: tune.TuneConfig,
+    data: HeteroData,
+    task: BaseTask,
+    col_stats_dict: Dict[str, Dict[str, Dict[StatType, Any]]],
+):
     context = ray_train.get_context()
     experiment_dir = context.get_trial_dir()
 
+    dataset_name: int = config["dataset_name"]
+    task_name: int = config["task_name"]
     random_seed: int = config["seed"]
     lr: float = config["lr"]
     min_epochs: int = config["min_epochs"]
@@ -201,12 +209,10 @@ def run_experiment(config: tune.TuneConfig, cache_path: str):
 
     resources = context.get_trial_resources().required_resources
     print(f"Resources: {resources}")
-    if "GPU" in resources and resources["GPU"] > 0:
-        device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-        if torch.cuda.is_available():
-            torch.set_num_threads(1)
+    if torch.cuda.is_available():
+        device = torch.device("cuda")
+        torch.set_num_threads(1)
     print("Device:", device)
-    task, data, col_stats_dict = get_data(dataset_name, task_name, cache_path)
 
     loss_fn, out_channels = get_loss(dataset_name, task_name)
     tune_metric, higher_is_better = get_tune_metric(dataset_name, task_name)
@@ -381,12 +387,26 @@ def run_ray_tuner(
     np.random.seed(random_seed)
     torch.manual_seed(random_seed)
 
+    if num_gpus > 0 and ray_address == "local":
+        from pynvml import nvmlInit, nvmlDeviceGetHandleByIndex, nvmlDeviceGetMemoryInfo
+
+        nvmlInit()
+        free_memory = [
+            int(nvmlDeviceGetMemoryInfo(nvmlDeviceGetHandleByIndex(i)).free)
+            for i in range(torch.cuda.device_count())
+        ]
+        device_idx = np.argsort(free_memory)[::-1]
+        os.environ["CUDA_VISIBLE_DEVICES"] = ",".join(device_idx[:num_gpus].astype(str))
+        print("Free memory:", free_memory, os.environ["CUDA_VISIBLE_DEVICES"])
+
     ray.init(
         address=ray_address,
         ignore_reinit_error=True,
         log_to_driver=False,
+        include_dashboard=False,
         num_cpus=num_cpus if ray_address == "local" else None,
         num_gpus=num_gpus if ray_address == "local" else None,
+        # _temp_dir=os.path.join(ray_storage_path, ".ray"),
     )
 
     config = {
@@ -394,8 +414,8 @@ def run_ray_tuner(
         "task_name": task_name,
         "seed": tune.randint(0, 1000),
         # training config
-        "min_epochs": 3,
-        "max_steps_per_epoch": 1000,
+        "min_epochs": 10,
+        "max_steps_per_epoch": 2000,
         "min_total_steps": 1000,
         "lr": 0.001,  # tune.choice([0.001, 0.005]),
         "batch_size": 512,  # tune.choice([128, 256, 512]),
@@ -419,18 +439,21 @@ def run_ray_tuner(
 
     cache_path = get_cache_path(dataset_name, task_name, cache_dir)
 
-    def getsize(path: str) -> int:
-        size = 0
-        for p, _, fs in os.walk(path):
-            for f in fs:
-                size += os.path.getsize(os.path.join(p, f))
-        return size
+    task, data, col_stats_dict = get_data(dataset_name, task_name, cache_path)
 
-    dataset_size = getsize(cache_path)
+    resources = ray.available_resources()
 
-    min_memory = 2e9
-    memory_limit = int(max(math.ceil((dataset_size * 2) / 1e9) * 1e9, min_memory))
-    use_gpu = min(memory_limit / 40e9, 0.5) if memory_limit > min_memory else 0
+    gpus_used = 0
+    cpus_used = 1
+    if "GPU" in resources:
+        batch_model_size = 4e9
+        gpu_memory = max(
+            [
+                torch.cuda.get_device_properties(i).total_memory
+                for i in range(torch.cuda.device_count())
+            ]
+        )
+        gpus_used = batch_model_size / gpu_memory
 
     ray_callbacks = []
     if mlflow_uri is not None:
@@ -447,21 +470,25 @@ def run_ray_tuner(
 
     tuner = tune.Tuner(
         tune.with_resources(
-            tune.with_parameters(run_experiment, cache_path=cache_path),
-            resources={"CPU": 1, "GPU": use_gpu},
+            tune.with_parameters(
+                run_experiment, data=data, task=task, col_stats_dict=col_stats_dict
+            ),
+            resources={"CPU": cpus_used, "GPU": gpus_used},
         ),
         run_config=ray_train.RunConfig(
             callbacks=ray_callbacks,
             name=ray_experiment_name,
             storage_path=ray_storage_path,
             stop={"time_total_s": 3600 * 4},
+            log_to_file=True,
         ),
         tune_config=tune.TuneConfig(
             metric=tune_metric,
             mode=metric_mode,
             scheduler=scheduler,
             num_samples=num_samples,
-            trial_name_creator=lambda trial: f"{trial.trial_id}",
+            trial_name_creator=lambda trial: f"{dataset_name}_{task_name}_{trial.trial_id}",
+            trial_dirname_creator=lambda trial: trial.trial_id,
         ),
         param_space=config,
     )
@@ -486,7 +513,7 @@ if __name__ == "__main__":
     parser.add_argument("--run_name", type=str, default=None)
     parser.add_argument("--mlflow_uri", type=str, default=None)
     parser.add_argument(
-        "--mlflow_experiment", type=str, default="pelesjak_sage_hyperparam_num_layers"
+        "--mlflow_experiment", type=str, default="pelesjak_resnet_sage_hyperparams"
     )
     parser.add_argument("--aim_repo", type=str, default=None)
     parser.add_argument("--seed", type=int, default=42)
