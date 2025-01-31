@@ -3,6 +3,7 @@ from typing import Any, Dict, List, Optional
 import json, math, os, random, sys
 
 os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
+os.environ["RAY_memory_monitor_refresh_ms"] = "0"
 
 from argparse import ArgumentParser
 
@@ -404,9 +405,10 @@ def run_ray_tuner(
         ignore_reinit_error=True,
         log_to_driver=False,
         include_dashboard=False,
+        object_store_memory=80e9,
         num_cpus=num_cpus if ray_address == "local" else None,
         num_gpus=num_gpus if ray_address == "local" else None,
-        # _temp_dir=os.path.join(ray_storage_path, ".ray"),
+        _temp_dir=os.path.join(os.path.abspath("."), ".tmp"),
     )
 
     config = {
@@ -518,7 +520,7 @@ if __name__ == "__main__":
     parser.add_argument("--aim_repo", type=str, default=None)
     parser.add_argument("--seed", type=int, default=42)
     parser.add_argument("--num_samples", type=int, default=1)
-    parser.add_argument("--num_gpus", type=int, default=None)
+    parser.add_argument("--num_gpus", type=int, default=0)
     parser.add_argument("--num_cpus", type=int, default=1)
 
     args = parser.parse_args()
