@@ -1,14 +1,19 @@
-from typing import Any, Dict, List
+from typing import Any, Dict, List, Literal
 
 import torch
 from torch import Tensor
 from torch.nn import Embedding, ModuleDict
+
 from torch_frame.data.stats import StatType
+from torch_frame.nn import ResNet
+
 from torch_geometric.data import HeteroData
 from torch_geometric.nn import MLP
 from torch_geometric.typing import NodeType
 
 from relbench.modeling.nn import HeteroEncoder, HeteroGraphSAGE, HeteroTemporalEncoder
+
+from experiments.nn.encoders import LinearRowEncoder
 
 
 class SAGEModel(torch.nn.Module):
@@ -19,6 +24,7 @@ class SAGEModel(torch.nn.Module):
         col_stats_dict: Dict[str, Dict[str, Dict[StatType, Any]]],
         num_layers: int,
         channels: int,
+        row_encoder: Literal["resnet", "linear"],
         out_channels: int,
         aggr: str,
         norm: str,
@@ -29,6 +35,19 @@ class SAGEModel(torch.nn.Module):
     ):
         super().__init__()
 
+        def get_encoder(row_encoder: str):
+            if row_encoder == "resnet":
+                return ResNet, {
+                    "channels": 128,
+                    "num_layers": 4,
+                }
+            elif row_encoder == "linear":
+                return LinearRowEncoder, {"channels": 128}
+            else:
+                raise ValueError(f"Unknown row_encoder: {row_encoder}")
+
+        encoder_cls, encoder_kwargs = get_encoder(row_encoder)
+
         self.encoder = HeteroEncoder(
             channels=channels,
             node_to_col_names_dict={
@@ -36,6 +55,8 @@ class SAGEModel(torch.nn.Module):
                 for node_type in data.node_types
             },
             node_to_col_stats=col_stats_dict,
+            torch_frame_model_cls=encoder_cls,
+            torch_frame_model_kwargs=encoder_kwargs,
         )
         self.temporal_encoder = HeteroTemporalEncoder(
             node_types=[

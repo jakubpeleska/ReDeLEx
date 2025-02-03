@@ -186,10 +186,10 @@ for pair in "${dataset_pairs[@]}"; do
     log_dir=${experiment_dir}/${dataset}_${task}
     mkdir -p $log_dir
 
-    python -u experiments/resnet_sage_hyperparams.py --ray_address=${ray_address} \
+    python -u experiments/sage_hyperparams.py --ray_address=${ray_address} \
     --ray_storage=${log_dir} --run_name=${EXPERIMENT_ID}_${dataset}_${task} --dataset=${dataset} \
     --mlflow_uri=${MLFLOW_TRACKING_URI} --mlflow_experiment=pelesjak_${EXPERIMENT_NAME} \
-    --aim_repo=logs/.aim --task=${task} --num_samples=${NUM_SAMPLES} &> "${log_dir}/run.log" &
+    --aim_repo=logs/.aim --task=${task} --num_samples=${NUM_SAMPLES} --row_encoder="resnet" &> "${log_dir}/run.log" &
     dataset_runs+=($!)
     sleep 5
 done

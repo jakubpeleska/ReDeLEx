@@ -195,6 +195,7 @@ def run_experiment(
     batch_size: int = config["batch_size"]
     channels: int = config["channels"]
     num_layers: int = config["num_layers"]
+    row_encoder: str = config["row_encoder"]
     num_neighbors: int = config["num_neighbors"]
     max_steps_per_epoch: int = config["max_steps_per_epoch"]
     min_total_steps: int = config["min_total_steps"]
@@ -246,6 +247,7 @@ def run_experiment(
         col_stats_dict=col_stats_dict,
         num_layers=num_layers,
         channels=channels,
+        row_encoder=row_encoder,
         out_channels=out_channels,
         aggr=aggr_fn,
         norm="batch_norm",
@@ -371,11 +373,12 @@ def run_experiment(
 def run_ray_tuner(
     dataset_name: str,
     task_name: str,
+    row_encoder: str,
     ray_address: Optional[str] = None,
     ray_storage_path: Optional[str] = None,
     ray_experiment_name: Optional[str] = None,
     mlflow_uri: Optional[str] = None,
-    mlflow_experiment: str = "pelesjak_resnet_sage_hyperparams",
+    mlflow_experiment: str = "pelesjak_test_experiment",
     aim_repo: Optional[str] = None,
     num_samples: Optional[int] = 1,
     num_gpus: int = 0,
@@ -405,10 +408,10 @@ def run_ray_tuner(
         ignore_reinit_error=True,
         log_to_driver=False,
         include_dashboard=False,
-        object_store_memory=80e9,
+        # object_store_memory=80e9,
         num_cpus=num_cpus if ray_address == "local" else None,
         num_gpus=num_gpus if ray_address == "local" else None,
-        _temp_dir=os.path.join(os.path.abspath("."), ".tmp"),
+        # _temp_dir=os.path.join(os.path.abspath("."), ".tmp"),
     )
 
     config = {
@@ -422,10 +425,19 @@ def run_ray_tuner(
         "lr": 0.001,  # tune.choice([0.001, 0.005]),
         "batch_size": 512,  # tune.choice([128, 256, 512]),
         # sampling config
-        "num_neighbors": tune.grid_search([16, 32, 64]),
+        "num_neighbors": tune.grid_search(
+            [
+                16,
+            ]
+        ),
         # model config
+        "row_encoder": row_encoder,  # tune.grid_search(["resnet", "linear"]),
         "channels": 64,  # tune.grid_search([16, 32, 64]),
-        "num_layers": tune.grid_search([1, 2, 3, 4]),
+        "num_layers": tune.grid_search(
+            [
+                1,
+            ]
+        ),
         "aggr": "sum",  # tune.grid_search(["max", "sum"]),
     }
     # scheduler = ASHAScheduler(max_t=max_num_epochs, grace_period=1, reduction_factor=2)
@@ -500,8 +512,7 @@ def run_ray_tuner(
         best_result = results.get_best_result(tune_metric, metric_mode)
 
         print("Best trial config: {}".format(best_result.config))
-        test_metric = f"test_{metric}"
-        print(f"Best trial test {metric}: {best_result.metrics[test_metric]}")
+        print("Best trial metrics: {}".format(best_result.metrics))
     except Exception as e:
         print(f"Error: {e}")
 
@@ -510,13 +521,12 @@ if __name__ == "__main__":
     parser = ArgumentParser()
     parser.add_argument("--dataset", type=str)
     parser.add_argument("--task", type=str)
-    parser.add_argument("--ray_address", type=str, default="auto")
+    parser.add_argument("--row_encoder", choices=["resnet", "linear"], default=None)
+    parser.add_argument("--ray_address", type=str, default="local")
     parser.add_argument("--ray_storage", type=str, default=None)
     parser.add_argument("--run_name", type=str, default=None)
     parser.add_argument("--mlflow_uri", type=str, default=None)
-    parser.add_argument(
-        "--mlflow_experiment", type=str, default="pelesjak_resnet_sage_hyperparams"
-    )
+    parser.add_argument("--mlflow_experiment", type=str, default=None)
     parser.add_argument("--aim_repo", type=str, default=None)
     parser.add_argument("--seed", type=int, default=42)
     parser.add_argument("--num_samples", type=int, default=1)
@@ -541,6 +551,7 @@ if __name__ == "__main__":
         run_ray_tuner(
             dataset_name,
             task_name,
+            row_encoder=args.row_encoder,
             ray_address=args.ray_address,
             ray_storage_path=(
                 os.path.realpath(args.ray_storage)
