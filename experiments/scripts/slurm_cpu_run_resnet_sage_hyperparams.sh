@@ -89,11 +89,11 @@ conda activate "$conda_env"
 
 EXPERIMENT_NAME="resnet_sage_hyperparams"
 
-echo $SLURM_JOB_ID
+echo $SLURM_ARRAY_JOB_ID
 
 # START_TIME=$(sacct -j ${SLURM_JOB_ID} --format=Start -n | head -n 1)
 
-EXPERIMENT_ID="${EXPERIMENT_NAME}_${SLURM_JOB_ID}"
+EXPERIMENT_ID="${EXPERIMENT_NAME}_${SLURM_ARRAY_JOB_ID}"
 
 NUM_SAMPLES=3
 
