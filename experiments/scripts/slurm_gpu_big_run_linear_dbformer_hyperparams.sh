@@ -1,16 +1,16 @@
 #!/bin/bash
-#SBATCH --job-name=linear_sage_hyperparams  
+#SBATCH --job-name=linear_dbformer_hyperparams  
 #SBATCH --partition=gpu
 #SBATCH --gres=gpu:1
-#SBATCH --cpus-per-gpu=3
-#SBATCH --mem-per-cpu=80G
+#SBATCH --cpus-per-gpu=2
+#SBATCH --mem-per-cpu=120G
 #SBATCH --time=24:00:00
-#SBATCH --array=0-0
+#SBATCH --array=0-3
 
 declare -a dataset_pairs=(
-    # 'rel-amazon user-churn'
-    # 'rel-amazon user-ltv'
-    # 'rel-amazon item-churn'
+    'rel-amazon user-churn'
+    'rel-amazon user-ltv'
+    'rel-amazon item-churn'
     'rel-amazon item-ltv'
 )
 
@@ -19,7 +19,7 @@ conda_env="relational-py"
 source "$(conda info --base)""/etc/profile.d/conda.sh"
 conda activate "$conda_env"
 
-EXPERIMENT_NAME="linear_sage_hyperparams"
+EXPERIMENT_NAME="linear_dbformer_hyperparams"
 
 echo $SLURM_JOB_ID
 
@@ -52,7 +52,7 @@ python -u experiments/dbgnn_hyperparams.py --ray_address=${ray_address} \
   --ray_storage=${log_dir} --run_name=${EXPERIMENT_ID}_${dataset}_${task} --dataset=${dataset} \
   --mlflow_uri=${MLFLOW_TRACKING_URI} --mlflow_experiment=pelesjak_${EXPERIMENT_NAME} \
   --task=${task} --num_samples=${NUM_SAMPLES} --num_gpus=1 --num_cpus=${SLURM_CPUS_PER_GPU} \
-  --model="sage" --row_encoder="linear" &> "${log_dir}/run.log"
+  --model="dbformer" --row_encoder="linear" &> "${log_dir}/run.log"
 
 
 
