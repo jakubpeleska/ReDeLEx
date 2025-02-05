@@ -1,4 +1,4 @@
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Literal, Optional
 
 import json, math, os, random, sys
 
@@ -65,6 +65,7 @@ from ctu_relational.utils import (
 )
 
 from experiments.nn.sagegnn import SAGEModel
+from experiments.nn.dbformer import DBFormerModel
 
 
 class GloveTextEmbedding:
@@ -178,6 +179,15 @@ def get_data(dataset_name: str, task_name: str, cache_path: str):
     return task, data, col_stats_dict
 
 
+def get_model(architecture: Literal["sage", "dbformer"], entity_table: str, **kwargs):
+    if architecture == "sage":
+        return SAGEModel(**kwargs)
+    elif architecture == "dbformer":
+        return DBFormerModel(entity_table=entity_table, **kwargs)
+    else:
+        raise ValueError(f"Unknown architecture: {architecture}")
+
+
 def run_experiment(
     config: tune.TuneConfig,
     data: HeteroData,
@@ -189,6 +199,7 @@ def run_experiment(
 
     dataset_name: int = config["dataset_name"]
     task_name: int = config["task_name"]
+    model_architecture: str = config["model_architecture"]
     random_seed: int = config["seed"]
     lr: float = config["lr"]
     min_epochs: int = config["min_epochs"]
@@ -200,6 +211,7 @@ def run_experiment(
     max_steps_per_epoch: int = config["max_steps_per_epoch"]
     min_total_steps: int = config["min_total_steps"]
     aggr_fn: str = config["aggr"]
+    mlp_norm: str = config["mlp_norm"]
     num_workers: int = 0
 
     # enable_reproducibility(random_seed)
@@ -242,7 +254,9 @@ def run_experiment(
             persistent_workers=num_workers > 0,
         )
 
-    model = SAGEModel(
+    model = get_model(
+        architecture=model_architecture,
+        entity_table=task.entity_table,
         data=data,
         col_stats_dict=col_stats_dict,
         num_layers=num_layers,
@@ -250,8 +264,9 @@ def run_experiment(
         row_encoder=row_encoder,
         out_channels=out_channels,
         aggr=aggr_fn,
-        norm="batch_norm",
-    ).to(device)
+        norm=mlp_norm,
+    )
+    model = model.to(device)
 
     optimizer = torch.optim.Adam(model.parameters(), lr)
 
@@ -373,6 +388,7 @@ def run_experiment(
 def run_ray_tuner(
     dataset_name: str,
     task_name: str,
+    model_architecture: str,
     row_encoder: str,
     ray_address: Optional[str] = None,
     ray_storage_path: Optional[str] = None,
@@ -417,6 +433,7 @@ def run_ray_tuner(
     config = {
         "dataset_name": dataset_name,
         "task_name": task_name,
+        "model_architecture": model_architecture,
         "seed": tune.randint(0, 1000),
         # training config
         "min_epochs": 10,
@@ -425,20 +442,13 @@ def run_ray_tuner(
         "lr": 0.001,  # tune.choice([0.001, 0.005]),
         "batch_size": 512,  # tune.choice([128, 256, 512]),
         # sampling config
-        "num_neighbors": tune.grid_search(
-            [
-                16,
-            ]
-        ),
+        "num_neighbors": tune.grid_search([16, 32, 64]),
         # model config
         "row_encoder": row_encoder,  # tune.grid_search(["resnet", "linear"]),
         "channels": 64,  # tune.grid_search([16, 32, 64]),
-        "num_layers": tune.grid_search(
-            [
-                1,
-            ]
-        ),
-        "aggr": "sum",  # tune.grid_search(["max", "sum"]),
+        "num_layers": tune.grid_search([1, 2, 3, 4]),
+        "aggr": "sum",  # tune.grid_search(["max", "sum", "mean"]),
+        "mlp_norm": "batch_norm",  # tune.grid_search(["batch_norm", "layer_norm"]),
     }
     # scheduler = ASHAScheduler(max_t=max_num_epochs, grace_period=1, reduction_factor=2)
     scheduler = None
@@ -521,6 +531,7 @@ if __name__ == "__main__":
     parser = ArgumentParser()
     parser.add_argument("--dataset", type=str)
     parser.add_argument("--task", type=str)
+    parser.add_argument("--model", choices=["sage", "dbformer"], default="sage")
     parser.add_argument("--row_encoder", choices=["resnet", "linear"], default=None)
     parser.add_argument("--ray_address", type=str, default="local")
     parser.add_argument("--ray_storage", type=str, default=None)
@@ -551,6 +562,7 @@ if __name__ == "__main__":
         run_ray_tuner(
             dataset_name,
             task_name,
+            model_architecture=args.model,
             row_encoder=args.row_encoder,
             ray_address=args.ray_address,
             ray_storage_path=(

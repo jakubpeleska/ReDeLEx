@@ -116,10 +116,10 @@ task=${strarr[1]}
 log_dir=${experiment_dir}/${dataset}_${task}
 mkdir -p $log_dir
 
-python -u experiments/sage_hyperparams.py --ray_address=${ray_address} \
+python -u experiments/dbgnn_hyperparams.py --ray_address=${ray_address} \
   --ray_storage=${log_dir} --run_name=${EXPERIMENT_ID}_${dataset}_${task} --dataset=${dataset} \
   --mlflow_uri=${MLFLOW_TRACKING_URI} --mlflow_experiment=pelesjak_${EXPERIMENT_NAME} \
-  --aim_repo=logs/.aim --task=${task} --num_samples=${NUM_SAMPLES} \
+  --aim_repo=logs/.aim --task=${task} --model="sage" --num_samples=${NUM_SAMPLES} \
   --num_cpus=${SLURM_CPUS_PER_TASK} --row_encoder="linear" &> "${log_dir}/run.log"
 
 
