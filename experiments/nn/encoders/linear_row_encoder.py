@@ -47,7 +47,9 @@ class LinearRowEncoder(torch.nn.Module):
         encoded = self.encoder(tf)
         x: torch.Tensor = encoded[0]
 
-        x = x.view(x.size(0), -1)
+        assert len(x.shape) == 3
+
+        x = x.view(x.shape[0], x.shape[1] * x.shape[2])
         x = self.linear(x)
 
         return x
