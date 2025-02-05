@@ -5,7 +5,7 @@
 #SBATCH --cpus-per-gpu=6
 #SBATCH --mem-per-cpu=40G
 #SBATCH --time=24:00:00
-#SBATCH --array=0-43
+#SBATCH --array=0-36
 
 declare -a dataset_pairs=(
     
@@ -19,13 +19,6 @@ declare -a dataset_pairs=(
     'rel-trial site-success'
     'rel-trial condition-sponsor-run'
     'rel-trial site-sponsor-run'
-    'rel-amazon user-churn'
-    'rel-amazon user-ltv'
-    'rel-amazon item-churn'
-    'rel-amazon item-ltv'
-    'rel-amazon user-item-purchase'
-    'rel-amazon user-item-rate'
-    'rel-amazon user-item-review'
     'rel-avito ad-ctr'
     'rel-avito user-visits'
     'rel-avito user-clicks'
