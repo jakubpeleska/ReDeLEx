@@ -1,6 +1,6 @@
-from typing import Any, Dict, List, Literal, Optional
+from typing import Any, Dict, Literal, Optional
 
-import json, math, os, random, sys
+import math, os, random, sys
 
 os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
 os.environ["RAY_memory_monitor_refresh_ms"] = "0"
@@ -8,13 +8,10 @@ os.environ["RAY_memory_monitor_refresh_ms"] = "0"
 from argparse import ArgumentParser
 
 from datetime import datetime
-from pathlib import Path
 from timeit import default_timer as timer
 
 import ray
 from ray import tune, train as ray_train
-from ray.train.torch import enable_reproducibility
-from ray.tune.schedulers import ASHAScheduler
 from ray.tune.logger.aim import AimLoggerCallback
 from ray.tune.logger.mlflow import MLflowLoggerCallback
 
@@ -24,159 +21,34 @@ import pandas as pd
 from tqdm import tqdm
 
 import torch
-from torch.nn import BCEWithLogitsLoss, L1Loss, CrossEntropyLoss
 
-from sentence_transformers import SentenceTransformer
-from torch_frame import stype
 from torch_frame.data import StatType
-from torch_frame.config.text_embedder import TextEmbedderConfig
 
 from torch_geometric.data import HeteroData
 from torch_geometric.loader import NeighborLoader
 
 
 from relbench.base import BaseTask, EntityTask, TaskType
-from relbench.datasets import get_dataset
-from relbench.modeling.graph import get_node_train_table_input, make_pkey_fkey_graph
+from relbench.modeling.graph import get_node_train_table_input
 from relbench.tasks import get_task
-from relbench.metrics import (
-    accuracy,
-    average_precision,
-    f1,
-    macro_f1,
-    mae,
-    micro_f1,
-    mse,
-    r2,
-    roc_auc,
-)
 
 
 sys.path.append(".")
 
 import ctu_relational
-from ctu_relational.datasets import DBDataset
 from ctu_relational.tasks import CTUBaseEntityTask, CTUEntityTaskTemporal
-from ctu_relational.utils import (
-    guess_schema,
-    convert_timedelta,
-    standardize_db_dt,
-    standardize_table_dt,
-)
+from ctu_relational.utils import standardize_table_dt
+
 
 from experiments.nn.sagegnn import SAGEModel
 from experiments.nn.dbformer import DBFormerModel
-
-
-class GloveTextEmbedding:
-    def __init__(self, device: Optional[torch.device] = None):
-        self.model = SentenceTransformer(
-            "sentence-transformers/average_word_embeddings_glove.6B.300d",
-            device=device,
-        )
-
-    def __call__(self, sentences: List[str]) -> torch.Tensor:
-        return self.model.encode(sentences, convert_to_tensor=True)
-
-
-def get_cache_path(dataset_name: str, task_name: str, cache_dir: str):
-    task = get_task(dataset_name, task_name)
-    if isinstance(task, CTUBaseEntityTask):
-        return Path(f"{cache_dir}/{dataset_name}/{task_name}")
-
-    elif isinstance(task, EntityTask):
-        return Path(f"{cache_dir}/{dataset_name}")
-
-    else:
-        raise ValueError(f"Task type {type(task)} is unsupported")
-
-
-def get_metrics(dataset_name: str, task_name: str):
-    task = get_task(dataset_name, task_name)
-
-    if task.task_type == TaskType.REGRESSION:
-        return [mae, mse, r2]
-
-    elif task.task_type == TaskType.BINARY_CLASSIFICATION:
-        return [accuracy, average_precision, f1, roc_auc]
-
-    elif task.task_type == TaskType.MULTICLASS_CLASSIFICATION:
-        return [accuracy, macro_f1, micro_f1]
-    else:
-        raise ValueError(f"Task type {task.task_type} is unsupported")
-
-
-def get_tune_metric(dataset_name: str, task_name: str):
-    task = get_task(dataset_name, task_name)
-
-    if task.task_type == TaskType.BINARY_CLASSIFICATION:
-        return "roc_auc", True
-
-    elif task.task_type == TaskType.REGRESSION:
-        return "mae", False
-
-    elif task.task_type == TaskType.MULTICLASS_CLASSIFICATION:
-        return "macro_f1", True
-    else:
-        raise ValueError(f"Task type {task.task_type} is unsupported")
-
-
-def get_loss(dataset_name: str, task_name: str):
-    task = get_task(dataset_name, task_name)
-
-    if task.task_type == TaskType.BINARY_CLASSIFICATION:
-        return BCEWithLogitsLoss(), 1
-
-    elif task.task_type == TaskType.REGRESSION:
-        return L1Loss(), 1
-
-    elif task.task_type == TaskType.MULTICLASS_CLASSIFICATION:
-        return CrossEntropyLoss(), len(task.stats[StatType.COUNT][0])
-
-    else:
-        raise ValueError(f"Task type {task.task_type} is unsupported")
-
-
-def get_data(dataset_name: str, task_name: str, cache_path: str):
-    dataset = get_dataset(dataset_name)
-    task = get_task(dataset_name, task_name)
-    if isinstance(task, CTUBaseEntityTask):
-        db = task.get_sanitized_db(upto_test_timestamp=False)
-
-    elif isinstance(task, EntityTask):
-        db = dataset.get_db(upto_test_timestamp=False)
-
-    convert_timedelta(db)
-
-    stypes_cache_path = Path(f"{cache_path}/stypes.json")
-    try:
-        with open(stypes_cache_path, "r") as f:
-            col_to_stype_dict = json.load(f)
-        for tname, col_to_stype in col_to_stype_dict.items():
-            for col, stype_str in col_to_stype.items():
-                if isinstance(stype_str, str):
-                    col_to_stype[col] = stype(stype_str)
-    except FileNotFoundError:
-        if isinstance(dataset, DBDataset):
-            col_to_stype_dict = guess_schema(db, dataset.get_schema())
-        else:
-            col_to_stype_dict = guess_schema(db)
-        Path(stypes_cache_path).parent.mkdir(parents=True, exist_ok=True)
-        with open(stypes_cache_path, "w") as f:
-            json.dump(col_to_stype_dict, f, indent=2, default=str)
-
-    standardize_db_dt(db, col_to_stype_dict)
-
-    data, col_stats_dict = make_pkey_fkey_graph(
-        db,
-        col_to_stype_dict=col_to_stype_dict,
-        text_embedder_cfg=TextEmbedderConfig(
-            text_embedder=GloveTextEmbedding(device=torch.device("cpu")), batch_size=256
-        ),
-        cache_dir=f"{cache_path}/materialized",
-    )
-
-    return task, data, col_stats_dict
+from experiments.utils import (
+    get_cache_path,
+    get_data,
+    get_loss,
+    get_metrics,
+    get_tune_metric,
+)
 
 
 def get_model(architecture: Literal["sage", "dbformer"], entity_table: str, **kwargs):
