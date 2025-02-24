@@ -347,9 +347,7 @@ if __name__ == "__main__":
     parser.add_argument("--num_samples", type=int, default=1)
     parser.add_argument("--num_gpus", type=int, default=0)
     parser.add_argument("--num_cpus", type=int, default=1)
-    parser.add_argument(
-        "--aggregate_neighbors", type=bool, default=False, action="store_true"
-    )
+    parser.add_argument("--aggregate_neighbors", default=False, action="store_true")
 
     args = parser.parse_args()
     print(args)

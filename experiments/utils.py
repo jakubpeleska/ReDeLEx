@@ -161,12 +161,16 @@ def get_data(
                 src == task.entity_table
                 and edge_index[0].unique(return_counts=True)[1].max() == 1
             ):
+                prefix = f"{edge_name}_"
                 node_tf = merge_tf(
                     left_tf=node_tf,
                     right_tf=data[dst].tf,
                     left_idx=edge_index[0],
                     right_idx=edge_index[1],
-                    right_prefix=f"{dst}_",
+                    right_prefix=prefix,
+                )
+                col_stats_dict[task.entity_table].update(
+                    {f"{prefix}{k}": v for k, v in col_stats_dict[dst].items()}
                 )
         data[task.entity_table].tf = node_tf
 

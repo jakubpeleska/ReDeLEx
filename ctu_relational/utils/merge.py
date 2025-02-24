@@ -28,7 +28,7 @@ def merge_tf(
             for st in left_tf.stypes
         }
         if left_prefix is not None
-        else left_tf.col_names_dict
+        else copy.deepcopy(left_tf.col_names_dict)
     )
 
     right_col_names_dict = defaultdict(list)
@@ -38,18 +38,19 @@ def merge_tf(
             for st in right_tf.stypes
         }
         if right_prefix is not None
-        else right_tf.col_names_dict
+        else copy.deepcopy(right_tf.col_names_dict)
     )
 
     left_cols = []
     for cols in left_col_names_dict.values():
         left_cols.extend(cols)
+
     right_cols = []
     for cols in right_col_names_dict.values():
         right_cols.extend(cols)
 
     if len(set(left_cols).intersection(set(right_cols))) > 0:
-        raise ValueError("Column names overlap.")
+        raise ValueError(f"Column names overlap. Left: {left_cols} Right: {right_cols}")
 
     col_names_dict = {
         st: left_col_names_dict[st] + right_col_names_dict[st]
@@ -74,7 +75,9 @@ def merge_tf(
         feat_dict[st] = (
             new_data if st_data is None else _concat_features(st, [st_data, new_data])
         )
-    return TensorFrame(feat_dict, col_names_dict, left_tf.y)
+    return TensorFrame(
+        feat_dict=feat_dict, col_names_dict=col_names_dict, y=left_tf.y, num_rows=num_rows
+    )
 
 
 def _init_stype_features(
