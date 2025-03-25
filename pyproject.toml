@@ -18,8 +18,9 @@ dependencies=[
 	"relbench",
   "pandas",
   "sqlalchemy",
-  "mysql-connector-python",
-  "tqdm"
+  "pymysql",
+  "tqdm",
+  "inflect"
 ]
 
 [project.urls]
