@@ -1,2 +1,2 @@
 from .db_inspector import *
-from .schema import *
+from .column_types import *

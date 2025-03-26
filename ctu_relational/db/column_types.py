@@ -1,11 +1,11 @@
 from attr import field, define
 from typing import List
 
-__ALL__ = ["ForeignKeyDef"]
+__all__ = ["ForeignKey"]
 
 
 @define
-class ForeignKeyDef:
+class ForeignKey:
     """
     Represents one foreign key.
     """

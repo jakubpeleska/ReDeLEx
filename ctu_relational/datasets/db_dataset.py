@@ -1,5 +1,6 @@
 from typing import Dict, List, Optional
 
+import numpy as np
 import pandas as pd
 import sqlalchemy as sa
 
@@ -7,9 +8,9 @@ from tqdm.std import tqdm
 
 from relbench.base import Dataset, Database, Table
 
-from ctu_relational.db import DBInspector, ForeignKeyDef
+from ctu_relational.db import DBInspector, ForeignKey
 
-__ALL__ = ["DBDataset"]
+__all__ = ["DBDataset"]
 
 
 class DBDataset(Dataset):
@@ -117,8 +118,8 @@ class DBDataset(Dataset):
         """
         return sa.Connection(sa.create_engine(remote_url))
 
-    def get_scheme(self) -> Dict[str, Dict[str, sa.types.TypeEngine]]:
-        """Get the type scheme of the remote database.
+    def get_schema(self) -> Dict[str, Dict[str, sa.types.TypeEngine]]:
+        """Get the type schema of the remote database.
 
         Returns:
             Dict[str, Dict[str, TypeEngine]]: A dictionary mapping table names to column names and their types.
@@ -132,25 +133,31 @@ class DBDataset(Dataset):
 
         table_names = inspector.get_tables()
 
-        table_sql__types = {}
+        schema = {}
 
         for t_name in table_names:
 
             sql_table = sa.Table(t_name, remote_md)
 
-            table_sql__types[t_name] = {}
-
-            for c in sql_table.columns:
-                try:
-                    sql_type = type(c.type.as_generic())
-                except NotImplementedError:
-                    sql_type = type(c.type)
-
-                table_sql__types[t_name][c.name] = sql_type
+            schema[t_name] = {c.name: c.type for c in sql_table.columns}
 
         remote_con.close()
 
-        return table_sql__types
+        return schema
+
+    def customize_db(self, db: Database) -> Database:
+        """
+        Override this method to add custom modifications to the database object.
+        Function is called after the database is created and before the original
+        primary and foreign keys are removed.
+
+        Args:
+            db (Database): The database object to customize.
+
+        Returns:
+            Database: The customized database object.
+        """
+        raise NotImplementedError
 
     def make_db(self) -> Database:
         """
@@ -169,7 +176,7 @@ class DBDataset(Dataset):
         table_names = inspector.get_tables()
 
         df_dict: Dict[str, pd.DataFrame] = {}
-        fk_dict: Dict[str, List[ForeignKeyDef]] = {}
+        fk_dict: Dict[str, List[ForeignKey]] = {}
 
         for t_name in tqdm(table_names, desc="Downloading tables"):
 
@@ -185,6 +192,13 @@ class DBDataset(Dataset):
                     sql_type = None
 
                 dtype = SQL_TO_PANDAS.get(sql_type, None)
+
+                if dtype is None:
+                    # Special case for YEAR type
+                    if c.type.__str__() == "YEAR":
+                        dtype = pd.Int32Dtype()
+                        sql_type = sa.types.Integer
+
                 if dtype is not None:
                     dtypes[c.name] = dtype
                     sql_types_dict[c.name] = sql_type
@@ -196,11 +210,21 @@ class DBDataset(Dataset):
             df = pd.read_sql_query(str(query), con=remote_con, dtype=dtypes)
 
             for col, sql_type in sql_types_dict.items():
-                if sql_type in DATE_TYPES:
+                if sql_type in DATE_TYPES or self.time_col_dict.get(t_name, None) == col:
                     try:
                         df[col] = pd.to_datetime(df[col])
                     except pd.errors.OutOfBoundsDatetime:
                         print(f"Out of bounds datetime in {t_name}.{col}")
+                    except Exception as e:
+                        print(f"Error converting {t_name}.{col} to datetime: {e}")
+
+                if DATE_MAP.get(sql_type, None) is not None:
+                    try:
+                        df[col] = df[col].astype(DATE_MAP[sql_type], errors="raise")
+                    except pd.errors.OutOfBoundsDatetime:
+                        print(f"Out of bounds datetime in {t_name}.{col}")
+                    except Exception as e:
+                        print(f"Error converting {t_name}.{col} to datetime: {e}")
 
             # Create index column used as artificial primary key
             df.index.name = "__PK__"
@@ -232,11 +256,22 @@ class DBDataset(Dataset):
                 time_col=self.time_col_dict.get(t_name, None),
             )
 
+        db = Database(table_dict)
+
+        # Add function for custom modifications here (e.g. dropping columns, etc.)
+        try:
+            db = self.customize_db(db)
+        except NotImplementedError:
+            pass
+
         # Remove original primary and foreign keys
         if not self.keep_original_keys:
             for t_name in table_names:
+                if t_name not in db.table_dict:
+                    continue
+
                 sql_table = sa.Table(t_name, remote_md)
-                table = table_dict[t_name]
+                table = db.table_dict[t_name]
                 drop_cols = set()
 
                 # Drop primary key columns
@@ -247,6 +282,9 @@ class DBDataset(Dataset):
                     drop_cols |= {c.name for c in sql_table.primary_key.columns}
 
                 for fk in sql_table.foreign_key_constraints:
+                    if fk.referred_table not in db.table_dict:
+                        continue
+
                     if not self.keep_original_compound_keys or len(fk.columns) == 1:
                         # Drop foreign key columns
                         drop_cols |= {c.name for c in fk.columns}
@@ -255,7 +293,7 @@ class DBDataset(Dataset):
 
         remote_con.close()
 
-        return Database(table_dict)
+        return db
 
     def _reindex_fk(
         self,
@@ -282,6 +320,13 @@ class DBDataset(Dataset):
 
 DATE_TYPES = (sa.types.Date, sa.types.DateTime)
 
+DATE_MAP = {
+    sa.types.Date: np.dtype("datetime64[s]"),
+    sa.types.DateTime: np.dtype("datetime64[us]"),
+    sa.types.Time: np.dtype("timedelta64[us]"),
+    sa.types.Interval: np.dtype("timedelta64[us]"),
+}
+
 SQL_TO_PANDAS = {
     sa.types.BigInteger: pd.Int64Dtype(),
     sa.types.Boolean: pd.BooleanDtype(),
@@ -292,7 +337,8 @@ SQL_TO_PANDAS = {
     sa.types.Float: pd.Float64Dtype(),
     sa.types.Integer: pd.Int32Dtype(),
     sa.types.Interval: "object",
-    sa.types.LargeBinary: "object",
+    # TODO: Handle binary data
+    # sa.types.LargeBinary: "object",
     sa.types.Numeric: pd.Float64Dtype(),
     sa.types.SmallInteger: pd.Int16Dtype(),
     sa.types.String: "string",
