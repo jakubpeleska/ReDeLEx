@@ -17,7 +17,6 @@ from experiments.nn.models import DBFormer
 
 
 class DBFormerModel(torch.nn.Module):
-
     def __init__(
         self,
         data: HeteroData,

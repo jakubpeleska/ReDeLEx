@@ -74,7 +74,6 @@ class DBFormer(torch.nn.Module):
                 self.conv_norm.append(norm_dict)
 
     def reset_parameters(self):
-
         for attn_dict in self.attn:
             for attn in attn_dict.values():
                 attn.reset_parameters()
@@ -94,7 +93,6 @@ class DBFormer(torch.nn.Module):
         num_sampled_edges_dict: Optional[Dict[EdgeType, List[int]]] = None,
     ) -> Dict[NodeType, Tensor]:
         for i in range(self.num_layers):
-
             x_dict_next = {}
             # Apply self-attention
             for key in x_dict.keys():

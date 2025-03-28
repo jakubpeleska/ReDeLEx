@@ -17,7 +17,6 @@ from experiments.nn.encoders import LinearRowEncoder
 
 
 class SAGEModel(torch.nn.Module):
-
     def __init__(
         self,
         data: HeteroData,
@@ -106,7 +105,6 @@ class SAGEModel(torch.nn.Module):
         )
 
         if hasattr(batch[entity_table], "seed_time"):
-
             return self.head(x_dict[entity_table][: seed_time.size(0)])
 
         return self.head(x_dict[entity_table])

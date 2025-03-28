@@ -83,7 +83,6 @@ def merge_tf(
 def _init_stype_features(
     s: stype, num_cols: int, num_rows: int, sparse_data: TensorData, idx: torch.Tensor
 ) -> TensorData:
-
     data: TensorData = None
     if s == stype.numerical:
         data = torch.full((num_rows, num_cols), torch.nan)

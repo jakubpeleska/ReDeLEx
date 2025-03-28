@@ -160,7 +160,6 @@ def run_experiment(
 
     @torch.no_grad()
     def test(split: str) -> np.ndarray:
-
         loader = loader_dict[split]
 
         model.eval()
@@ -246,7 +245,6 @@ def run_ray_tuner(
     aggregate_neighbors: bool = False,
     cache_dir: str = ".cache",
 ):
-
     random.seed(random_seed)
     np.random.seed(random_seed)
     torch.manual_seed(random_seed)

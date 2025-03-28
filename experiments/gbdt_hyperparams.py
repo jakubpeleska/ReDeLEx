@@ -218,7 +218,6 @@ def run_ray_tuner(
     cache_dir: str = ".cache",
     aggregate_neighbors: bool = False,
 ):
-
     random.seed(random_seed)
     np.random.seed(random_seed)
     torch.manual_seed(random_seed)

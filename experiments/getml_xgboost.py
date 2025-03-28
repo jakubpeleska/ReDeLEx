@@ -282,7 +282,6 @@ def run_ray_tuner(
     random_seed: int = 42,
     cache_dir: str = ".cache",
 ):
-
     random.seed(random_seed)
     np.random.seed(random_seed)
     torch.manual_seed(random_seed)

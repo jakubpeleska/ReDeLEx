@@ -14,7 +14,6 @@ from experiments.nn.encoders import LinearRowEncoder
 
 
 class TabularModel(torch.nn.Module):
-
     def __init__(
         self,
         tf: torch_frame.TensorFrame,
