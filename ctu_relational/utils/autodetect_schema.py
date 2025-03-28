@@ -93,7 +93,6 @@ def check_predetermined_types(
 def guess_column_stype(
     ser: pd.Series, col_name: str = "", sql_type: Optional[sql_types.TypeEngine] = None
 ) -> stype:
-
     ser = ser.dropna()
     if ser.empty:
         return None

@@ -6,6 +6,7 @@ from relbench.datasets import register_dataset
 
 from .db_dataset import DBDataset
 from .ctu_dataset import CTUDataset
+
 # fmt: off
 from .ctu_datasets import (
     Accidents, AdventureWorks, Airline, Atherosclerosis, BasketballMen,

@@ -127,7 +127,6 @@ class Atherosclerosis(CTUDataset):
 
 
 class BasketballMen(CTUDataset):
-
     def __init__(self, cache_dir: Optional[str] = None):
         super().__init__(
             "Basketball_men",
@@ -148,7 +147,6 @@ class BasketballMen(CTUDataset):
 
 
 class BasketballWomen(CTUDataset):
-
     def __init__(self, cache_dir: Optional[str] = None):
         super().__init__(
             "Basketball_women",
@@ -218,7 +216,6 @@ class CDESchools(CTUDataset):
 
 
 class Chess(CTUDataset):
-
     def __init__(self, cache_dir: Optional[str] = None):
         super().__init__(
             "Chess",
@@ -395,7 +392,6 @@ class Elti(CTUDataset):
 
 
 class Employee(CTUDataset):
-
     def __init__(self, cache_dir: Optional[str] = None):
         super().__init__(
             "employee",
@@ -854,7 +850,6 @@ class Mondial(CTUDataset):
         )
 
     def customize_db(self, db: Database) -> Database:
-
         db.table_dict["organization"].df["Established"] = (
             db.table_dict["organization"].df["Established"].dt.year
         )
@@ -987,7 +982,6 @@ class NCAA(CTUDataset):
         )
 
     def customize_db(self, db: Database) -> Database:
-
         for table in db.table_dict.values():
             for fk, ref in table.fkey_col_to_pkey_table.items():
                 if ref != "seasons":
@@ -1608,7 +1602,6 @@ class VOC(CTUDataset):
         )
 
     def customize_db(self, db: Database) -> Database:
-
         dtcols = db.table_dict["voyages"].df.select_dtypes(include="datetime")
         dtcols[dtcols < pd.Timestamp("1300-01-01")] = pd.NaT
         dtcols[dtcols > pd.Timestamp("1900-01-01")] = pd.NaT

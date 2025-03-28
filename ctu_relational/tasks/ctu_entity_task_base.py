@@ -127,7 +127,6 @@ class CTUBaseEntityTask(BaseTask):
         return split_table
 
     def _get_full_table(self, db: Database) -> Table:
-
         time_col = db.table_dict[self.entity_table].time_col
 
         table = Table(

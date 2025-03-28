@@ -11,7 +11,6 @@ __all__ = ["CTUEntityTaskTemporal"]
 
 
 class CTUEntityTaskTemporal(CTUBaseEntityTask):
-
     # To be set by subclass.
     val_timestamp: pd.Timestamp
     test_timestamp: pd.Timestamp

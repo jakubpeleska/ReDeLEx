@@ -12,20 +12,29 @@ license = {file = "LICENSE"}
 classifiers = [
 	"License :: OSI Approved :: MIT License",
 ]
-requires-python=">=3.8"
+requires-python=">=3.10"
 keywords=[]
 dependencies=[
 	"relbench",
-  "pandas",
-  "sqlalchemy",
-  "pymysql",
-  "tqdm",
-  "inflect"
+	"pandas",
+	"sqlalchemy",
+	"pymysql",
+	"tqdm",
+	"inflect",
 ]
 
 [project.urls]
 Homepage = "https://github.com/jakubpeleska/ctu-relational-py"
 Issues = "https://github.com/jakubpeleska/ctu-relational-py/issues"
 
-[tool.black]
+[tool.ruff]
 line-length = 92
+target-version = "py310"
+
+[dependency-groups]
+dev = [
+    "pytest>=8.3.5",
+]
+lint = [
+    "ruff>=0.11.2",
+]

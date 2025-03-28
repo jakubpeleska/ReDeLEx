@@ -3,6 +3,7 @@ from relbench.tasks import register_task
 from .ctu_entity_task_base import CTUBaseEntityTask
 from .ctu_entity_task_classic import CTUEntityTask
 from .ctu_entity_task_temporal import CTUEntityTaskTemporal
+
 # fmt: off
 from .ctu_tasks import (
     AccidentsOriginalTask, AccidentsTemporalTask, AdventureWorksOriginalTask, 

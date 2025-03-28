@@ -11,7 +11,6 @@ __all__ = ["CTUEntityTask"]
 
 
 class CTUEntityTask(CTUBaseEntityTask):
-
     def make_split(self, split: str, table: Table) -> Table:
         random_state = np.random.RandomState(seed=42)
         train_df = table.df.sample(frac=0.8, random_state=random_state)
