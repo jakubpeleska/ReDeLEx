@@ -19,36 +19,64 @@ dependencies = [
     "sqlalchemy>=2.0.40",
     "inflect>=7.5.0",
     "tqdm>=4.67.1",
-    "pytorch-frame>=0.2.5",
 ]
 
 
 [project.optional-dependencies]
-cpu = ["torch>=2.6.0", "torchvision>=0.21.0", "torchaudio>=2.6.0"]
-cu124 = ["torch>=2.6.0", "torchvision>=0.21.0", "torchaudio>=2.6.0"]
+cpu = [
+    "torch>=2.6.0",
+    "torchvision>=0.21.0",
+    "torchaudio>=2.6.0",
+    "pytorch-frame>=0.2.5",
+    "torch-geometric>=2.6.1",
+]
+cu124 = [
+    "torch>=2.6.0",
+    "torchvision>=0.21.0",
+    "torchaudio>=2.6.0",
+    "pytorch-frame>=0.2.5",
+    "torch-geometric>=2.6.1",
+
+]
 
 [tool.uv]
 conflicts = [[{ extra = "cpu" }, { extra = "cu124" }]]
 
 [tool.uv.sources]
 torch = [
-    { index = "pytorch-cpu", extra = "cpu" },
-    { index = "pytorch-cu124", extra = "cu124" },
+    { index = "torch-cpu", extra = "cpu" },
+    { index = "torch-cu124", extra = "cu124" },
 ]
 torchvision = [
-    { index = "pytorch-cpu", extra = "cpu" },
-    { index = "pytorch-cu124", extra = "cu124" },
+    { index = "torch-cpu", extra = "cpu" },
+    { index = "torch-cu124", extra = "cu124" },
+]
+torchaudio = [
+    { index = "torch-cpu", extra = "cpu" },
+    { index = "torch-cu124", extra = "cu124" },
 ]
 
+
 [[tool.uv.index]]
-name = "pytorch-cpu"
+name = "torch-cpu"
 url = "https://download.pytorch.org/whl/cpu"
 explicit = true
 
 [[tool.uv.index]]
-name = "pytorch-cu124"
+name = "torch-cu124"
 url = "https://download.pytorch.org/whl/cu124"
 explicit = true
+
+
+# [[tool.uv.index]]
+# name = "torch-geometric-cpu"
+# url = "https://data.pyg.org/whl/torch-2.5.0%2Bcpu.html"
+# # explicit = true
+
+# [[tool.uv.index]]
+# name = "torch-geometric-cu124"
+# url = "https://data.pyg.org/whl/torch-2.5.0+cu124.html"
+# # explicit = true
 
 
 [project.urls]
