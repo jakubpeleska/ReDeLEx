@@ -4,7 +4,7 @@ build-backend = "flit_core.buildapi"
 
 [project]
 name = "ctu_relational"
-version = "0.2.1"
+version = "0.3.1"
 description = "CTU Relational: SQL Database Datasets for Machine Learning"
 authors = [{name = "Jakub Peleška", email = "jakub.peleska@fel.cvut.cz"}]
 readme = "README.md"
@@ -12,20 +12,76 @@ license = {file = "LICENSE"}
 classifiers = [
 	"License :: OSI Approved :: MIT License",
 ]
-requires-python=">=3.8"
+requires-python=">=3.10"
 keywords=[]
 dependencies=[
-	"relbench",
-  "pandas",
-  "sqlalchemy",
-  "pymysql",
-  "tqdm",
-  "inflect"
+	"relbench>=1.1.0",
+	"pandas>=2.2.3",
+	"pymysql>=1.1.1",
+	"sqlalchemy>=2.0.40",
+	"inflect>=7.5.0",
+	"tqdm>=4.67.1",
+	"pytorch-frame>=0.2.5",
 ]
+
+
+[project.optional-dependencies]
+cpu = [
+    "torch>=2.6.0",
+    "torchvision>=0.21.0",
+    "torchaudio>=2.6.0",
+]
+cu124 = [
+    "torch>=2.6.0",
+    "torchvision>=0.21.0",
+	"torchaudio>=2.6.0",
+]
+
+[tool.uv]
+conflicts = [
+    [
+        { extra = "cpu" },
+        { extra = "cu124" },
+    ],
+]
+
+[tool.uv.sources]
+torch = [
+    { index = "pytorch-cpu", extra = "cpu" },
+    { index = "pytorch-cu124", extra = "cu124" },
+]
+torchvision = [
+    { index = "pytorch-cpu", extra = "cpu" },
+    { index = "pytorch-cu124", extra = "cu124" },
+]
+
+[[tool.uv.index]]
+name = "pytorch-cpu"
+url = "https://download.pytorch.org/whl/cpu"
+explicit = true
+
+[[tool.uv.index]]
+name = "pytorch-cu124"
+url = "https://download.pytorch.org/whl/cu124"
+explicit = true
+
 
 [project.urls]
 Homepage = "https://github.com/jakubpeleska/ctu-relational-py"
 Issues = "https://github.com/jakubpeleska/ctu-relational-py/issues"
 
-[tool.black]
+[tool.ruff]
 line-length = 92
+target-version = "py310"
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"
+
+[dependency-groups]
+dev = [
+    "pre-commit>=4.2.0",
+    "pytest>=8.3.5",
+]
+lint = [
+    "ruff>=0.11.2",
+]
