@@ -1,7 +1,6 @@
 from typing import Callable, Dict, List, Optional
 from numpy.typing import NDArray
 
-import numpy as np
 import pandas as pd
 
 from relbench.base import BaseTask, Database, Table

@@ -16,7 +16,6 @@ def convert_timedelta(db: Database):
     """Converts timedelta columns to datetime columns."""
 
     for table in db.table_dict.values():
-
         timedeltas = table.df.select_dtypes(include=["timedelta"])
         if not timedeltas.empty:
             timedeltas = pd.Timestamp("1900-01-01") + timedeltas

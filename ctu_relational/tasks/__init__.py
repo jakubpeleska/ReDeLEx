@@ -3,9 +3,43 @@ from relbench.tasks import register_task
 from .ctu_entity_task_base import CTUBaseEntityTask
 from .ctu_entity_task_classic import CTUEntityTask
 from .ctu_entity_task_temporal import CTUEntityTaskTemporal
-from .ctu_tasks import *
+
+# fmt: off
+from .ctu_tasks import (
+    AccidentsOriginalTask, AccidentsTemporalTask, AdventureWorksOriginalTask, 
+    AdventureWorksTemporalTask, AirlineOriginalTask, AirlineTemporalTask, 
+    AtherosclerosisOriginalTask, BasketballMenOriginalTask, BasketballWomenOriginalTask,
+    BiodegradabilityOriginalTask, BupaOriginalTask, CarcinogenesisOriginalTask,
+    CDESchoolsOriginalTask, ChessOriginalTask, ClassicModelsOriginalTask,
+    ClassicModelsTemporalTask, CORAOriginalTask, CountriesOriginalTask,
+    CraftBeerOriginalTask, CreditOriginalTask, DallasOriginalTask, DallasTemporalTask,
+    DCGOriginalTask, DiabetesOriginalTask, DunurOriginalTask, EltiOriginalTask,
+    EmployeeOriginalTask, EmployeeTemporalTask, ErgastF1OriginalTask,
+    ErgastF1TemporalTask, ExpendituresOriginalTask, FinancialOriginalTask,
+    FinancialTemporalTask, FNHKOriginalTask, FNHKTemporalTask, FTPOriginalTask,
+    FTPTemporalTask, GeneeaOriginalTask, GeneeaTemporalTask, GenesOriginalTask,
+    GOSalesOriginalTask, GOSalesTemporalTask, GrantsOriginalTask, GrantsTemporalTask,
+    HepatitisOriginalTask, HockeyOriginalTask, HockeyTemporalTask, IMDbOriginalTask,
+    IMDbTemporalTask, LahmanOriginalTask, LahmanTemporalTask, LegalActsOriginalTask,
+    LegalActsTemporalTask, MeshOriginalTask, MondialOriginalTask, MooneyOriginalTask,
+    MovieLensOriginalTask, MuskLargeOriginalTask, MuskSmallOriginalTask,
+    MutagenesisOriginalTask, NCAAOriginalTask, NCAATemporalTask, NorthwindOriginalTask,
+    NorthwindTemporalTask, PimaOriginalTask, PremiereLeagueOriginalTask,
+    PremiereLeagueTemporalTask, RestbaseOriginalTask, SakilaOriginalTask,
+    SakilaTemporalTask, SalesOriginalTask, SameGenOriginalTask, SAPOriginalTask,
+    SAPSalesTask, SAPSalesTemporalTask, SatelliteOriginalTask, SeznamOriginalTask,
+    SeznamTemporalTask, SFScoresOriginalTask, SFScoresTemporalTask,
+    ShakespeareOriginalTask, StatsOriginalTask, StatsTemporalTask, StudentLoanOriginalTask,
+    ThrombosisOriginalTask, ThrombosisTemporalTask, ToxicologyOriginalTask,
+    TPCCOriginalTask, TPCDOriginalTask, TPCDTemporalTask, TPCDSOriginalTask,
+    TPCDSTemporalTask, TPCHOriginalTask, TPCHTemporalTask, TriazineOriginalTask,
+    UWCSEOriginalTask, VisualGenomeOriginalTask, VOCOriginalTask, VOCTemporalTask,
+    WalmartOriginalTask, WalmartTemporalTask, WebKPOriginalTask, WorldOriginalTask
+)
+# fmt: on
 
 register_task("ctu-accidents", "accidents-original", AccidentsOriginalTask)
+
 register_task("ctu-accidents", "accidents-temporal", AccidentsTemporalTask)
 
 register_task("ctu-adventureworks", "adventureworks-original", AdventureWorksOriginalTask)

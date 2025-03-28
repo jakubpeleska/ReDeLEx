@@ -1,9 +1,7 @@
-import os
 from typing import Dict, Literal, Optional
 
 import pandas as pd
 
-from relbench.base import Database, Table
 
 from .db_dataset import DBDataset
 
