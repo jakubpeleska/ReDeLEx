@@ -58,3 +58,47 @@ db = custom_dataset.get_db(upto_test_timestamp=False)
 ```
 
 Although, directly loaded databases usually need some additional touches. Take a look at [`ctu_datasets.py`](https://github.com/jakubpeleska/ctu-relational-py/blob/d666c3694c10d3702a917db2fa162e2b259e6546/ctu_relational/datasets/ctu_datasets.py) for examples.
+
+## Development
+
+### Install `uv`
+
+- macOS & Linux
+
+```bash
+wget -qO- https://astral.sh/uv/install.sh | sh
+```
+
+- windows
+
+```bash
+powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"
+```
+
+More info https://docs.astral.sh/uv/getting-started/installation/
+
+### Install dependencies
+
+```bash
+uv sync --extra cpu
+```
+
+or
+
+```bash
+uv sync --extra cu124
+```
+
+for `CUDA` support.
+
+### Enable `pre-commit`
+
+```bash
+uv run pre-commit install
+```
+
+### Run `pre-commit`
+
+```bash
+uv run pre-commit run
+```

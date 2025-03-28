@@ -36,7 +36,6 @@ cu124 = [
     "torchaudio>=2.6.0",
     "pytorch-frame>=0.2.5",
     "torch-geometric>=2.6.1",
-
 ]
 
 [tool.uv]
