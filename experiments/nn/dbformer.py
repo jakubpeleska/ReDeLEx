@@ -1,8 +1,7 @@
-from typing import Any, Dict, List, Literal
+from typing import Any, Dict, Literal
 
 import torch
 from torch import Tensor
-from torch.nn import Embedding, ModuleDict
 
 from torch_frame.data.stats import StatType
 

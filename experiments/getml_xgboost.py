@@ -1,6 +1,9 @@
 from typing import Dict, Optional
 
-import copy, os, random, sys, json
+import os
+import random
+import sys
+import json
 from pathlib import Path
 from collections import defaultdict
 
@@ -34,7 +37,6 @@ from relbench.tasks import get_task
 
 sys.path.append(".")
 
-import ctu_relational
 from ctu_relational.tasks import CTUBaseEntityTask, CTUEntityTaskTemporal
 from ctu_relational.datasets import DBDataset
 from ctu_relational.utils import guess_schema, convert_timedelta, standardize_db_dt
@@ -84,7 +86,7 @@ def build_getml_dfs(
 
 def max_multiplicity(df: pd.DataFrame, fk_col: str):
     mltp = df[fk_col].dropna().value_counts().max()
-    return mltp if pd.isna(mltp) == False else 0
+    return mltp if pd.notna(mltp) else 0
 
 
 def build_getml_datamodel(

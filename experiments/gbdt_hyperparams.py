@@ -1,6 +1,9 @@
 from typing import Dict, Optional
 
-import copy, os, random, sys
+import copy
+import os
+import random
+import sys
 
 
 os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
@@ -17,7 +20,6 @@ from ray.tune.logger.aim import AimLoggerCallback
 from ray.tune.logger.mlflow import MLflowLoggerCallback
 
 import numpy as np
-import pandas as pd
 
 import sklearn.metrics as skm
 import torch
@@ -44,7 +46,6 @@ from relbench.metrics import (
 
 sys.path.append(".")
 
-import ctu_relational
 from ctu_relational.tasks import CTUBaseEntityTask, CTUEntityTaskTemporal
 from ctu_relational.utils import standardize_table_dt
 
@@ -92,7 +93,7 @@ def run_experiment(
     task: BaseTask,
 ):
     context = ray_train.get_context()
-    experiment_dir = context.get_trial_dir()
+    # experiment_dir = context.get_trial_dir()
 
     dataset_name: int = config["dataset_name"]
     task_name: int = config["task_name"]

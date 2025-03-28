@@ -1,6 +1,9 @@
 from typing import Any, Dict, Literal, Optional
 
-import math, os, random, sys
+import math
+import os
+import random
+import sys
 
 os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
 os.environ["RAY_memory_monitor_refresh_ms"] = "0"
@@ -16,7 +19,6 @@ from ray.tune.logger.aim import AimLoggerCallback
 from ray.tune.logger.mlflow import MLflowLoggerCallback
 
 import numpy as np
-import pandas as pd
 
 from tqdm import tqdm
 
@@ -35,7 +37,6 @@ from relbench.tasks import get_task
 
 sys.path.append(".")
 
-import ctu_relational
 from ctu_relational.tasks import CTUBaseEntityTask, CTUEntityTaskTemporal
 from ctu_relational.utils import standardize_table_dt
 
@@ -67,7 +68,7 @@ def run_experiment(
     col_stats_dict: Dict[str, Dict[str, Dict[StatType, Any]]],
 ):
     context = ray_train.get_context()
-    experiment_dir = context.get_trial_dir()
+    # experiment_dir = context.get_trial_dir()
 
     dataset_name: int = config["dataset_name"]
     task_name: int = config["task_name"]
@@ -224,7 +225,7 @@ def run_experiment(
 
     val_table = task.get_table("val")
 
-    model_checkpoint = os.path.join(experiment_dir, "best_model.pth")
+    # model_checkpoint = os.path.join(experiment_dir, "best_model.pth")
 
     for epoch in range(1, n_epochs + 1):
         start = timer()

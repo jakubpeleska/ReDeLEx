@@ -3,9 +3,7 @@ from typing import Any, Optional
 import math
 
 import torch
-from torch import Tensor
-from torch.nn import functional as F, init
-from torch.nn.parameter import Parameter, UninitializedParameter
+from torch.nn import init
 
 import torch_frame
 from torch_frame.data import StatType
