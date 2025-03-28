@@ -7,7 +7,7 @@ from relbench.base import Database, Table
 
 from ctu_relational.utils import TIMESTAMP_MIN, TIMESTAMP_MAX
 
-from .ctu_base_dataset import CTUDataset
+from .ctu_dataset import CTUDataset
 
 # fmt: off
 __all__ = [    
@@ -1478,7 +1478,7 @@ class TPCDS(CTUDataset):
 
         for t_name, fks in date_fk_dict.items():
             for fk in fks:
-                db.table_dict[t_name].df[fk.removeprefix(f"FK_date_dim_")] = db.table_dict[
+                db.table_dict[t_name].df[fk.removeprefix("FK_date_dim_")] = db.table_dict[
                     t_name
                 ].df.join(date_df["d_date"], on=fk, how="left")["d_date"]
                 db.table_dict[t_name].df.drop(columns=[fk], inplace=True)

@@ -3,7 +3,6 @@ from numpy.typing import NDArray
 
 from copy import deepcopy
 
-import numpy as np
 import pandas as pd
 
 from torch_frame import stype

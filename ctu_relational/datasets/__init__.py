@@ -4,9 +4,23 @@ import pandas as pd
 
 from relbench.datasets import register_dataset
 
-from .db_dataset import *
-from .ctu_base_dataset import *
-from .ctu_datasets import *
+from .db_dataset import DBDataset
+from .ctu_dataset import CTUDataset
+# fmt: off
+from .ctu_datasets import (
+    Accidents, AdventureWorks, Airline, Atherosclerosis, BasketballMen,
+    BasketballWomen, Biodegradability, Bupa, Carcinogenesis,
+    CDESchools, Chess, ClassicModels, CORA, Countries, CraftBeer, Credit,
+    Dallas, DCG, Diabetes, Dunur, Elti, ErgastF1,
+    Expenditures, Employee, Financial, FNHK, FTP, Geneea, Genes, GOSales,
+    Grants, Hepatitis, Hockey, IMDb, Lahman, LegalActs, Mesh,
+    Mondial, Mooney, MovieLens, MuskLarge, MuskSmall, Mutagenesis,
+    NCAA, Northwind, Pima, PremiereLeague, Restbase, Sakila,
+    Sales, SameGen, SAP, Satellite, Seznam, SFScores, Shakespeare, Stats,
+    StudentLoan, Thrombosis, Toxicology, TPCC, TPCD, TPCDS, TPCH, Triazine,
+    UWCSE, VisualGenome, VOC, Walmart, WebKP, World
+)
+# fmt: on
 
 
 def get_dataset_info(dataset_name: str):

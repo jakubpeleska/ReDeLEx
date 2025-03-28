@@ -17,7 +17,7 @@ import inflect
 from torch_frame import stype
 from torch_frame.utils import infer_series_stype
 
-from relbench.base import BaseTask, Database, Dataset, Table, TaskType
+from relbench.base import BaseTask, Database, Table, TaskType
 
 from ctu_relational.datasets import DBDataset
 
