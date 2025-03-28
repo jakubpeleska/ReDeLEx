@@ -136,7 +136,6 @@ class DBDataset(Dataset):
         schema = {}
 
         for t_name in table_names:
-
             sql_table = sa.Table(t_name, remote_md)
 
             schema[t_name] = {c.name: c.type for c in sql_table.columns}
@@ -179,7 +178,6 @@ class DBDataset(Dataset):
         fk_dict: Dict[str, List[ForeignKey]] = {}
 
         for t_name in tqdm(table_names, desc="Downloading tables"):
-
             sql_table = sa.Table(t_name, remote_md)
 
             dtypes: Dict[str, str] = {}
