@@ -353,7 +353,7 @@ def run_pretraining_experiment(
         ],
         log_every_n_steps=15,
         num_sanity_val_steps=0,
-        val_check_interval=50,
+        val_check_interval=min(50, len(pretrain_loader)),
         limit_val_batches=50,
         enable_checkpointing=False,
     )
