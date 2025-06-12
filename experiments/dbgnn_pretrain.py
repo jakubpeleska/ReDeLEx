@@ -86,6 +86,7 @@ def run_pretrained_task_experiment(
     batch_size: int = config["batch_size"]
     num_neighbors: int = config["num_neighbors"]
     max_training_steps: int = config["max_training_steps"]
+    finetune_backbone: bool = config["finetune_backbone"]
 
     backbone_model_path: str = config["backbone_model_path"]
     channels: int = config["channels"]
@@ -124,7 +125,6 @@ def run_pretrained_task_experiment(
         rgnn_aggr=rgnn_aggr,
     )
     backbone.load_state_dict(torch.load(backbone_model_path, map_location=device))
-    backbone.eval()
 
     task_head = MLP(
         in_channels=channels,
@@ -139,7 +139,12 @@ def run_pretrained_task_experiment(
     optimizer = torch.optim.Adam(task_head.parameters(), lr=lr)
 
     ligtning_model = LightningEntityTaskModel(
-        backbone, task_head, optimizer, dataset_name, task_name
+        backbone,
+        task_head,
+        optimizer,
+        dataset_name=dataset_name,
+        task_name=task_name,
+        finetune_backbone=finetune_backbone,
     )
 
     loader_dict: Dict[str, NeighborLoader] = {}
@@ -201,6 +206,7 @@ def run_pretrained_task_experiment(
         ],
         num_sanity_val_steps=0,
         val_check_interval=0.33,
+        enable_checkpointing=False,
     )
     try:
         trainer.fit(
@@ -274,6 +280,7 @@ def run_pretraining_experiment(
         transform=corruptor.corrupt_data,
         batch_size=batch_size,
         shuffle=True,
+        drop_last=True,
     )
 
     pretrain_val_loader = HGTLoader(
@@ -282,7 +289,8 @@ def run_pretraining_experiment(
         input_nodes=fact_tables[dataset_name],
         transform=corruptor.corrupt_data,
         batch_size=batch_size,
-        shuffle=True
+        shuffle=True,
+        drop_last=True,
     )
 
     backbone = get_backbone(
@@ -347,6 +355,7 @@ def run_pretraining_experiment(
         num_sanity_val_steps=0,
         val_check_interval=50,
         limit_val_batches=50,
+        enable_checkpointing=False,
     )
     try:
         trainer.fit(
@@ -372,10 +381,11 @@ def run_pretraining_experiment(
         "mlflow_uri": mlflow_uri,
         "seed": random_seed,
         # training config
-        "max_training_steps": 100,
+        "max_training_steps": 2000,
         "lr": 0.001,
+        "finetune_backbone": tune.grid_search([True, False]),
         # sampling config
-        "batch_size": 64,
+        "batch_size": 512,
         "num_neighbors": 16,
         # model config
         "backbone_model_path": backbone_model_path,
@@ -460,7 +470,7 @@ def run_ray_tuner(
         "schema_diameter": get_dataset_info(dataset_name).schema_diameter.item(),
         "seed": tune.randint(0, 1000),
         # training config
-        "max_training_steps": 100,
+        "max_training_steps": 4000,
         "lr": 0.001,  # tune.choice([0.001, 0.005]),
         "temperature": 1.0,  # tune.grid_search([1.0]),
         "corrupt_prob": 0.4,  # tune.grid_search([0.2, 0.4, 0.6]),
