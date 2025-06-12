@@ -7,7 +7,7 @@ import torch
 from torch_geometric.typing import NodeType, EdgeType
 from torch_geometric.data import HeteroData
 from torch_geometric.utils import scatter
-from torch_geometric.nn import conv, HeteroDictLinear
+from torch_geometric.nn import conv
 
 MIN_NORM_FACTOR = 0.1
 
@@ -18,15 +18,20 @@ class TableContrastiveLoss(torch.nn.Module):
 
         self.channels = channels
 
-        self.linear_dict = HeteroDictLinear(channels, channels, node_types, bias=False)
+        self.linear_dict = torch.nn.ModuleDict(
+            {
+                node_type: torch.nn.Linear(channels, channels, bias=False)
+                for node_type in node_types
+            }
+        )
 
         self.temp = temperature
 
     def forward(
         self, x_dict: Dict[NodeType, torch.Tensor], cor_dict: Dict[NodeType, torch.Tensor]
     ) -> torch.Tensor:
-        x_dict = self.linear_dict(x_dict)
-        cor_dict = self.linear_dict(cor_dict)
+        x_dict = {k: self.linear_dict[k](v) for k, v in x_dict.items()}
+        cor_dict = {k: self.linear_dict[k](v) for k, v in cor_dict.items()}
         loss = 0.0
         count = 0
         for tname in x_dict:
@@ -134,7 +139,12 @@ class ContextContrastiveLoss(torch.nn.Module):
         super().__init__()
         self.channels = channels
 
-        self.linear_dict = HeteroDictLinear(channels, channels, node_types, bias=True)
+        self.linear_dict = torch.nn.ModuleDict(
+            {
+                node_type: torch.nn.Linear(channels, channels, bias=True)
+                for node_type in node_types
+            }
+        )
 
         self.mean_pooling = conv.HeteroConv(
             {
@@ -151,7 +161,7 @@ class ContextContrastiveLoss(torch.nn.Module):
     ) -> torch.Tensor:
         edge_index_dict = data.collect("edge_index")
 
-        context_dict = self.linear_dict(x_dict)
+        context_dict = {k: self.linear_dict[k](v) for k, v in x_dict.items()}
         context_dict = self.mean_pooling(context_dict, edge_index_dict)
 
         loss = 0.0

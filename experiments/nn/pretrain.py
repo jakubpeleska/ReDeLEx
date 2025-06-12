@@ -168,11 +168,16 @@ class LightningEntityTaskModel(L.LightningModule):
         optimizer: torch.optim.Optimizer,
         dataset_name: str,
         task_name: str,
+        finetune_backbone: bool = False,
     ):
         super().__init__()
         self.backbone = backbone
-        self.backbone.eval()
-        self.backbone.requires_grad_(False)
+        if finetune_backbone:
+            self.backbone.train()
+        else:
+            self.backbone.eval()
+            self.backbone.requires_grad_(False)
+
         self.head = head
 
         self.task = get_task(dataset_name, task_name)
