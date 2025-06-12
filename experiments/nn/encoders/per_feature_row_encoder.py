@@ -23,7 +23,6 @@ class PerFeatureRowEncoder(torch.nn.Module):
         col_stats: dict[str, dict[StatType, Any]],
         col_names_dict: dict[torch_frame.stype, list[str]],
         stype_encoder_dict: Optional[dict[torch_frame.stype, StypeEncoder]] = None,
-        feature_transform: Optional[str] = "linear",
     ):
         super().__init__()
 

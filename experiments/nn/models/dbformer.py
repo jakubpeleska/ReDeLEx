@@ -3,7 +3,7 @@ from typing import Any, Dict, List, Optional
 import torch
 from torch import Tensor
 
-from torch_geometric.nn import HeteroConv
+from torch_geometric.nn import HeteroConv, HeteroDictLinear
 from torch_geometric.typing import NodeType, EdgeType
 
 from torch_frame.data.stats import StatType
@@ -24,6 +24,7 @@ class DBFormer(torch.nn.Module):
         dropout: float = 0,
         with_norm: bool = True,
         with_residuals: bool = True,
+        with_output_transform: bool = False,
     ):
         super().__init__()
 
@@ -73,6 +74,19 @@ class DBFormer(torch.nn.Module):
                     norm_dict[node_type] = torch.nn.LayerNorm([num_cols, channels])
                 self.conv_norm.append(norm_dict)
 
+        self.with_output_transform = with_output_transform
+        if with_output_transform:
+            self._preout_channels = {
+                node_type: channels * len(col_stats_dict[node_type].keys())
+                for node_type in node_types
+            }
+            self.output_transform = HeteroDictLinear(
+                in_channels=self._preout_channels,
+                out_channels=channels,
+                types=node_types,
+                bias=True,
+            )
+
     def reset_parameters(self):
         for attn_dict in self.attn:
             for attn in attn_dict.values():
@@ -118,5 +132,12 @@ class DBFormer(torch.nn.Module):
                     x_dict_next[key] = self.conv_norm[i][key](x)
             # Update x_dict
             x_dict = x_dict_next
+
+        if self.with_output_transform:
+            x_dict = {
+                node_type: x.view(x.size(0), self._preout_channels[node_type])
+                for node_type, x in x_dict.items()
+            }
+            x_dict = self.output_transform(x_dict)
 
         return x_dict

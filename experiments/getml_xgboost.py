@@ -363,7 +363,7 @@ def run_ray_tuner(
 
     convert_timedelta(db)
 
-    stypes_cache_path = Path(f"{cache_path}/stypes.json")
+    stypes_cache_path = Path(f"{cache_path}/attribute-schema.json")
     try:
         with open(stypes_cache_path, "r") as f:
             col_to_stype_dict = json.load(f)

@@ -22,14 +22,14 @@ class SAGEModel(torch.nn.Module):
         col_stats_dict: Dict[str, Dict[str, Dict[StatType, Any]]],
         num_layers: int,
         channels: int,
-        row_encoder: Literal["resnet", "linear"],
+        tabular_model: Literal["resnet", "linear"],
         out_channels: int,
         aggr: str,
         norm: str,
     ):
         super().__init__()
 
-        def get_encoder(row_encoder: str):
+        def get_tabular_model(row_encoder: str):
             if row_encoder == "resnet":
                 return ResNet, {
                     "channels": 128,
@@ -40,7 +40,7 @@ class SAGEModel(torch.nn.Module):
             else:
                 raise ValueError(f"Unknown row_encoder: {row_encoder}")
 
-        encoder_cls, encoder_kwargs = get_encoder(row_encoder)
+        encoder_cls, encoder_kwargs = get_tabular_model(tabular_model)
 
         self.encoder = HeteroEncoder(
             channels=channels,
