@@ -367,6 +367,9 @@ def run_pretraining_experiment(
     except Exception as e:
         mlflow_logger.log_hyperparams({"error": str(e)})
         mlflow_logger.finalize("failed")
+        
+    if not os.path.exists(backbone_model_path):
+        return
 
     task_names = get_task_names(dataset_name)
     task_names = [
