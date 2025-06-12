@@ -174,6 +174,7 @@ def run_pretrained_task_experiment(
             "tabular_channels": channels,
             "rgnn_model": rgnn_model,
             "rgnn_channels": channels,
+            "rgnn_layers": rgnn_layers,
             "rgnn_aggr": rgnn_aggr,
             "max_training_steps": max_training_steps,
             "head_channels": head_channels,
@@ -194,7 +195,7 @@ def run_pretrained_task_experiment(
             callbacks.EarlyStopping(
                 monitor=f"val_{ligtning_model.tune_metric}",
                 mode="max" if ligtning_model.higher_is_better else "min",
-                patience=5,
+                patience=6,
             ),
             callbacks.TQDMProgressBar(leave=True),
         ],
@@ -281,6 +282,7 @@ def run_pretraining_experiment(
         input_nodes=fact_tables[dataset_name],
         transform=corruptor.corrupt_data,
         batch_size=batch_size,
+        shuffle=True
     )
 
     backbone = get_backbone(
@@ -337,13 +339,14 @@ def run_pretraining_experiment(
         logger=mlflow_logger,
         callbacks=[
             callbacks.EarlyStopping(
-                monitor="val_loss", mode="min", patience=2, stopping_threshold=0.05
+                monitor="val_loss", mode="min", patience=5, stopping_threshold=0.05
             ),
             callbacks.TQDMProgressBar(leave=True),
         ],
         log_every_n_steps=15,
         num_sanity_val_steps=0,
-        val_check_interval=0.33,
+        val_check_interval=50,
+        limit_val_batches=50,
     )
     try:
         trainer.fit(
@@ -352,8 +355,6 @@ def run_pretraining_experiment(
             val_dataloaders=pretrain_val_loader,
             ckpt_path=None,
         )
-    except ValueError:
-        pass
     except Exception as e:
         mlflow_logger.log_hyperparams({"error": str(e)})
         mlflow_logger.finalize("failed")
@@ -371,7 +372,7 @@ def run_pretraining_experiment(
         "mlflow_uri": mlflow_uri,
         "seed": random_seed,
         # training config
-        "max_training_steps": 2000,
+        "max_training_steps": 100,
         "lr": 0.001,
         # sampling config
         "batch_size": 64,
@@ -447,6 +448,7 @@ def run_ray_tuner(
         include_dashboard=False,
         num_cpus=num_cpus if ray_address == "local" else None,
         num_gpus=num_gpus if ray_address == "local" else None,
+        _temp_dir="/home/pelesjak/git/ctu-relational-py/.tmp",
     )
 
     cache_path = f"{cache_dir}/{dataset_name}"
@@ -458,7 +460,7 @@ def run_ray_tuner(
         "schema_diameter": get_dataset_info(dataset_name).schema_diameter.item(),
         "seed": tune.randint(0, 1000),
         # training config
-        "max_training_steps": 4000,
+        "max_training_steps": 100,
         "lr": 0.001,  # tune.choice([0.001, 0.005]),
         "temperature": 1.0,  # tune.grid_search([1.0]),
         "corrupt_prob": 0.4,  # tune.grid_search([0.2, 0.4, 0.6]),
