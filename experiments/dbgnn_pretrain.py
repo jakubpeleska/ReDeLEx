@@ -175,6 +175,7 @@ def run_pretrained_task_experiment(
             "task": task_name,
             "batch_size": batch_size,
             "lr": lr,
+            "finetune_backbone": finetune_backbone,
             "tabular_model": tabular_model,
             "tabular_channels": channels,
             "rgnn_model": rgnn_model,
@@ -205,7 +206,7 @@ def run_pretrained_task_experiment(
             callbacks.TQDMProgressBar(leave=True),
         ],
         num_sanity_val_steps=0,
-        val_check_interval=0.33,
+        val_check_interval=min(500, len(loader_dict["train"])),
         enable_checkpointing=False,
     )
     try:
@@ -367,7 +368,7 @@ def run_pretraining_experiment(
     except Exception as e:
         mlflow_logger.log_hyperparams({"error": str(e)})
         mlflow_logger.finalize("failed")
-        
+
     if not os.path.exists(backbone_model_path):
         return
 
@@ -398,9 +399,9 @@ def run_pretraining_experiment(
         "rgnn_layers": rgnn_layers,
         "rgnn_aggr": rgnn_aggr,
         "head_layers": 2,
-        "head_channels": 256,
+        "head_channels": 128,
         "head_norm": "batch_norm",
-        "head_dropout": 0.1,
+        "head_dropout": 0,
     }
 
     tuner = tune.Tuner(
@@ -478,7 +479,7 @@ def run_ray_tuner(
         "temperature": 1.0,  # tune.grid_search([1.0]),
         "corrupt_prob": 0.4,  # tune.grid_search([0.2, 0.4, 0.6]),
         # sampling config
-        "batch_size": 128,  # tune.grid_search([64, 128, 256]),
+        "batch_size": 512,  # tune.grid_search([64, 128, 256]),
         # model config
         "channels": 64,  # tune.grid_search([16, 32, 64]),
         "tabular_model": tabular_model,  # tune.grid_search(["resnet", "linear"]),

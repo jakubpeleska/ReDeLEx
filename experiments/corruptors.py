@@ -109,11 +109,11 @@ class ResampleCorruptor:
         """
         u_values: torch.Tensor
         u_values, counts = x.unique(sorted=True, return_counts=True, dim=0)
-        
+
         top_idx = torch.argsort(counts, descending=True)
         u_values = u_values[top_idx[:max_values]]
         counts = counts[top_idx[:max_values]]
-        
+
         if empirical:
             # Get the empirical marginal distribution
             marginal_prob = counts.float() / counts.sum()

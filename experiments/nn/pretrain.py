@@ -95,6 +95,7 @@ class LightningPretraining(L.LightningModule):
         self.train_loss_dict = defaultdict(MeanMetric)
         self.val_loss_dict = defaultdict(MeanMetric)
         self.val_best_loss = MinMetric()
+        self.val_best_loss.update(float("inf"))
 
     def forward(self, batch):
         return self.model(batch)
@@ -190,6 +191,10 @@ class LightningEntityTaskModel(L.LightningModule):
         self.val_metric_dict = defaultdict(MeanMetric)
         self.best_tune_metric = MaxMetric() if self.higher_is_better else MinMetric()
         self.best_tune_metric.requires_grad_(False)
+        if self.higher_is_better:
+            self.best_tune_metric.update(float("-inf"))
+        else:
+            self.best_tune_metric.update(float("inf"))
 
     def forward(self, batch):
         x_dict = self.backbone(

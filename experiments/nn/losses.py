@@ -13,7 +13,13 @@ MIN_NORM_FACTOR = 0.1
 
 
 class TableContrastiveLoss(torch.nn.Module):
-    def __init__(self, channels: int, node_types: List[NodeType], temperature: float = 0.1):
+    def __init__(
+        self,
+        channels: int,
+        node_types: List[NodeType],
+        temperature: float = 0.1,
+        max_negatives: int = 255,
+    ):
         super().__init__()
 
         self.channels = channels
@@ -26,6 +32,7 @@ class TableContrastiveLoss(torch.nn.Module):
         )
 
         self.temp = temperature
+        self.max_negatives = max_negatives
 
     def forward(
         self, x_dict: Dict[NodeType, torch.Tensor], cor_dict: Dict[NodeType, torch.Tensor]
@@ -38,12 +45,30 @@ class TableContrastiveLoss(torch.nn.Module):
             x = x_dict[tname]
             cor = cor_dict[tname]
             batch_size = x.size(0)
+            num_negatives = cor.size(0) - 1
             if batch_size <= 1:
                 continue
 
             sim_m = cor @ x.T
             labels = torch.arange(batch_size, device=sim_m.device, dtype=torch.long)
-            norm_factor = -math.log(1 / batch_size)
+
+            if num_negatives > self.max_negatives:
+                sim_pos = sim_m.diag()
+                n = sim_m.size(0)
+                sim_neg = sim_m.flatten()[1:].view(n - 1, n + 1)[:, :-1].reshape(n, n - 1)
+                rnd_idx = torch.stack(
+                    [
+                        torch.randperm(num_negatives - 1)[: self.max_negatives]
+                        for _ in range(n)
+                    ]
+                )
+                sim_neg = torch.gather(sim_neg, 1, rnd_idx)
+                sim_m = torch.cat([sim_pos.unsqueeze(1), sim_neg], dim=1)
+                labels = torch.zeros(batch_size, dtype=torch.long, device=sim_m.device)
+
+                num_negatives = self.max_negatives
+
+            norm_factor = -math.log(1 / (num_negatives + 1))
             loss += (
                 torch.nn.functional.cross_entropy(
                     sim_m / self.temp, labels, reduction="sum"
@@ -56,7 +81,13 @@ class TableContrastiveLoss(torch.nn.Module):
 
 
 class EdgeContrastiveLoss(torch.nn.Module):
-    def __init__(self, channels: int, edge_types: List[EdgeType], temperature: float = 0.1):
+    def __init__(
+        self,
+        channels: int,
+        edge_types: List[EdgeType],
+        temperature: float = 0.1,
+        max_negatives: int = 255,
+    ):
         super().__init__()
         self.channels = channels
 
@@ -73,6 +104,7 @@ class EdgeContrastiveLoss(torch.nn.Module):
         )
 
         self.temp = temperature
+        self.max_negatives = max_negatives
 
     def forward(
         self, data: HeteroData, x_dict: Dict[NodeType, torch.Tensor]
@@ -108,22 +140,38 @@ class EdgeContrastiveLoss(torch.nn.Module):
             pos_idx = adj_M.nonzero()
             neg_idx = (~adj_M).nonzero()
 
-            batch_size = ((~adj_M).sum(dim=1) + 1)[pos_idx[:, 0]]
+            pos_sim = exp_sim_M[pos_idx[:, 0], pos_idx[:, 1]]
 
-            if len(batch_size) <= 1 or batch_size.min() <= 1:
+            num_negatives = (~adj_M).sum(dim=1)[pos_idx[:, 0]]
+            batch_size = pos_sim.size(0)
+
+            if batch_size <= 1 or num_negatives.min() == 0:
                 continue
 
-            pos_sim = exp_sim_M[pos_idx[:, 0], pos_idx[:, 1]]
+            max_total_negatives = self.max_negatives * total_dst
+            if neg_idx.size(0) > max_total_negatives:
+                mask = torch.randperm(neg_idx.size(0), device=neg_idx.device)[
+                    :max_total_negatives
+                ]
+                neg_idx = neg_idx[mask]
+                num_negatives = torch.zeros(
+                    total_dst, dtype=torch.long, device=neg_idx.device
+                )
+                idx, _num_negatives = torch.unique(
+                    neg_idx[:, 0], return_counts=True, sorted=False
+                )
+                num_negatives[idx] = _num_negatives
+                num_negatives = num_negatives[pos_idx[:, 0]]
 
             neg_sim = exp_sim_M[neg_idx[:, 0], neg_idx[:, 1]]
             neg_sim = scatter(neg_sim, neg_idx[:, 0], reduce="sum")[pos_idx[:, 0]]
 
             sum_sim = pos_sim + neg_sim
 
-            norm_factor = -torch.log(1 / batch_size)
+            norm_factor = -torch.log(1 / (num_negatives + 1))
 
             loss += (-torch.log(pos_sim / sum_sim) / norm_factor).sum()
-            count += pos_sim.size(0)
+            count += batch_size
 
         return loss / count if count > 0 else torch.tensor(0.0)
 
@@ -135,6 +183,7 @@ class ContextContrastiveLoss(torch.nn.Module):
         node_types: List[NodeType],
         edge_types: List[EdgeType],
         temperature: float = 0.1,
+        max_negatives: int = 255,
     ):
         super().__init__()
         self.channels = channels
@@ -155,6 +204,7 @@ class ContextContrastiveLoss(torch.nn.Module):
         )
 
         self.temp = temperature
+        self.max_negatives = max_negatives
 
     def forward(
         self, data: HeteroData, x_dict: Dict[NodeType, torch.Tensor]
@@ -174,7 +224,27 @@ class ContextContrastiveLoss(torch.nn.Module):
 
             sim_m: torch.Tensor = context @ x.T
             labels = torch.arange(batch_size, device=sim_m.device)
-            norm_factor = -math.log(1 / batch_size)
+            num_negatives = context.size(0) - 1
+
+            if num_negatives > self.max_negatives:
+                sim_pos = sim_m.diag()
+                n = sim_m.size(0)
+                sim_neg = sim_m.flatten()[1:].view(n - 1, n + 1)[:, :-1].reshape(n, n - 1)
+
+                rnd_idx = torch.stack(
+                    [
+                        torch.randperm(num_negatives - 1)[: self.max_negatives]
+                        for _ in range(n)
+                    ]
+                )
+                sim_neg = torch.gather(sim_neg, 1, rnd_idx)
+                sim_m = torch.cat([sim_pos.unsqueeze(1), sim_neg], dim=1)
+
+                labels = torch.zeros(batch_size, dtype=torch.long, device=sim_m.device)
+
+                num_negatives = self.max_negatives
+
+            norm_factor = -math.log(1 / (num_negatives + 1))
             loss += (
                 torch.nn.functional.cross_entropy(
                     sim_m / self.temp, labels, reduction="sum"
