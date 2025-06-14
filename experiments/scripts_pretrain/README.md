@@ -1,0 +1,26 @@
+## Linear SAGE
+
+```bash
+sbatch -o logs/slurm_cpu_big_run_linear_sage_pretrain_$(date '+%d-%m-%Y_%H:%M:%S').log experiments/scripts_pretrain/slurm_cpu_big_run_linear_sage_pretrain.sh
+```
+```bash
+sbatch -o logs/slurm_cpu_xl_run_linear_sage_pretrain_$(date '+%d-%m-%Y_%H:%M:%S').log experiments/scripts_pretrain/slurm_cpu_xl_run_linear_sage_pretrain.sh
+```
+
+## ResNet SAGE
+
+```bash
+sbatch -o logs/slurm_cpu_big_run_resnet_sage_pretrain_$(date '+%d-%m-%Y_%H:%M:%S').log experiments/scripts_pretrain/slurm_cpu_big_run_resnet_sage_pretrain.sh
+```
+```bash
+sbatch -o logs/slurm_cpu_xl_run_resnet_sage_pretrain_$(date '+%d-%m-%Y_%H:%M:%S').log experiments/scripts_pretrain/slurm_cpu_xl_run_resnet_sage_pretrain.sh
+```
+
+## Linear DBFormer
+
+```bash
+sbatch -o logs/slurm_cpu_big_run_linear_dbformer_pretrain_$(date '+%d-%m-%Y_%H:%M:%S').log experiments/scripts_pretrain/slurm_cpu_big_run_linear_dbformer_pretrain.sh
+```
+```bash
+sbatch -o logs/slurm_cpu_xl_run_linear_dbformer_pretrain_$(date '+%d-%m-%Y_%H:%M:%S').log experiments/scripts_pretrain/slurm_cpu_xl_run_linear_dbformer_pretrain.sh
+```
