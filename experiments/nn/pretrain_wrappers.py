@@ -1,12 +1,16 @@
-from typing import Dict
+from typing import Dict, Optional, Tuple
+
 from collections import defaultdict
+import copy
 
 import torch
 
 from torch_geometric.data import HeteroData
+from torch_geometric.typing import NodeType
 
 import lightning as L
 
+from torchmetrics import Metric
 from torchmetrics.aggregation import MaxMetric, MinMetric, MeanMetric
 from torchmetrics.classification import (
     BinaryAccuracy,
@@ -27,22 +31,42 @@ from experiments.nn.losses import (
     EdgeContrastiveLoss,
     ContextContrastiveLoss,
 )
-from experiments.utils import get_loss, get_tune_metric
 
 
-def get_metrics(dataset_name: str, task_name: str):
+def get_metrics(dataset_name: str, task_name: str) -> Tuple[Dict[str, Metric], str, bool]:
     task = get_task(dataset_name, task_name)
 
     if task.task_type == TaskType.REGRESSION:
-        return {"mae": MeanAbsoluteError(), "mse": MeanSquaredError(), "r2": R2Score()}
+        return (
+            {"mae": MeanAbsoluteError(), "mse": MeanSquaredError(), "r2": R2Score()},
+            "mae",
+            False,
+        )
 
     elif task.task_type == TaskType.BINARY_CLASSIFICATION:
-        return {
-            "accuracy": BinaryAccuracy(),
-            "precision": BinaryPrecision(),
-            "f1": BinaryF1Score(),
-            "roc_auc": BinaryAUROC(),
-        }
+        return (
+            {
+                "accuracy": BinaryAccuracy(),
+                "precision": BinaryPrecision(),
+                "f1": BinaryF1Score(),
+                "roc_auc": BinaryAUROC(),
+            },
+            "roc_auc",
+            True,
+        )
+    else:
+        raise ValueError(f"Task type {task.task_type} is unsupported")
+
+
+def get_loss(dataset_name: str, task_name: str):
+    task = get_task(dataset_name, task_name)
+
+    if task.task_type == TaskType.BINARY_CLASSIFICATION:
+        return torch.nn.BCEWithLogitsLoss(), 1
+
+    elif task.task_type == TaskType.REGRESSION:
+        return torch.nn.MSELoss(), 1
+
     else:
         raise ValueError(f"Task type {task.task_type} is unsupported")
 
@@ -161,6 +185,20 @@ class LightningPretraining(L.LightningModule):
         return self.optimizer
 
 
+class LightningBackboneModel(L.LightningModule):
+    def __init__(self, backbone: RDLModel):
+        super().__init__()
+        self.backbone = backbone
+
+    def forward(
+        self,
+        batch: HeteroData,
+        entity_table: Optional[NodeType] = None,
+        tf_attr: Optional[str] = "tf",
+    ) -> Dict[NodeType, torch.Tensor]:
+        return self.backbone(batch, entity_table, tf_attr)
+
+
 class LightningEntityTaskModel(L.LightningModule):
     def __init__(
         self,
@@ -172,23 +210,23 @@ class LightningEntityTaskModel(L.LightningModule):
         finetune_backbone: bool = False,
     ):
         super().__init__()
-        self.backbone = backbone
+        self.backbone = LightningBackboneModel(backbone)
         if finetune_backbone:
-            self.backbone.train()
+            self.backbone.unfreeze()
         else:
-            self.backbone.eval()
-            self.backbone.requires_grad_(False)
+            self.backbone.freeze()
 
         self.head = head
 
         self.task = get_task(dataset_name, task_name)
         self.loss_fn, _ = get_loss(dataset_name, task_name)
-        self.metrics = get_metrics(dataset_name, task_name)
-        self.tune_metric, self.higher_is_better = get_tune_metric(dataset_name, task_name)
+        self.val_metrics, self.tune_metric, self.higher_is_better = get_metrics(
+            dataset_name, task_name
+        )
+        self.test_metrics = copy.deepcopy(self.val_metrics)
         self.optimizer = optimizer
 
         self.train_loss = MeanMetric().requires_grad_(False)
-        self.val_metric_dict = defaultdict(MeanMetric)
         self.best_tune_metric = MaxMetric() if self.higher_is_better else MinMetric()
         self.best_tune_metric.requires_grad_(False)
         if self.higher_is_better:
@@ -232,34 +270,31 @@ class LightningEntityTaskModel(L.LightningModule):
     @torch.no_grad()
     def validation_step(self, batch, batch_idx: int, dataloader_idx: int):
         pred, target = self(batch)
-        batch_size = pred.size(0)
 
         mode = "val" if dataloader_idx == 0 else "test"
+        metrics = self.val_metrics if mode == "val" else self.test_metrics
 
-        metrics_dict = {
-            f"{mode}_{mname}": mfn(pred, target) for mname, mfn in self.metrics.items()
-        }
-        for k, v in metrics_dict.items():
-            self.val_metric_dict[k].update(v, batch_size)
-
-        self.log_dict(
-            metrics_dict, prog_bar=True, batch_size=batch_size, add_dataloader_idx=False
-        )
+        for mname, m in metrics.items():
+            m.update(pred, target)
 
     def on_validation_epoch_end(self):
         val_metrics: dict[str, float] = {}
 
-        tune_metric = self.val_metric_dict[f"val_{self.tune_metric}"].compute()
+        tune_metric = self.val_metrics[self.tune_metric].compute()
         best_tune_metric = self.best_tune_metric.compute()
         self.best_tune_metric.update(tune_metric)
 
-        for k, v in self.val_metric_dict.items():
-            val_metrics[f"{k}_epoch"] = v.compute()
-            v.reset()
-            if (self.higher_is_better and tune_metric > best_tune_metric) or (
-                not self.higher_is_better and tune_metric < best_tune_metric
-            ):
-                val_metrics[f"best_{k}"] = val_metrics[f"{k}_epoch"]
+        for metrics, mode in [
+            (self.val_metrics, "val"),
+            (self.test_metrics, "test"),
+        ]:
+            for k, m in metrics.items():
+                val_metrics[f"{mode}_{k}"] = m.compute()
+                m.reset()
+                if (self.higher_is_better and tune_metric > best_tune_metric) or (
+                    not self.higher_is_better and tune_metric < best_tune_metric
+                ):
+                    val_metrics[f"best_{mode}_{k}"] = val_metrics[f"{mode}_{k}"]
 
         self.log_dict(val_metrics, prog_bar=True, logger=True)
 

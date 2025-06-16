@@ -3,6 +3,7 @@ from typing import Any, Dict, Literal, Optional
 import os
 import random
 import sys
+import datetime
 
 os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
 os.environ["RAY_memory_monitor_refresh_ms"] = "0"
@@ -39,7 +40,7 @@ from experiments.utils import (
     get_text_embedder,
 )
 from experiments.corruptors import DBResampleCorruptor
-from experiments.nn.pretrain import (
+from experiments.nn.pretrain_wrappers import (
     PretrainingModel,
     LightningPretraining,
     LightningEntityTaskModel,
@@ -67,20 +68,17 @@ def get_backbone(
     )
 
 
-def run_pretrained_task_experiment(
-    config: tune.TuneConfig,
+def run_task_experiment(
+    config: Dict[str, Any],
     full_data: HeteroData,
     col_stats_dict: Dict[str, Dict[str, Dict[StatType, Any]]],
+    with_ray: bool = True,
+    with_mlflow: bool = True,
+    with_pretrained: bool = True,
 ):
-    context = ray_train.get_context()
-    trial_name = context.get_trial_name()
-
     dataset_name: str = config["dataset_name"]
     task_name: str = config["task_name"]
     random_seed: int = config["seed"]
-
-    mlflow_experiment: str = config["mlflow_experiment"]
-    mlflow_uri: str = config["mlflow_uri"]
 
     lr: float = config["lr"]
     batch_size: int = config["batch_size"]
@@ -88,7 +86,6 @@ def run_pretrained_task_experiment(
     max_training_steps: int = config["max_training_steps"]
     finetune_backbone: bool = config["finetune_backbone"]
 
-    backbone_model_path: str = config["backbone_model_path"]
     channels: int = config["channels"]
     tabular_model: str = config["tabular_model"]
     rgnn_model: str = config["rgnn_model"]
@@ -106,12 +103,19 @@ def run_pretrained_task_experiment(
 
     device = torch.device("cpu")
 
-    resources = context.get_trial_resources().required_resources
-    print(f"Resources: {resources}")
-    if torch.cuda.is_available():
-        device = torch.device("cuda")
-        torch.set_num_threads(1)
-    print("Device:", device)
+    if with_ray:
+        context = ray_train.get_context()
+        trial_name = context.get_trial_name()
+        resources = context.get_trial_resources().required_resources
+        print(f"Resources: {resources}")
+        if torch.cuda.is_available():
+            device = torch.device("cuda")
+            torch.set_num_threads(1)
+        print("Device:", device)
+    else:
+        trial_name = (
+            f"{dataset_name}_{task_name}_{datetime.now().strftime('%Y%m%d_%H%M%S')}"
+        )
 
     task = get_task(dataset_name, task_name)
 
@@ -124,7 +128,9 @@ def run_pretrained_task_experiment(
         rgnn_layers=rgnn_layers,
         rgnn_aggr=rgnn_aggr,
     )
-    backbone.load_state_dict(torch.load(backbone_model_path, map_location=device))
+    if with_pretrained:
+        backbone_model_path: str = config["backbone_model_path"]
+        backbone.load_state_dict(torch.load(backbone_model_path, map_location=device))
 
     task_head = MLP(
         in_channels=channels,
@@ -136,7 +142,12 @@ def run_pretrained_task_experiment(
         dropout=head_dropout,
     )
 
-    optimizer = torch.optim.Adam(task_head.parameters(), lr=lr)
+    if finetune_backbone:
+        optimizer = torch.optim.Adam(
+            list(backbone.parameters()) + list(task_head.parameters()), lr=lr
+        )
+    else:
+        optimizer = torch.optim.Adam(task_head.parameters(), lr=lr)
 
     ligtning_model = LightningEntityTaskModel(
         backbone,
@@ -162,41 +173,44 @@ def run_pretrained_task_experiment(
             batch_size=batch_size,
             shuffle=split == "train",
         )
+    if with_mlflow:
+        mlflow_experiment: str = config["mlflow_experiment"]
+        mlflow_uri: str = config["mlflow_uri"]
+        logger = loggers.MLFlowLogger(
+            experiment_name=mlflow_experiment,
+            run_name=trial_name,
+            tracking_uri=mlflow_uri,
+        )
 
-    mlflow_logger = loggers.MLFlowLogger(
-        experiment_name=mlflow_experiment,
-        run_name=trial_name,
-        tracking_uri=mlflow_uri,
-    )
-
-    mlflow_logger.log_hyperparams(
-        {
-            "dataset": dataset_name,
-            "task": task_name,
-            "batch_size": batch_size,
-            "lr": lr,
-            "finetune_backbone": finetune_backbone,
-            "tabular_model": tabular_model,
-            "tabular_channels": channels,
-            "rgnn_model": rgnn_model,
-            "rgnn_channels": channels,
-            "rgnn_layers": rgnn_layers,
-            "rgnn_aggr": rgnn_aggr,
-            "max_training_steps": max_training_steps,
-            "head_channels": head_channels,
-            "head_layers": head_layers,
-            "head_norm": head_norm,
-            "head_dropout": head_dropout,
-        }
-    )
-
-    # mlflow_logger = loggers.CSVLogger(save_dir=context.get_trial_dir())
+        logger.log_hyperparams(
+            {
+                "dataset": dataset_name,
+                "task": task_name,
+                "batch_size": batch_size,
+                "lr": lr,
+                "finetune_backbone": finetune_backbone,
+                "tabular_model": tabular_model,
+                "tabular_channels": channels,
+                "rgnn_model": rgnn_model,
+                "rgnn_channels": channels,
+                "rgnn_layers": rgnn_layers,
+                "rgnn_aggr": rgnn_aggr,
+                "max_training_steps": max_training_steps,
+                "head_channels": head_channels,
+                "head_layers": head_layers,
+                "head_norm": head_norm,
+                "head_dropout": head_dropout,
+            }
+        )
+    else:
+        experiment_dir = config["experiment_dir"]
+        logger = loggers.CSVLogger(save_dir=experiment_dir, name=trial_name)
 
     trainer = L.Trainer(
         max_epochs=20,
         accelerator="cpu",
         devices=1,
-        logger=mlflow_logger,
+        logger=logger,
         callbacks=[
             callbacks.EarlyStopping(
                 monitor=f"val_{ligtning_model.tune_metric}",
@@ -217,23 +231,19 @@ def run_pretrained_task_experiment(
             ckpt_path=None,
         )
     except Exception as e:
-        mlflow_logger.log_hyperparams({"error": str(e)})
-        mlflow_logger.finalize("failed")
+        logger.log_hyperparams({"error": str(e)})
+        logger.finalize("failed")
 
 
 def run_pretraining_experiment(
-    config: tune.TuneConfig,
+    config: Dict[str, Any],
     full_data: HeteroData,
     train_data: HeteroData,
     col_stats_dict: Dict[str, Dict[str, Dict[StatType, Any]]],
+    with_ray: bool = True,
+    with_mlflow: bool = True,
 ):
-    context = ray_train.get_context()
-    trial_name = context.get_trial_name()
-    experiment_dir = context.get_trial_dir()
-
     dataset_name: str = config["dataset_name"]
-    mlflow_experiment: str = config["mlflow_experiment"]
-    mlflow_uri: str = config["mlflow_uri"]
 
     random_seed: int = config["seed"]
     lr: float = config["lr"]
@@ -255,18 +265,26 @@ def run_pretraining_experiment(
 
     device = torch.device("cpu")
 
-    resources = context.get_trial_resources().required_resources
-    print(f"Resources: {resources}")
-    if torch.cuda.is_available():
-        device = torch.device("cuda")
-        torch.set_num_threads(1)
+    if with_ray:
+        context = ray_train.get_context()
+        trial_name = context.get_trial_name()
+        experiment_dir = context.get_trial_dir()
+
+        resources = context.get_trial_resources().required_resources
+        print(f"Resources: {resources}")
+        if torch.cuda.is_available():
+            device = torch.device("cuda")
+            torch.set_num_threads(1)
+    else:
+        experiment_dir = config["experiment_dir"]
+
     print("Device:", device)
 
     corruptor = DBResampleCorruptor(
         train_data, corrupt_prob=corrupt_prob, distribution="uniform"
     )
 
-    fact_tables = {
+    sample_tables = {
         "rel-amazon": "review",
         "rel-avito": "SearchInfo",
         "rel-f1": "results",
@@ -277,7 +295,7 @@ def run_pretraining_experiment(
     pretrain_loader = HGTLoader(
         train_data,
         num_samples=[batch_size] * max(schema_diameter, 3),
-        input_nodes=fact_tables[dataset_name],
+        input_nodes=sample_tables[dataset_name],
         transform=corruptor.corrupt_data,
         batch_size=batch_size,
         shuffle=True,
@@ -287,7 +305,7 @@ def run_pretraining_experiment(
     pretrain_val_loader = HGTLoader(
         full_data,
         num_samples=[batch_size] * max(schema_diameter, 3),
-        input_nodes=fact_tables[dataset_name],
+        input_nodes=sample_tables[dataset_name],
         transform=corruptor.corrupt_data,
         batch_size=batch_size,
         shuffle=True,
@@ -315,40 +333,44 @@ def run_pretraining_experiment(
         pretrain_model, optimizer, model_save_path=backbone_model_path
     )
 
-    mlflow_logger = loggers.MLFlowLogger(
-        experiment_name=mlflow_experiment,
-        run_name=pretrain_run_name,
-        tracking_uri=mlflow_uri,
-    )
+    if with_mlflow:
+        mlflow_experiment: str = config["mlflow_experiment"]
+        mlflow_uri: str = config["mlflow_uri"]
 
-    mlflow_logger.log_hyperparams(
-        {
-            "dataset": dataset_name,
-            "batch_size": batch_size,
-            "corrupt_prob": corrupt_prob,
-            "temperature": temperature,
-            "lr": lr,
-            "sample_depth": max(schema_diameter, 3),
-            "tabular_model": tabular_model,
-            "tabular_channels": channels,
-            "rgnn_model": rgnn_model,
-            "rgnn_channels": channels,
-            "rgnn_layers": rgnn_layers,
-            "rgnn_aggr": rgnn_aggr,
-            "max_training_steps": max_training_steps,
-        }
-    )
+        logger = loggers.MLFlowLogger(
+            experiment_name=mlflow_experiment,
+            run_name=pretrain_run_name,
+            tracking_uri=mlflow_uri,
+        )
 
-    # mlflow_logger = loggers.CSVLogger(experiment_dir)
+        logger.log_hyperparams(
+            {
+                "dataset": dataset_name,
+                "batch_size": batch_size,
+                "corrupt_prob": corrupt_prob,
+                "temperature": temperature,
+                "lr": lr,
+                "sample_depth": max(schema_diameter, 3),
+                "tabular_model": tabular_model,
+                "tabular_channels": channels,
+                "rgnn_model": rgnn_model,
+                "rgnn_channels": channels,
+                "rgnn_layers": rgnn_layers,
+                "rgnn_aggr": rgnn_aggr,
+                "max_training_steps": max_training_steps,
+            }
+        )
+    else:
+        logger = loggers.CSVLogger(experiment_dir)
 
     trainer = L.Trainer(
         max_steps=max_training_steps,
         accelerator="cpu",
         devices=1,
-        logger=mlflow_logger,
+        logger=logger,
         callbacks=[
             callbacks.EarlyStopping(
-                monitor="val_loss", mode="min", patience=5, stopping_threshold=0.05
+                monitor="val_loss", mode="min", patience=10, stopping_threshold=0.05
             ),
             callbacks.TQDMProgressBar(leave=True),
         ],
@@ -366,11 +388,11 @@ def run_pretraining_experiment(
             ckpt_path=None,
         )
     except Exception as e:
-        mlflow_logger.log_hyperparams({"error": str(e)})
-        mlflow_logger.finalize("failed")
+        logger.log_hyperparams({"error": str(e)})
+        logger.finalize("failed")
 
     if not os.path.exists(backbone_model_path):
-        return
+        torch.save(pretrain_model.backbone.state_dict(), backbone_model_path)
 
     task_names = get_task_names(dataset_name)
     task_names = [
@@ -378,36 +400,11 @@ def run_pretraining_experiment(
         for task_name in task_names
         if get_task(dataset_name, task_name).task_type != TaskType.LINK_PREDICTION
     ]
-    config = {
-        "dataset_name": dataset_name,
-        "task_name": tune.grid_search(task_names),
-        "mlflow_experiment": mlflow_experiment,
-        "mlflow_uri": mlflow_uri,
-        "seed": random_seed,
-        # training config
-        "max_training_steps": 2000,
-        "lr": 0.001,
-        "finetune_backbone": tune.grid_search([True, False]),
-        # sampling config
-        "batch_size": 512,
-        "num_neighbors": 16,
-        # model config
-        "backbone_model_path": backbone_model_path,
-        "channels": channels,
-        "tabular_model": tabular_model,
-        "rgnn_model": rgnn_model,
-        "rgnn_layers": rgnn_layers,
-        "rgnn_aggr": rgnn_aggr,
-        "head_layers": 2,
-        "head_channels": 128,
-        "head_norm": "batch_norm",
-        "head_dropout": 0,
-    }
 
     tuner = tune.Tuner(
         tune.with_resources(
             tune.with_parameters(
-                run_pretrained_task_experiment,
+                run_task_experiment,
                 full_data=full_data,
                 col_stats_dict=col_stats_dict,
             ),
@@ -419,7 +416,31 @@ def run_pretraining_experiment(
             stop={"time_total_s": 3600 * 4},
             log_to_file=True,
         ),
-        param_space=config,
+        param_space={
+            "dataset_name": dataset_name,
+            "task_name": tune.grid_search(task_names),
+            "mlflow_experiment": mlflow_experiment,
+            "mlflow_uri": mlflow_uri,
+            "seed": random_seed,
+            # training config
+            "max_training_steps": 2000,
+            "lr": 0.005,
+            "finetune_backbone": tune.grid_search([False, True]),
+            # sampling config
+            "batch_size": 512,
+            "num_neighbors": 128,
+            # model config
+            "backbone_model_path": backbone_model_path,
+            "channels": channels,
+            "tabular_model": tabular_model,
+            "rgnn_model": rgnn_model,
+            "rgnn_layers": rgnn_layers,
+            "rgnn_aggr": rgnn_aggr,
+            "head_layers": 2,
+            "head_channels": 128,
+            "head_norm": "batch_norm",
+            "head_dropout": 0.0,
+        },
     )
     tuner.fit()
 
@@ -467,29 +488,6 @@ def run_ray_tuner(
 
     cache_path = f"{cache_dir}/{dataset_name}"
 
-    config = {
-        "dataset_name": dataset_name,
-        "mlflow_experiment": mlflow_experiment,
-        "mlflow_uri": mlflow_uri,
-        "schema_diameter": get_dataset_info(dataset_name).schema_diameter.item(),
-        "seed": tune.randint(0, 1000),
-        # training config
-        "max_training_steps": 4000,
-        "lr": 0.001,  # tune.choice([0.001, 0.005]),
-        "temperature": 1.0,  # tune.grid_search([1.0]),
-        "corrupt_prob": 0.4,  # tune.grid_search([0.2, 0.4, 0.6]),
-        # sampling config
-        "batch_size": 512,  # tune.grid_search([64, 128, 256]),
-        # model config
-        "channels": 64,  # tune.grid_search([16, 32, 64]),
-        "tabular_model": tabular_model,  # tune.grid_search(["resnet", "linear"]),
-        "rgnn_model": rgnn_model,
-        "rgnn_layers": tune.grid_search([2, 3]),
-        "rgnn_aggr": "sum",
-    }
-
-    cache_path = f"{cache_dir}/{dataset_name}"
-
     dataset = get_dataset(dataset_name)
 
     db = dataset.get_db(upto_test_timestamp=False)
@@ -514,19 +512,19 @@ def run_ray_tuner(
         cache_dir=materialized_cache_dir + "/train",
     )
 
-    resources = ray.available_resources()
+    # resources = ray.available_resources()
 
     gpus_used = 0
     cpus_used = 1
-    if "GPU" in resources:
-        batch_model_size = 4e9
-        gpu_memory = max(
-            [
-                torch.cuda.get_device_properties(i).total_memory
-                for i in range(torch.cuda.device_count())
-            ]
-        )
-        gpus_used = batch_model_size / gpu_memory
+    # if "GPU" in resources:
+    #     batch_model_size = 4e9
+    #     gpu_memory = max(
+    #         [
+    #             torch.cuda.get_device_properties(i).total_memory
+    #             for i in range(torch.cuda.device_count())
+    #         ]
+    #     )
+    #     gpus_used = batch_model_size / gpu_memory
 
     tuner = tune.Tuner(
         tune.with_resources(
@@ -548,8 +546,28 @@ def run_ray_tuner(
             num_samples=num_samples,
             trial_name_creator=lambda trial: f"{dataset_name}_{trial.trial_id}",
             trial_dirname_creator=lambda trial: trial.trial_id,
+            max_concurrent_trials=num_cpus // 2,
         ),
-        param_space=config,
+        param_space={
+            "dataset_name": dataset_name,
+            "mlflow_experiment": mlflow_experiment,
+            "mlflow_uri": mlflow_uri,
+            "schema_diameter": get_dataset_info(dataset_name).schema_diameter.item(),
+            "seed": tune.randint(0, 1000),
+            # training config
+            "max_training_steps": 4000,
+            "lr": 0.001,  # tune.choice([0.001, 0.005]),
+            "temperature": 1.0,  # tune.grid_search([1.0]),
+            "corrupt_prob": tune.grid_search([0.2, 0.4, 0.6]),
+            # sampling config
+            "batch_size": tune.grid_search([64, 128, 256]),
+            # model config
+            "channels": tune.grid_search([64, 128]),
+            "tabular_model": tabular_model,  # tune.grid_search(["resnet", "linear"]),
+            "rgnn_model": rgnn_model,
+            "rgnn_layers": tune.grid_search([2, 3]),
+            "rgnn_aggr": "sum",
+        },
     )
     tuner.fit()
 
