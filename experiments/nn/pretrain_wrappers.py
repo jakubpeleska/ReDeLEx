@@ -111,11 +111,14 @@ class LightningPretraining(L.LightningModule):
         model: PretrainingModel,
         optimizer: torch.optim.Optimizer,
         model_save_path: str,
+        with_neightbor_loader: bool = False,
     ):
         super().__init__()
         self.model = model
         self.optimizer = optimizer
         self.model_save_path = model_save_path
+        self.with_neightbor_loader = with_neightbor_loader
+
         self.train_loss_dict = defaultdict(MeanMetric)
         self.val_loss_dict = defaultdict(MeanMetric)
         self.val_best_loss = MinMetric()
@@ -125,7 +128,16 @@ class LightningPretraining(L.LightningModule):
         return self.model(batch)
 
     def training_step(self, batch, batch_idx):
-        x_dict, losses = self.model(batch)
+        if self.with_neightbor_loader:
+            batch_hgt, batch_neighbor = batch
+            _, losses_hgt = self.model(batch_hgt)
+            _, losses_neighbor = self.model(batch_neighbor)
+            losses = {
+                **{f"{k}_hgt": v for k, v in losses_hgt.items()},
+                **{f"{k}_neighbor": v for k, v in losses_neighbor.items()},
+            }
+        else:
+            _, losses = self.model(batch)
         loss = sum(losses.values())
 
         if torch.isnan(loss) or torch.isinf(loss):
@@ -234,6 +246,8 @@ class LightningEntityTaskModel(L.LightningModule):
         else:
             self.best_tune_metric.update(float("inf"))
 
+        self.first_val = True
+
     def forward(self, batch):
         x_dict = self.backbone(
             batch,
@@ -291,10 +305,24 @@ class LightningEntityTaskModel(L.LightningModule):
             for k, m in metrics.items():
                 val_metrics[f"{mode}_{k}"] = m.compute()
                 m.reset()
+
+                if self.first_val:
+                    val_metrics[f"first_{mode}_{k}"] = val_metrics[f"{mode}_{k}"]
+
                 if (self.higher_is_better and tune_metric > best_tune_metric) or (
                     not self.higher_is_better and tune_metric < best_tune_metric
                 ):
                     val_metrics[f"best_{mode}_{k}"] = val_metrics[f"{mode}_{k}"]
+
+        if (self.higher_is_better and tune_metric > best_tune_metric) or (
+            not self.higher_is_better and tune_metric < best_tune_metric
+        ):
+            val_metrics["best_step"] = self.trainer.global_step
+
+        if self.first_val:
+            val_metrics["first_step"] = self.trainer.global_step
+
+        self.first_val = False
 
         self.log_dict(val_metrics, prog_bar=True, logger=True)
 

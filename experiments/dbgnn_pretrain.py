@@ -3,7 +3,7 @@ from typing import Any, Dict, Literal, Optional
 import os
 import random
 import sys
-import datetime
+from datetime import datetime, timedelta
 
 os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
 os.environ["RAY_memory_monitor_refresh_ms"] = "0"
@@ -215,13 +215,14 @@ def run_task_experiment(
             callbacks.EarlyStopping(
                 monitor=f"val_{ligtning_model.tune_metric}",
                 mode="max" if ligtning_model.higher_is_better else "min",
-                patience=6,
+                patience=10,
             ),
             callbacks.TQDMProgressBar(leave=True),
         ],
         num_sanity_val_steps=0,
-        val_check_interval=min(500, len(loader_dict["train"])),
+        val_check_interval=min(100, len(loader_dict["train"])),
         enable_checkpointing=False,
+        max_time=timedelta(hours=2),
     )
     try:
         trainer.fit(
@@ -233,6 +234,7 @@ def run_task_experiment(
     except Exception as e:
         logger.log_hyperparams({"error": str(e)})
         logger.finalize("failed")
+        print(e)
 
 
 def run_pretraining_experiment(
@@ -252,6 +254,7 @@ def run_pretraining_experiment(
     corrupt_prob: float = config["corrupt_prob"]
     schema_diameter: int = config["schema_diameter"]
     batch_size: float = config["batch_size"]
+    with_neighbor_pretrain: bool = config["with_neighbor_pretrain"]
 
     channels: int = config["channels"]
     tabular_model: str = config["tabular_model"]
@@ -277,6 +280,7 @@ def run_pretraining_experiment(
             torch.set_num_threads(1)
     else:
         experiment_dir = config["experiment_dir"]
+        trial_name = f"{dataset_name}_pretrain_{datetime.now().strftime('%Y%m%d_%H%M%S')}"
 
     print("Device:", device)
 
@@ -289,28 +293,44 @@ def run_pretraining_experiment(
         "rel-avito": "SearchInfo",
         "rel-f1": "results",
         "rel-stack": "posts",
-        "rel-trial": "studies",
+        "rel-trial": "outcomes",
     }
 
-    pretrain_loader = HGTLoader(
-        train_data,
-        num_samples=[batch_size] * max(schema_diameter, 3),
-        input_nodes=sample_tables[dataset_name],
-        transform=corruptor.corrupt_data,
-        batch_size=batch_size,
-        shuffle=True,
-        drop_last=True,
-    )
+    def get_loader(data: HeteroData, loader_type: Literal["hgt", "neighbor"]):
+        if loader_type == "hgt":
+            return HGTLoader(
+                data,
+                num_samples=[batch_size] * max(schema_diameter, 3),
+                input_nodes=sample_tables[dataset_name],
+                transform=corruptor.corrupt_data,
+                batch_size=batch_size,
+                shuffle=True,
+                drop_last=True,
+            )
+        elif loader_type == "neighbor":
+            return NeighborLoader(
+                data,
+                num_neighbors=[
+                    min(batch_size, 16) // 2 ** (i + 1)
+                    for i in range(max(schema_diameter, 3))
+                ],
+                input_nodes=sample_tables[dataset_name],
+                input_time=data[sample_tables[dataset_name]].time,
+                transform=corruptor.corrupt_data,
+                batch_size=batch_size,
+                shuffle=True,
+                drop_last=True,
+                time_attr="time",
+                num_workers=1,
+            )
+        else:
+            raise ValueError(f"Unknown loader type: {loader_type}")
 
-    pretrain_val_loader = HGTLoader(
-        full_data,
-        num_samples=[batch_size] * max(schema_diameter, 3),
-        input_nodes=sample_tables[dataset_name],
-        transform=corruptor.corrupt_data,
-        batch_size=batch_size,
-        shuffle=True,
-        drop_last=True,
-    )
+    pretrain_loaders = [get_loader(train_data, "hgt")]
+    if with_neighbor_pretrain:
+        pretrain_loaders.append(get_loader(train_data, "neighbor"))
+
+    pretrain_val_loader = get_loader(full_data, "hgt")
 
     backbone = get_backbone(
         data=full_data,
@@ -326,16 +346,19 @@ def run_pretraining_experiment(
 
     optimizer = torch.optim.Adam(pretrain_model.parameters(), lr=lr)
 
-    pretrain_run_name = f"{trial_name}_pretrain"
     backbone_model_path = os.path.join(experiment_dir, f"best_{trial_name}.pt")
 
     ligtning_pretrain = LightningPretraining(
-        pretrain_model, optimizer, model_save_path=backbone_model_path
+        pretrain_model,
+        optimizer,
+        model_save_path=backbone_model_path,
+        with_neightbor_loader=with_neighbor_pretrain,
     )
 
     if with_mlflow:
         mlflow_experiment: str = config["mlflow_experiment"]
         mlflow_uri: str = config["mlflow_uri"]
+        pretrain_run_name = f"{trial_name}_pretrain"
 
         logger = loggers.MLFlowLogger(
             experiment_name=mlflow_experiment,
@@ -358,41 +381,48 @@ def run_pretraining_experiment(
                 "rgnn_layers": rgnn_layers,
                 "rgnn_aggr": rgnn_aggr,
                 "max_training_steps": max_training_steps,
+                "with_neighbor_pretrain": with_neighbor_pretrain,
             }
         )
     else:
         logger = loggers.CSVLogger(experiment_dir)
 
+    early_stopping = callbacks.EarlyStopping(
+        monitor="val_loss", mode="min", patience=10, stopping_threshold=0.05
+    )
     trainer = L.Trainer(
         max_steps=max_training_steps,
         accelerator="cpu",
         devices=1,
         logger=logger,
-        callbacks=[
-            callbacks.EarlyStopping(
-                monitor="val_loss", mode="min", patience=10, stopping_threshold=0.05
-            ),
-            callbacks.TQDMProgressBar(leave=True),
-        ],
+        callbacks=[early_stopping, callbacks.TQDMProgressBar(leave=True)],
         log_every_n_steps=15,
         num_sanity_val_steps=0,
-        val_check_interval=min(50, len(pretrain_loader)),
+        val_check_interval=min(50, len(pretrain_loaders[0])),
         limit_val_batches=50,
         enable_checkpointing=False,
+        max_time=timedelta(hours=4),
     )
     try:
+        if not with_neighbor_pretrain:
+            pretrain_loaders = pretrain_loaders[0]
+
         trainer.fit(
             ligtning_pretrain,
-            train_dataloaders=pretrain_loader,
+            train_dataloaders=pretrain_loaders,
             val_dataloaders=pretrain_val_loader,
             ckpt_path=None,
         )
     except Exception as e:
         logger.log_hyperparams({"error": str(e)})
         logger.finalize("failed")
+        print(e)
 
     if not os.path.exists(backbone_model_path):
-        torch.save(pretrain_model.backbone.state_dict(), backbone_model_path)
+        torch.save(ligtning_pretrain.model.backbone.state_dict(), backbone_model_path)
+
+    if not with_ray:
+        return
 
     task_names = get_task_names(dataset_name)
     task_names = [
@@ -424,7 +454,7 @@ def run_pretraining_experiment(
             "seed": random_seed,
             # training config
             "max_training_steps": 2000,
-            "lr": 0.005,
+            "lr": 0.005 if dataset_name != "rel-trial" else 0.0001,
             "finetune_backbone": tune.grid_search([False, True]),
             # sampling config
             "batch_size": 512,
@@ -483,7 +513,9 @@ def run_ray_tuner(
         include_dashboard=False,
         num_cpus=num_cpus if ray_address == "local" else None,
         num_gpus=num_gpus if ray_address == "local" else None,
-        _temp_dir="/home/pelesjak/git/ctu-relational-py/.tmp",
+        # _temp_dir=os.path.join(os.getcwd(), ".tmp")
+        # if len(os.path.join(os.getcwd(), ".tmp")) < 107
+        # else None,
     )
 
     cache_path = f"{cache_dir}/{dataset_name}"
@@ -555,18 +587,19 @@ def run_ray_tuner(
             "schema_diameter": get_dataset_info(dataset_name).schema_diameter.item(),
             "seed": tune.randint(0, 1000),
             # training config
-            "max_training_steps": 4000,
+            "max_training_steps": 2000,
             "lr": 0.001,  # tune.choice([0.001, 0.005]),
             "temperature": 1.0,  # tune.grid_search([1.0]),
             "corrupt_prob": tune.grid_search([0.2, 0.4, 0.6]),
+            "with_neighbor_pretrain": tune.grid_search([False, True]),
             # sampling config
-            "batch_size": tune.grid_search([64, 128, 256]),
+            "batch_size": 64,
             # model config
-            "channels": tune.grid_search([64, 128]),
+            "channels": 128,
             "tabular_model": tabular_model,  # tune.grid_search(["resnet", "linear"]),
             "rgnn_model": rgnn_model,
             "rgnn_layers": tune.grid_search([2, 3]),
-            "rgnn_aggr": "sum",
+            "rgnn_aggr": tune.grid_search(["mean", "sum"]),
         },
     )
     tuner.fit()
