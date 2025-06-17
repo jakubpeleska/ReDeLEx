@@ -1,9 +1,9 @@
 dataset,n_tables,n_fks,n_factual_cols,total_n_tuples,total_n_fk_edges,schema_diameter,has_loops,one_to_one,one_to_many,many_to_one,like_many_to_many,is_link_table,mlt_cat_col,cat_col,num_col,text_col,time_col,domain,is_artificial,db_size_MB
-rel-amazon,3,2,10,23218245,41724080,2,False,0,2,2,1,0,1,1,2,6,1,,,
-rel-avito,8,11,23,24653915,51580470,2,True,0,11,11,3,0,0,2,17,2,4,,,
-rel-f1,9,13,45,97606,227716,3,True,0,13,13,5,0,0,16,13,9,7,,,
-rel-stack,7,12,33,5399818,7453492,3,True,2,11,11,4,0,0,10,1,13,7,,,
-rel-trial,15,15,110,5852157,8232029,4,True,4,13,13,5,0,0,44,12,39,11,,,
+rel-amazon,3,2,10,23218245,41724080,2,False,0,2,2,1,0,1,1,2,6,1,Retail,0,9338
+rel-avito,8,11,23,24653915,51580470,2,True,0,11,11,3,0,0,2,17,2,4,Retail,0,595
+rel-f1,9,13,45,97606,227716,3,True,0,13,13,5,0,0,16,13,9,7,Sport,0,2.9
+rel-stack,7,12,33,5399818,7453492,3,True,2,11,11,4,0,0,10,1,13,7,Education,0,1344
+rel-trial,15,15,110,5852157,8232029,4,True,4,13,13,5,0,0,44,12,39,11,Medicine,0,871
 ctu-accidents,3,3,41,1463093,2417065,1,True,0,3,3,1,0,0,25,8,6,1,Government,0,234.5
 ctu-adventureworks,67,90,408,669987,1162305,9,True,34,73,73,15,0,0,99,59,69,105,Retail,1,233.8
 ctu-airline,19,33,101,481415,12448687,2,True,0,33,33,1,0,0,40,37,21,1,Retail,0,455.5
