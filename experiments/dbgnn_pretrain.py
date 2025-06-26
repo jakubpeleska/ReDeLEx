@@ -33,17 +33,17 @@ from relbench.modeling.graph import make_pkey_fkey_graph, get_node_train_table_i
 
 sys.path.append(".")
 from redelex.datasets import get_dataset_info
-
-from redelex.nn.rdl_model import RDLModel
-from experiments.utils import (
-    get_attribute_schema,
-    get_text_embedder,
-)
+from redelex.nn.models.rdl_model import RDLModel
 from redelex.nn.corruptors import DBResampleCorruptor
 from redelex.nn.pretrain_wrappers import (
     PretrainingModel,
     LightningPretraining,
     LightningEntityTaskModel,
+)
+
+from experiments.utils import (
+    get_attribute_schema,
+    get_text_embedder,
 )
 
 
