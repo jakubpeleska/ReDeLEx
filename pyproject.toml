@@ -19,24 +19,31 @@ dependencies = [
     "sqlalchemy>=2.0.40",
     "inflect>=7.5.0",
     "tqdm>=4.67.1",
+    "attrs>=25.3.0",
+    "lightning>=2.5.1.post0",
+    "mlflow>=2.22.1",
+    "ray[data,serve,train,tune]>=2.46.0",
 ]
 
 
 [project.optional-dependencies]
 cpu = [
-    "torch>=2.6.0",
-    "torchvision>=0.21.0",
-    "torchaudio>=2.6.0",
+    "torch==2.4.1",
+    "torchvision==0.19.1",
+    "torchaudio==2.4.1",
     "pytorch-frame>=0.2.5",
     "torch-geometric>=2.6.1",
+    "sentence-transformers>=4.0.1",
 ]
 cu124 = [
-    "torch>=2.6.0",
-    "torchvision>=0.21.0",
-    "torchaudio>=2.6.0",
+    "torch==2.4.1",
+    "torchvision==0.19.1",
+    "torchaudio==2.4.1",
     "pytorch-frame>=0.2.5",
     "torch-geometric>=2.6.1",
+    "sentence-transformers>=4.0.1",
 ]
+notebook = ["matplotlib>=3.10.1"]
 
 [tool.uv]
 conflicts = [[{ extra = "cpu" }, { extra = "cu124" }]]
@@ -67,17 +74,6 @@ url = "https://download.pytorch.org/whl/cu124"
 explicit = true
 
 
-# [[tool.uv.index]]
-# name = "torch-geometric-cpu"
-# url = "https://data.pyg.org/whl/torch-2.5.0%2Bcpu.html"
-# # explicit = true
-
-# [[tool.uv.index]]
-# name = "torch-geometric-cu124"
-# url = "https://data.pyg.org/whl/torch-2.5.0+cu124.html"
-# # explicit = true
-
-
 [project.urls]
 Homepage = "https://github.com/jakubpeleska/ctu-relational-py"
 Issues = "https://github.com/jakubpeleska/ctu-relational-py/issues"
@@ -92,3 +88,4 @@ convention = "google"
 [dependency-groups]
 dev = ["pre-commit>=4.2.0", "pytest>=8.3.5"]
 lint = ["ruff>=0.11.2"]
+notebook = ["ipykernel>=6.29.5"]

@@ -42,7 +42,7 @@ from ctu_relational.datasets import DBDataset
 from ctu_relational.utils import guess_schema, convert_timedelta, standardize_db_dt
 
 
-from experiments.utils import (
+from ctu_relational.nn.utils import (
     get_cache_path,
     get_metrics,
     get_tune_metric,
@@ -363,7 +363,7 @@ def run_ray_tuner(
 
     convert_timedelta(db)
 
-    stypes_cache_path = Path(f"{cache_path}/stypes.json")
+    stypes_cache_path = Path(f"{cache_path}/attribute-schema.json")
     try:
         with open(stypes_cache_path, "r") as f:
             col_to_stype_dict = json.load(f)

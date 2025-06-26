@@ -1,4 +1,4 @@
-from attr import field, define
+from attrs import field, define
 from typing import List
 
 __all__ = ["ForeignKey"]

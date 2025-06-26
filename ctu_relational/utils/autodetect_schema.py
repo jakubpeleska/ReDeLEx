@@ -1,4 +1,4 @@
-from typing import Dict, Optional, overload
+from typing import Dict, Optional
 
 import re
 import warnings
@@ -18,8 +18,6 @@ from torch_frame import stype
 from torch_frame.utils import infer_series_stype
 
 from relbench.base import BaseTask, Database, Table, TaskType
-
-from ctu_relational.datasets import DBDataset
 
 ID_NAME_REGEX = re.compile(
     r"_id$|^id_|_id_|Id$|Id[^a-z]|[Ii]dentifier|IDENTIFIER|ID[^a-zA-Z]|ID$|[guGU]uid[^a-z]|[guGU]uid$|[GU]UID[^a-zA-Z]|[GU]UID$"
@@ -202,22 +200,6 @@ def guess_table_stypes(
             continue
 
         schema[col] = guess
-    return schema
-
-
-@overload
-def guess_schema(dataset: DBDataset) -> Dict[str, Dict[str, stype]]:
-    schema = {}
-
-    db = dataset.get_db(upto_test_timestamp=False)
-
-    sql_schema = dataset.get_schema()
-
-    for table_name, table in db.table_dict.items():
-        schema[table_name] = guess_table_stypes(
-            table, table_schema=sql_schema.get(table_name, {})
-        )
-
     return schema
 
 

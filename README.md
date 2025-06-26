@@ -81,6 +81,8 @@ More info https://docs.astral.sh/uv/getting-started/installation/
 
 ```bash
 uv sync --extra cpu
+
+uv pip install pyg_lib torch_scatter torch_sparse torch_cluster torch_spline_conv -f https://data.pyg.org/whl/torch-2.4.0+cpu.html
 ```
 
 or
