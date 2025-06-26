@@ -34,13 +34,13 @@ from relbench.modeling.graph import make_pkey_fkey_graph, get_node_train_table_i
 sys.path.append(".")
 from ctu_relational.datasets import get_dataset_info
 
-from experiments.nn.rdl_model import RDLModel
+from ctu_relational.nn.rdl_model import RDLModel
 from experiments.utils import (
     get_attribute_schema,
     get_text_embedder,
 )
 from experiments.corruptors import DBResampleCorruptor
-from experiments.nn.pretrain_wrappers import (
+from ctu_relational.nn.pretrain_wrappers import (
     PretrainingModel,
     LightningPretraining,
     LightningEntityTaskModel,

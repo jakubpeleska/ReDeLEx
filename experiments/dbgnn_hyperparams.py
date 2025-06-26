@@ -39,10 +39,8 @@ sys.path.append(".")
 
 from ctu_relational.tasks import CTUBaseEntityTask, CTUEntityTaskTemporal
 from ctu_relational.utils import standardize_table_dt
-
-
-from experiments.nn.sagegnn import SAGEModel
-from experiments.nn.dbformer import DBFormerModel
+from ctu_relational.nn.sagegnn import SAGEModel
+from ctu_relational.nn.dbformer import DBFormerModel
 from experiments.utils import (
     get_cache_path,
     get_data,

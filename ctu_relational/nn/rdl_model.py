@@ -11,8 +11,8 @@ from torch_geometric.typing import NodeType
 
 from relbench.modeling.nn import HeteroEncoder, HeteroGraphSAGE, HeteroTemporalEncoder
 
-from experiments.nn.encoders import LinearRowEncoder, PerFeatureRowEncoder
-from experiments.nn.models import DBFormer
+from ctu_relational.nn.encoders import LinearRowEncoder, PerFeatureRowEncoder
+from ctu_relational.nn.models import DBFormer
 
 
 class RDLModel(torch.nn.Module):

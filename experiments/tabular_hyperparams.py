@@ -40,7 +40,7 @@ sys.path.append(".")
 from ctu_relational.tasks import CTUBaseEntityTask, CTUEntityTaskTemporal
 from ctu_relational.utils import standardize_table_dt
 
-from experiments.nn.tabular import TabularModel
+from ctu_relational.nn.tabular import TabularModel
 from experiments.utils import (
     get_cache_path,
     get_data,
