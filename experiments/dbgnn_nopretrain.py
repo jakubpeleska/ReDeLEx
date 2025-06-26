@@ -24,7 +24,7 @@ from relbench.modeling.graph import make_pkey_fkey_graph
 
 sys.path.append(".")
 
-from experiments.utils import (
+from ctu_relational.nn.utils import (
     get_attribute_schema,
     get_text_embedder,
 )

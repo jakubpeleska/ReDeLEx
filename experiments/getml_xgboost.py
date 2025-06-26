@@ -42,7 +42,7 @@ from ctu_relational.datasets import DBDataset
 from ctu_relational.utils import guess_schema, convert_timedelta, standardize_db_dt
 
 
-from experiments.utils import (
+from ctu_relational.nn.utils import (
     get_cache_path,
     get_metrics,
     get_tune_metric,
