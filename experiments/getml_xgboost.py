@@ -42,7 +42,7 @@ from redelex.datasets import DBDataset
 from redelex.utils import guess_schema, convert_timedelta, standardize_db_dt
 
 
-from redelex.nn.utils import (
+from experiments.utils import (
     get_cache_path,
     get_metrics,
     get_tune_metric,

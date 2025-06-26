@@ -50,7 +50,7 @@ from redelex.tasks import CTUBaseEntityTask, CTUEntityTaskTemporal
 from redelex.utils import standardize_table_dt
 
 
-from redelex.nn.utils import (
+from experiments.utils import (
     get_cache_path,
     get_data,
     get_tune_metric,

@@ -35,7 +35,7 @@ sys.path.append(".")
 from redelex.datasets import get_dataset_info
 
 from redelex.nn.rdl_model import RDLModel
-from redelex.nn.utils import (
+from experiments.utils import (
     get_attribute_schema,
     get_text_embedder,
 )
