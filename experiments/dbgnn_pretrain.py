@@ -32,15 +32,15 @@ from relbench.tasks import get_task, get_task_names
 from relbench.modeling.graph import make_pkey_fkey_graph, get_node_train_table_input
 
 sys.path.append(".")
-from ctu_relational.datasets import get_dataset_info
+from redelex.datasets import get_dataset_info
 
-from ctu_relational.nn.rdl_model import RDLModel
-from ctu_relational.nn.utils import (
+from redelex.nn.rdl_model import RDLModel
+from redelex.nn.utils import (
     get_attribute_schema,
     get_text_embedder,
 )
-from ctu_relational.nn.corruptors import DBResampleCorruptor
-from ctu_relational.nn.pretrain_wrappers import (
+from redelex.nn.corruptors import DBResampleCorruptor
+from redelex.nn.pretrain_wrappers import (
     PretrainingModel,
     LightningPretraining,
     LightningEntityTaskModel,

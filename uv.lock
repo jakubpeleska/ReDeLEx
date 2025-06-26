@@ -2,54 +2,54 @@ version = 1
 revision = 1
 requires-python = ">=3.10"
 resolution-markers = [
-    "python_full_version >= '3.13' and platform_machine == 'x86_64' and sys_platform == 'darwin' and extra != 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124'",
-    "python_full_version == '3.12.*' and platform_machine == 'x86_64' and sys_platform == 'darwin' and extra != 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124'",
-    "(python_full_version >= '3.13' and platform_machine != 'x86_64' and sys_platform == 'darwin' and extra != 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124') or (python_full_version >= '3.13' and platform_machine != 'aarch64' and sys_platform == 'linux' and extra != 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124') or (python_full_version >= '3.13' and sys_platform != 'darwin' and sys_platform != 'linux' and sys_platform != 'win32' and extra != 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124')",
-    "(python_full_version == '3.12.*' and platform_machine != 'x86_64' and sys_platform == 'darwin' and extra != 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124') or (python_full_version == '3.12.*' and platform_machine != 'aarch64' and sys_platform == 'linux' and extra != 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124') or (python_full_version == '3.12.*' and sys_platform != 'darwin' and sys_platform != 'linux' and sys_platform != 'win32' and extra != 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124')",
-    "python_full_version >= '3.13' and sys_platform == 'win32' and extra != 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124'",
-    "python_full_version == '3.12.*' and sys_platform == 'win32' and extra != 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124'",
-    "python_full_version == '3.11.*' and platform_machine == 'x86_64' and sys_platform == 'darwin' and extra != 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124'",
-    "(python_full_version == '3.11.*' and platform_machine != 'x86_64' and sys_platform == 'darwin' and extra != 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124') or (python_full_version == '3.11.*' and platform_machine != 'aarch64' and sys_platform == 'linux' and extra != 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124') or (python_full_version == '3.11.*' and sys_platform != 'darwin' and sys_platform != 'linux' and sys_platform != 'win32' and extra != 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124')",
-    "python_full_version == '3.11.*' and sys_platform == 'win32' and extra != 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124'",
-    "python_full_version < '3.11' and platform_machine == 'x86_64' and sys_platform == 'darwin' and extra != 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124'",
-    "(python_full_version < '3.11' and platform_machine != 'x86_64' and sys_platform == 'darwin' and extra != 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124') or (python_full_version < '3.11' and platform_machine != 'aarch64' and sys_platform == 'linux' and extra != 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124') or (python_full_version < '3.11' and sys_platform != 'darwin' and sys_platform != 'linux' and sys_platform != 'win32' and extra != 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124')",
-    "python_full_version < '3.11' and sys_platform == 'win32' and extra != 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124'",
-    "python_full_version >= '3.13' and platform_machine == 'aarch64' and sys_platform == 'linux' and extra != 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124'",
-    "python_full_version == '3.12.*' and platform_machine == 'aarch64' and sys_platform == 'linux' and extra != 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124'",
-    "python_full_version == '3.11.*' and platform_machine == 'aarch64' and sys_platform == 'linux' and extra != 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124'",
-    "python_full_version < '3.11' and platform_machine == 'aarch64' and sys_platform == 'linux' and extra != 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124'",
-    "(python_full_version >= '3.13' and platform_machine != 'aarch64' and sys_platform == 'linux' and extra == 'group-14-ctu-relational-cpu' and extra != 'group-14-ctu-relational-cu124') or (python_full_version >= '3.13' and sys_platform != 'darwin' and sys_platform != 'linux' and sys_platform != 'win32' and extra == 'group-14-ctu-relational-cpu' and extra != 'group-14-ctu-relational-cu124')",
-    "(python_full_version == '3.12.*' and platform_machine != 'aarch64' and sys_platform == 'linux' and extra == 'group-14-ctu-relational-cpu' and extra != 'group-14-ctu-relational-cu124') or (python_full_version == '3.12.*' and sys_platform != 'darwin' and sys_platform != 'linux' and sys_platform != 'win32' and extra == 'group-14-ctu-relational-cpu' and extra != 'group-14-ctu-relational-cu124')",
-    "python_full_version >= '3.13' and sys_platform == 'win32' and extra == 'group-14-ctu-relational-cpu' and extra != 'group-14-ctu-relational-cu124'",
-    "python_full_version == '3.12.*' and sys_platform == 'win32' and extra == 'group-14-ctu-relational-cpu' and extra != 'group-14-ctu-relational-cu124'",
-    "(python_full_version == '3.11.*' and platform_machine != 'aarch64' and sys_platform == 'linux' and extra == 'group-14-ctu-relational-cpu' and extra != 'group-14-ctu-relational-cu124') or (python_full_version == '3.11.*' and sys_platform != 'darwin' and sys_platform != 'linux' and sys_platform != 'win32' and extra == 'group-14-ctu-relational-cpu' and extra != 'group-14-ctu-relational-cu124')",
-    "python_full_version == '3.11.*' and sys_platform == 'win32' and extra == 'group-14-ctu-relational-cpu' and extra != 'group-14-ctu-relational-cu124'",
-    "(python_full_version < '3.11' and platform_machine != 'aarch64' and sys_platform == 'linux' and extra == 'group-14-ctu-relational-cpu' and extra != 'group-14-ctu-relational-cu124') or (python_full_version < '3.11' and sys_platform != 'darwin' and sys_platform != 'linux' and sys_platform != 'win32' and extra == 'group-14-ctu-relational-cpu' and extra != 'group-14-ctu-relational-cu124')",
-    "python_full_version < '3.11' and sys_platform == 'win32' and extra == 'group-14-ctu-relational-cpu' and extra != 'group-14-ctu-relational-cu124'",
-    "python_full_version >= '3.13' and platform_machine == 'x86_64' and sys_platform == 'darwin' and extra == 'group-14-ctu-relational-cpu' and extra != 'group-14-ctu-relational-cu124'",
-    "python_full_version == '3.12.*' and platform_machine == 'x86_64' and sys_platform == 'darwin' and extra == 'group-14-ctu-relational-cpu' and extra != 'group-14-ctu-relational-cu124'",
-    "(python_full_version >= '3.13' and platform_machine != 'x86_64' and sys_platform == 'darwin' and extra == 'group-14-ctu-relational-cpu' and extra != 'group-14-ctu-relational-cu124') or (python_full_version >= '3.13' and platform_machine == 'aarch64' and sys_platform == 'linux' and extra == 'group-14-ctu-relational-cpu' and extra != 'group-14-ctu-relational-cu124')",
-    "(python_full_version == '3.12.*' and platform_machine != 'x86_64' and sys_platform == 'darwin' and extra == 'group-14-ctu-relational-cpu' and extra != 'group-14-ctu-relational-cu124') or (python_full_version == '3.12.*' and platform_machine == 'aarch64' and sys_platform == 'linux' and extra == 'group-14-ctu-relational-cpu' and extra != 'group-14-ctu-relational-cu124')",
-    "python_full_version == '3.11.*' and platform_machine == 'x86_64' and sys_platform == 'darwin' and extra == 'group-14-ctu-relational-cpu' and extra != 'group-14-ctu-relational-cu124'",
-    "(python_full_version == '3.11.*' and platform_machine != 'x86_64' and sys_platform == 'darwin' and extra == 'group-14-ctu-relational-cpu' and extra != 'group-14-ctu-relational-cu124') or (python_full_version == '3.11.*' and platform_machine == 'aarch64' and sys_platform == 'linux' and extra == 'group-14-ctu-relational-cpu' and extra != 'group-14-ctu-relational-cu124')",
-    "python_full_version < '3.11' and platform_machine == 'x86_64' and sys_platform == 'darwin' and extra == 'group-14-ctu-relational-cpu' and extra != 'group-14-ctu-relational-cu124'",
-    "(python_full_version < '3.11' and platform_machine != 'x86_64' and sys_platform == 'darwin' and extra == 'group-14-ctu-relational-cpu' and extra != 'group-14-ctu-relational-cu124') or (python_full_version < '3.11' and platform_machine == 'aarch64' and sys_platform == 'linux' and extra == 'group-14-ctu-relational-cpu' and extra != 'group-14-ctu-relational-cu124')",
-    "python_full_version >= '3.13' and platform_machine == 'x86_64' and sys_platform == 'darwin' and extra != 'group-14-ctu-relational-cpu' and extra != 'group-14-ctu-relational-cu124'",
-    "python_full_version == '3.12.*' and platform_machine == 'x86_64' and sys_platform == 'darwin' and extra != 'group-14-ctu-relational-cpu' and extra != 'group-14-ctu-relational-cu124'",
-    "(python_full_version >= '3.13' and platform_machine != 'x86_64' and sys_platform == 'darwin' and extra != 'group-14-ctu-relational-cpu' and extra != 'group-14-ctu-relational-cu124') or (python_full_version >= '3.13' and sys_platform != 'darwin' and sys_platform != 'win32' and extra != 'group-14-ctu-relational-cpu' and extra != 'group-14-ctu-relational-cu124')",
-    "(python_full_version == '3.12.*' and platform_machine != 'x86_64' and sys_platform == 'darwin' and extra != 'group-14-ctu-relational-cpu' and extra != 'group-14-ctu-relational-cu124') or (python_full_version == '3.12.*' and sys_platform != 'darwin' and sys_platform != 'win32' and extra != 'group-14-ctu-relational-cpu' and extra != 'group-14-ctu-relational-cu124')",
-    "python_full_version >= '3.13' and sys_platform == 'win32' and extra != 'group-14-ctu-relational-cpu' and extra != 'group-14-ctu-relational-cu124'",
-    "python_full_version == '3.12.*' and sys_platform == 'win32' and extra != 'group-14-ctu-relational-cpu' and extra != 'group-14-ctu-relational-cu124'",
-    "python_full_version == '3.11.*' and platform_machine == 'x86_64' and sys_platform == 'darwin' and extra != 'group-14-ctu-relational-cpu' and extra != 'group-14-ctu-relational-cu124'",
-    "(python_full_version == '3.11.*' and platform_machine != 'x86_64' and sys_platform == 'darwin' and extra != 'group-14-ctu-relational-cpu' and extra != 'group-14-ctu-relational-cu124') or (python_full_version == '3.11.*' and sys_platform != 'darwin' and sys_platform != 'win32' and extra != 'group-14-ctu-relational-cpu' and extra != 'group-14-ctu-relational-cu124')",
-    "python_full_version == '3.11.*' and sys_platform == 'win32' and extra != 'group-14-ctu-relational-cpu' and extra != 'group-14-ctu-relational-cu124'",
-    "python_full_version < '3.11' and platform_machine == 'x86_64' and sys_platform == 'darwin' and extra != 'group-14-ctu-relational-cpu' and extra != 'group-14-ctu-relational-cu124'",
-    "(python_full_version < '3.11' and platform_machine != 'x86_64' and sys_platform == 'darwin' and extra != 'group-14-ctu-relational-cpu' and extra != 'group-14-ctu-relational-cu124') or (python_full_version < '3.11' and sys_platform != 'darwin' and sys_platform != 'win32' and extra != 'group-14-ctu-relational-cpu' and extra != 'group-14-ctu-relational-cu124')",
-    "python_full_version < '3.11' and sys_platform == 'win32' and extra != 'group-14-ctu-relational-cpu' and extra != 'group-14-ctu-relational-cu124'",
+    "python_full_version >= '3.13' and platform_machine == 'x86_64' and sys_platform == 'darwin' and extra != 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124'",
+    "python_full_version == '3.12.*' and platform_machine == 'x86_64' and sys_platform == 'darwin' and extra != 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124'",
+    "(python_full_version >= '3.13' and platform_machine != 'x86_64' and sys_platform == 'darwin' and extra != 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124') or (python_full_version >= '3.13' and platform_machine != 'aarch64' and sys_platform == 'linux' and extra != 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124') or (python_full_version >= '3.13' and sys_platform != 'darwin' and sys_platform != 'linux' and sys_platform != 'win32' and extra != 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124')",
+    "(python_full_version == '3.12.*' and platform_machine != 'x86_64' and sys_platform == 'darwin' and extra != 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124') or (python_full_version == '3.12.*' and platform_machine != 'aarch64' and sys_platform == 'linux' and extra != 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124') or (python_full_version == '3.12.*' and sys_platform != 'darwin' and sys_platform != 'linux' and sys_platform != 'win32' and extra != 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124')",
+    "python_full_version >= '3.13' and sys_platform == 'win32' and extra != 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124'",
+    "python_full_version == '3.12.*' and sys_platform == 'win32' and extra != 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124'",
+    "python_full_version == '3.11.*' and platform_machine == 'x86_64' and sys_platform == 'darwin' and extra != 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124'",
+    "(python_full_version == '3.11.*' and platform_machine != 'x86_64' and sys_platform == 'darwin' and extra != 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124') or (python_full_version == '3.11.*' and platform_machine != 'aarch64' and sys_platform == 'linux' and extra != 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124') or (python_full_version == '3.11.*' and sys_platform != 'darwin' and sys_platform != 'linux' and sys_platform != 'win32' and extra != 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124')",
+    "python_full_version == '3.11.*' and sys_platform == 'win32' and extra != 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124'",
+    "python_full_version < '3.11' and platform_machine == 'x86_64' and sys_platform == 'darwin' and extra != 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124'",
+    "(python_full_version < '3.11' and platform_machine != 'x86_64' and sys_platform == 'darwin' and extra != 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124') or (python_full_version < '3.11' and platform_machine != 'aarch64' and sys_platform == 'linux' and extra != 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124') or (python_full_version < '3.11' and sys_platform != 'darwin' and sys_platform != 'linux' and sys_platform != 'win32' and extra != 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124')",
+    "python_full_version < '3.11' and sys_platform == 'win32' and extra != 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124'",
+    "python_full_version >= '3.13' and platform_machine == 'aarch64' and sys_platform == 'linux' and extra != 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124'",
+    "python_full_version == '3.12.*' and platform_machine == 'aarch64' and sys_platform == 'linux' and extra != 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124'",
+    "python_full_version == '3.11.*' and platform_machine == 'aarch64' and sys_platform == 'linux' and extra != 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124'",
+    "python_full_version < '3.11' and platform_machine == 'aarch64' and sys_platform == 'linux' and extra != 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124'",
+    "(python_full_version >= '3.13' and platform_machine != 'aarch64' and sys_platform == 'linux' and extra == 'group-7-redelex-cpu' and extra != 'group-7-redelex-cu124') or (python_full_version >= '3.13' and sys_platform != 'darwin' and sys_platform != 'linux' and sys_platform != 'win32' and extra == 'group-7-redelex-cpu' and extra != 'group-7-redelex-cu124')",
+    "(python_full_version == '3.12.*' and platform_machine != 'aarch64' and sys_platform == 'linux' and extra == 'group-7-redelex-cpu' and extra != 'group-7-redelex-cu124') or (python_full_version == '3.12.*' and sys_platform != 'darwin' and sys_platform != 'linux' and sys_platform != 'win32' and extra == 'group-7-redelex-cpu' and extra != 'group-7-redelex-cu124')",
+    "python_full_version >= '3.13' and sys_platform == 'win32' and extra == 'group-7-redelex-cpu' and extra != 'group-7-redelex-cu124'",
+    "python_full_version == '3.12.*' and sys_platform == 'win32' and extra == 'group-7-redelex-cpu' and extra != 'group-7-redelex-cu124'",
+    "(python_full_version == '3.11.*' and platform_machine != 'aarch64' and sys_platform == 'linux' and extra == 'group-7-redelex-cpu' and extra != 'group-7-redelex-cu124') or (python_full_version == '3.11.*' and sys_platform != 'darwin' and sys_platform != 'linux' and sys_platform != 'win32' and extra == 'group-7-redelex-cpu' and extra != 'group-7-redelex-cu124')",
+    "python_full_version == '3.11.*' and sys_platform == 'win32' and extra == 'group-7-redelex-cpu' and extra != 'group-7-redelex-cu124'",
+    "(python_full_version < '3.11' and platform_machine != 'aarch64' and sys_platform == 'linux' and extra == 'group-7-redelex-cpu' and extra != 'group-7-redelex-cu124') or (python_full_version < '3.11' and sys_platform != 'darwin' and sys_platform != 'linux' and sys_platform != 'win32' and extra == 'group-7-redelex-cpu' and extra != 'group-7-redelex-cu124')",
+    "python_full_version < '3.11' and sys_platform == 'win32' and extra == 'group-7-redelex-cpu' and extra != 'group-7-redelex-cu124'",
+    "python_full_version >= '3.13' and platform_machine == 'x86_64' and sys_platform == 'darwin' and extra == 'group-7-redelex-cpu' and extra != 'group-7-redelex-cu124'",
+    "python_full_version == '3.12.*' and platform_machine == 'x86_64' and sys_platform == 'darwin' and extra == 'group-7-redelex-cpu' and extra != 'group-7-redelex-cu124'",
+    "(python_full_version >= '3.13' and platform_machine != 'x86_64' and sys_platform == 'darwin' and extra == 'group-7-redelex-cpu' and extra != 'group-7-redelex-cu124') or (python_full_version >= '3.13' and platform_machine == 'aarch64' and sys_platform == 'linux' and extra == 'group-7-redelex-cpu' and extra != 'group-7-redelex-cu124')",
+    "(python_full_version == '3.12.*' and platform_machine != 'x86_64' and sys_platform == 'darwin' and extra == 'group-7-redelex-cpu' and extra != 'group-7-redelex-cu124') or (python_full_version == '3.12.*' and platform_machine == 'aarch64' and sys_platform == 'linux' and extra == 'group-7-redelex-cpu' and extra != 'group-7-redelex-cu124')",
+    "python_full_version == '3.11.*' and platform_machine == 'x86_64' and sys_platform == 'darwin' and extra == 'group-7-redelex-cpu' and extra != 'group-7-redelex-cu124'",
+    "(python_full_version == '3.11.*' and platform_machine != 'x86_64' and sys_platform == 'darwin' and extra == 'group-7-redelex-cpu' and extra != 'group-7-redelex-cu124') or (python_full_version == '3.11.*' and platform_machine == 'aarch64' and sys_platform == 'linux' and extra == 'group-7-redelex-cpu' and extra != 'group-7-redelex-cu124')",
+    "python_full_version < '3.11' and platform_machine == 'x86_64' and sys_platform == 'darwin' and extra == 'group-7-redelex-cpu' and extra != 'group-7-redelex-cu124'",
+    "(python_full_version < '3.11' and platform_machine != 'x86_64' and sys_platform == 'darwin' and extra == 'group-7-redelex-cpu' and extra != 'group-7-redelex-cu124') or (python_full_version < '3.11' and platform_machine == 'aarch64' and sys_platform == 'linux' and extra == 'group-7-redelex-cpu' and extra != 'group-7-redelex-cu124')",
+    "python_full_version >= '3.13' and platform_machine == 'x86_64' and sys_platform == 'darwin' and extra != 'group-7-redelex-cpu' and extra != 'group-7-redelex-cu124'",
+    "python_full_version == '3.12.*' and platform_machine == 'x86_64' and sys_platform == 'darwin' and extra != 'group-7-redelex-cpu' and extra != 'group-7-redelex-cu124'",
+    "(python_full_version >= '3.13' and platform_machine != 'x86_64' and sys_platform == 'darwin' and extra != 'group-7-redelex-cpu' and extra != 'group-7-redelex-cu124') or (python_full_version >= '3.13' and sys_platform != 'darwin' and sys_platform != 'win32' and extra != 'group-7-redelex-cpu' and extra != 'group-7-redelex-cu124')",
+    "(python_full_version == '3.12.*' and platform_machine != 'x86_64' and sys_platform == 'darwin' and extra != 'group-7-redelex-cpu' and extra != 'group-7-redelex-cu124') or (python_full_version == '3.12.*' and sys_platform != 'darwin' and sys_platform != 'win32' and extra != 'group-7-redelex-cpu' and extra != 'group-7-redelex-cu124')",
+    "python_full_version >= '3.13' and sys_platform == 'win32' and extra != 'group-7-redelex-cpu' and extra != 'group-7-redelex-cu124'",
+    "python_full_version == '3.12.*' and sys_platform == 'win32' and extra != 'group-7-redelex-cpu' and extra != 'group-7-redelex-cu124'",
+    "python_full_version == '3.11.*' and platform_machine == 'x86_64' and sys_platform == 'darwin' and extra != 'group-7-redelex-cpu' and extra != 'group-7-redelex-cu124'",
+    "(python_full_version == '3.11.*' and platform_machine != 'x86_64' and sys_platform == 'darwin' and extra != 'group-7-redelex-cpu' and extra != 'group-7-redelex-cu124') or (python_full_version == '3.11.*' and sys_platform != 'darwin' and sys_platform != 'win32' and extra != 'group-7-redelex-cpu' and extra != 'group-7-redelex-cu124')",
+    "python_full_version == '3.11.*' and sys_platform == 'win32' and extra != 'group-7-redelex-cpu' and extra != 'group-7-redelex-cu124'",
+    "python_full_version < '3.11' and platform_machine == 'x86_64' and sys_platform == 'darwin' and extra != 'group-7-redelex-cpu' and extra != 'group-7-redelex-cu124'",
+    "(python_full_version < '3.11' and platform_machine != 'x86_64' and sys_platform == 'darwin' and extra != 'group-7-redelex-cpu' and extra != 'group-7-redelex-cu124') or (python_full_version < '3.11' and sys_platform != 'darwin' and sys_platform != 'win32' and extra != 'group-7-redelex-cpu' and extra != 'group-7-redelex-cu124')",
+    "python_full_version < '3.11' and sys_platform == 'win32' and extra != 'group-7-redelex-cpu' and extra != 'group-7-redelex-cu124'",
 ]
 conflicts = [[
-    { package = "ctu-relational", group = "cpu" },
-    { package = "ctu-relational", group = "cu124" },
+    { package = "redelex", group = "cpu" },
+    { package = "redelex", group = "cu124" },
 ]]
 
 [[package]]
@@ -174,7 +174,7 @@ source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "mako" },
     { name = "sqlalchemy" },
-    { name = "tomli", marker = "python_full_version < '3.11' or (extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124')" },
+    { name = "tomli", marker = "python_full_version < '3.11' or (extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124')" },
     { name = "typing-extensions" },
 ]
 sdist = { url = "https://files.pythonhosted.org/packages/20/89/bfb4fe86e3fc3972d35431af7bedbc60fa606e8b17196704a1747f7aa4c3/alembic-1.16.1.tar.gz", hash = "sha256:43d37ba24b3d17bc1eb1024fe0f51cd1dc95aeb5464594a02c6bb9ca9864bfa4", size = 1955006 }
@@ -196,10 +196,10 @@ name = "anyio"
 version = "4.9.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
-    { name = "exceptiongroup", marker = "python_full_version < '3.11' or (extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124')" },
+    { name = "exceptiongroup", marker = "python_full_version < '3.11' or (extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124')" },
     { name = "idna" },
     { name = "sniffio" },
-    { name = "typing-extensions", marker = "python_full_version < '3.13' or (extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124')" },
+    { name = "typing-extensions", marker = "python_full_version < '3.13' or (extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124')" },
 ]
 sdist = { url = "https://files.pythonhosted.org/packages/95/7d/4c1bd541d4dffa1b52bd83fb8527089e097a106fc90b467a7313b105f840/anyio-4.9.0.tar.gz", hash = "sha256:673c0c244e15788651a4ff38710fea9675823028a6f08a5eda409e0c9840a028", size = 190949 }
 wheels = [
@@ -401,7 +401,7 @@ name = "click"
 version = "8.2.1"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
-    { name = "colorama", marker = "sys_platform == 'win32' or (extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124')" },
+    { name = "colorama", marker = "sys_platform == 'win32' or (extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124')" },
 ]
 sdist = { url = "https://files.pythonhosted.org/packages/60/6c/8ca2efa64cf75a977a0d7fac081354553ebe483345c734fb6b6515d96bbc/click-8.2.1.tar.gz", hash = "sha256:27c491cc05d968d271d5a1db13e3b5a184636d9d930f148c50b038f0d0646202", size = 286342 }
 wheels = [
@@ -431,7 +431,7 @@ name = "colorful"
 version = "0.5.6"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
-    { name = "colorama", marker = "sys_platform == 'win32' or (extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124')" },
+    { name = "colorama", marker = "sys_platform == 'win32' or (extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124')" },
 ]
 sdist = { url = "https://files.pythonhosted.org/packages/fa/5f/38e40c3bc4107c39e4062d943026b8ee25154cb4b185b882f274a1ab65da/colorful-0.5.6.tar.gz", hash = "sha256:b56d5c01db1dac4898308ea889edcb113fbee3e6ec5df4bacffd61d5241b5b8d", size = 209280 }
 wheels = [
@@ -515,93 +515,6 @@ wheels = [
 ]
 
 [[package]]
-name = "ctu-relational"
-version = "0.4.0"
-source = { editable = "." }
-dependencies = [
-    { name = "attrs" },
-    { name = "inflect" },
-    { name = "pandas" },
-    { name = "pymysql" },
-    { name = "relbench" },
-    { name = "sqlalchemy" },
-    { name = "tqdm" },
-]
-
-[package.dev-dependencies]
-cpu = [
-    { name = "pytorch-frame" },
-    { name = "sentence-transformers" },
-    { name = "torch", version = "2.4.1", source = { registry = "https://download.pytorch.org/whl/cpu" }, marker = "(platform_machine != 'x86_64' and sys_platform == 'darwin' and extra == 'group-14-ctu-relational-cpu') or (platform_machine == 'aarch64' and sys_platform == 'linux' and extra == 'group-14-ctu-relational-cpu') or (sys_platform != 'darwin' and sys_platform != 'linux' and extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124') or (sys_platform == 'darwin' and extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124') or (sys_platform == 'linux' and extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124')" },
-    { name = "torch", version = "2.4.1+cpu", source = { registry = "https://download.pytorch.org/whl/cpu" }, marker = "(platform_machine == 'x86_64' and sys_platform == 'darwin' and extra == 'group-14-ctu-relational-cpu') or (platform_machine != 'aarch64' and sys_platform == 'linux' and extra == 'group-14-ctu-relational-cpu') or (sys_platform != 'darwin' and sys_platform != 'linux' and extra == 'group-14-ctu-relational-cpu') or (sys_platform == 'darwin' and extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124') or (sys_platform == 'linux' and extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124')" },
-    { name = "torch-geometric" },
-    { name = "torchaudio", version = "2.4.1", source = { registry = "https://download.pytorch.org/whl/cpu" }, marker = "(platform_machine != 'x86_64' and sys_platform == 'darwin' and extra == 'group-14-ctu-relational-cpu') or (platform_machine == 'aarch64' and sys_platform == 'linux' and extra == 'group-14-ctu-relational-cpu') or (sys_platform != 'darwin' and sys_platform != 'linux' and extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124') or (sys_platform == 'darwin' and extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124') or (sys_platform == 'linux' and extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124')" },
-    { name = "torchaudio", version = "2.4.1+cpu", source = { registry = "https://download.pytorch.org/whl/cpu" }, marker = "(platform_machine == 'x86_64' and sys_platform == 'darwin' and extra == 'group-14-ctu-relational-cpu') or (platform_machine != 'aarch64' and sys_platform == 'linux' and extra == 'group-14-ctu-relational-cpu') or (sys_platform != 'darwin' and sys_platform != 'linux' and extra == 'group-14-ctu-relational-cpu') or (sys_platform == 'darwin' and extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124') or (sys_platform == 'linux' and extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124')" },
-    { name = "torchvision", version = "0.19.1", source = { registry = "https://download.pytorch.org/whl/cpu" }, marker = "(platform_machine != 'x86_64' and sys_platform == 'darwin' and extra == 'group-14-ctu-relational-cpu') or (platform_machine == 'aarch64' and sys_platform == 'linux' and extra == 'group-14-ctu-relational-cpu') or (sys_platform != 'darwin' and sys_platform != 'linux' and extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124') or (sys_platform == 'darwin' and extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124') or (sys_platform == 'linux' and extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124')" },
-    { name = "torchvision", version = "0.19.1+cpu", source = { registry = "https://download.pytorch.org/whl/cpu" }, marker = "(platform_machine == 'x86_64' and sys_platform == 'darwin' and extra == 'group-14-ctu-relational-cpu') or (platform_machine != 'aarch64' and sys_platform == 'linux' and extra == 'group-14-ctu-relational-cpu') or (sys_platform != 'darwin' and sys_platform != 'linux' and extra == 'group-14-ctu-relational-cpu') or (sys_platform == 'darwin' and extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124') or (sys_platform == 'linux' and extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124')" },
-]
-cu124 = [
-    { name = "pytorch-frame" },
-    { name = "sentence-transformers" },
-    { name = "torch", version = "2.4.1", source = { registry = "https://download.pytorch.org/whl/cu124" }, marker = "(platform_machine == 'aarch64' and sys_platform == 'linux' and extra == 'group-14-ctu-relational-cu124') or (platform_machine != 'aarch64' and extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124') or (sys_platform != 'linux' and extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124')" },
-    { name = "torch", version = "2.4.1+cu124", source = { registry = "https://download.pytorch.org/whl/cu124" }, marker = "(platform_machine != 'aarch64' and extra == 'group-14-ctu-relational-cu124') or (sys_platform != 'linux' and extra == 'group-14-ctu-relational-cu124') or (extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124')" },
-    { name = "torch-geometric" },
-    { name = "torchaudio", version = "2.4.1+cu124", source = { registry = "https://download.pytorch.org/whl/cu124" } },
-    { name = "torchvision", version = "0.19.1+cu124", source = { registry = "https://download.pytorch.org/whl/cu124" } },
-]
-dev = [
-    { name = "ipykernel" },
-    { name = "matplotlib" },
-    { name = "pre-commit" },
-]
-experiments = [
-    { name = "getml" },
-    { name = "lightning" },
-    { name = "mlflow" },
-    { name = "ray", extra = ["data", "serve", "train", "tune"] },
-]
-
-[package.metadata]
-requires-dist = [
-    { name = "attrs", specifier = ">=25.3.0" },
-    { name = "inflect", specifier = ">=7.5.0" },
-    { name = "pandas", specifier = ">=2.2.3" },
-    { name = "pymysql", specifier = ">=1.1.1" },
-    { name = "relbench", specifier = ">=1.1.0" },
-    { name = "sqlalchemy", specifier = ">=2.0.40" },
-    { name = "tqdm", specifier = ">=4.67.1" },
-]
-
-[package.metadata.requires-dev]
-cpu = [
-    { name = "pytorch-frame", specifier = ">=0.2.5" },
-    { name = "sentence-transformers", specifier = ">=4.0.1" },
-    { name = "torch", specifier = "==2.4.1", index = "https://download.pytorch.org/whl/cpu", conflict = { package = "ctu-relational", group = "cpu" } },
-    { name = "torch-geometric", specifier = ">=2.6.1" },
-    { name = "torchaudio", specifier = "==2.4.1", index = "https://download.pytorch.org/whl/cpu", conflict = { package = "ctu-relational", group = "cpu" } },
-    { name = "torchvision", specifier = "==0.19.1", index = "https://download.pytorch.org/whl/cpu", conflict = { package = "ctu-relational", group = "cpu" } },
-]
-cu124 = [
-    { name = "pytorch-frame", specifier = ">=0.2.5" },
-    { name = "sentence-transformers", specifier = ">=4.0.1" },
-    { name = "torch", specifier = "==2.4.1", index = "https://download.pytorch.org/whl/cu124", conflict = { package = "ctu-relational", group = "cu124" } },
-    { name = "torch-geometric", specifier = ">=2.6.1" },
-    { name = "torchaudio", specifier = "==2.4.1", index = "https://download.pytorch.org/whl/cu124", conflict = { package = "ctu-relational", group = "cu124" } },
-    { name = "torchvision", specifier = "==0.19.1", index = "https://download.pytorch.org/whl/cu124", conflict = { package = "ctu-relational", group = "cu124" } },
-]
-dev = [
-    { name = "ipykernel", specifier = ">=6.29.5" },
-    { name = "matplotlib", specifier = ">=3.10.1" },
-    { name = "pre-commit", specifier = ">=4.2.0" },
-]
-experiments = [
-    { name = "getml", specifier = ">=1.5.1" },
-    { name = "lightning", specifier = ">=2.5.1.post0" },
-    { name = "mlflow", specifier = ">=2.22.1" },
-    { name = "ray", extras = ["data", "serve", "train", "tune"], specifier = ">=2.46.0" },
-]
-
-[[package]]
 name = "cycler"
 version = "0.12.1"
 source = { registry = "https://pypi.org/simple" }
@@ -671,7 +584,7 @@ name = "docker"
 version = "7.1.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
-    { name = "pywin32", marker = "sys_platform == 'win32' or (extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124')" },
+    { name = "pywin32", marker = "sys_platform == 'win32' or (extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124')" },
     { name = "requests" },
     { name = "urllib3" },
 ]
@@ -910,8 +823,8 @@ dependencies = [
     { name = "jinja2" },
     { name = "numpy" },
     { name = "pandas" },
-    { name = "pyarrow", version = "17.0.0", source = { registry = "https://pypi.org/simple" }, marker = "(platform_machine == 'x86_64' and sys_platform == 'darwin') or (platform_machine != 'x86_64' and extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124') or (sys_platform != 'darwin' and extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124')" },
-    { name = "pyarrow", version = "19.0.1", source = { registry = "https://pypi.org/simple" }, marker = "platform_machine != 'x86_64' or sys_platform != 'darwin' or (extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124')" },
+    { name = "pyarrow", version = "17.0.0", source = { registry = "https://pypi.org/simple" }, marker = "(platform_machine == 'x86_64' and sys_platform == 'darwin') or (platform_machine != 'x86_64' and extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124') or (sys_platform != 'darwin' and extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124')" },
+    { name = "pyarrow", version = "19.0.1", source = { registry = "https://pypi.org/simple" }, marker = "platform_machine != 'x86_64' or sys_platform != 'darwin' or (extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124')" },
     { name = "rich" },
     { name = "typing-extensions" },
 ]
@@ -1133,7 +1046,7 @@ name = "gunicorn"
 version = "23.0.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
-    { name = "packaging", marker = "sys_platform != 'win32' or (extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124')" },
+    { name = "packaging", marker = "sys_platform != 'win32' or (extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124')" },
 ]
 sdist = { url = "https://files.pythonhosted.org/packages/34/72/9614c465dc206155d93eff0ca20d42e1e35afc533971379482de953521a4/gunicorn-23.0.0.tar.gz", hash = "sha256:f014447a0101dc57e294f6c18ca6b40227a4c90e9bdb586042628030cba004ec", size = 375031 }
 wheels = [
@@ -1251,11 +1164,11 @@ name = "ipykernel"
 version = "6.29.5"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
-    { name = "appnope", marker = "sys_platform == 'darwin' or (extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124')" },
+    { name = "appnope", marker = "sys_platform == 'darwin' or (extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124')" },
     { name = "comm" },
     { name = "debugpy" },
-    { name = "ipython", version = "8.37.0", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.11' or (extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124')" },
-    { name = "ipython", version = "9.3.0", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.11' or (extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124')" },
+    { name = "ipython", version = "8.37.0", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.11' or (extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124')" },
+    { name = "ipython", version = "9.3.0", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.11' or (extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124')" },
     { name = "jupyter-client" },
     { name = "jupyter-core" },
     { name = "matplotlib-inline" },
@@ -1276,30 +1189,30 @@ name = "ipython"
 version = "8.37.0"
 source = { registry = "https://pypi.org/simple" }
 resolution-markers = [
-    "python_full_version < '3.11' and platform_machine == 'x86_64' and sys_platform == 'darwin' and extra != 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124'",
-    "(python_full_version < '3.11' and platform_machine != 'x86_64' and sys_platform == 'darwin' and extra != 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124') or (python_full_version < '3.11' and platform_machine != 'aarch64' and sys_platform == 'linux' and extra != 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124') or (python_full_version < '3.11' and sys_platform != 'darwin' and sys_platform != 'linux' and sys_platform != 'win32' and extra != 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124')",
-    "python_full_version < '3.11' and sys_platform == 'win32' and extra != 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124'",
-    "python_full_version < '3.11' and platform_machine == 'aarch64' and sys_platform == 'linux' and extra != 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124'",
-    "(python_full_version < '3.11' and platform_machine != 'aarch64' and sys_platform == 'linux' and extra == 'group-14-ctu-relational-cpu' and extra != 'group-14-ctu-relational-cu124') or (python_full_version < '3.11' and sys_platform != 'darwin' and sys_platform != 'linux' and sys_platform != 'win32' and extra == 'group-14-ctu-relational-cpu' and extra != 'group-14-ctu-relational-cu124')",
-    "python_full_version < '3.11' and sys_platform == 'win32' and extra == 'group-14-ctu-relational-cpu' and extra != 'group-14-ctu-relational-cu124'",
-    "python_full_version < '3.11' and platform_machine == 'x86_64' and sys_platform == 'darwin' and extra == 'group-14-ctu-relational-cpu' and extra != 'group-14-ctu-relational-cu124'",
-    "(python_full_version < '3.11' and platform_machine != 'x86_64' and sys_platform == 'darwin' and extra == 'group-14-ctu-relational-cpu' and extra != 'group-14-ctu-relational-cu124') or (python_full_version < '3.11' and platform_machine == 'aarch64' and sys_platform == 'linux' and extra == 'group-14-ctu-relational-cpu' and extra != 'group-14-ctu-relational-cu124')",
-    "python_full_version < '3.11' and platform_machine == 'x86_64' and sys_platform == 'darwin' and extra != 'group-14-ctu-relational-cpu' and extra != 'group-14-ctu-relational-cu124'",
-    "(python_full_version < '3.11' and platform_machine != 'x86_64' and sys_platform == 'darwin' and extra != 'group-14-ctu-relational-cpu' and extra != 'group-14-ctu-relational-cu124') or (python_full_version < '3.11' and sys_platform != 'darwin' and sys_platform != 'win32' and extra != 'group-14-ctu-relational-cpu' and extra != 'group-14-ctu-relational-cu124')",
-    "python_full_version < '3.11' and sys_platform == 'win32' and extra != 'group-14-ctu-relational-cpu' and extra != 'group-14-ctu-relational-cu124'",
+    "python_full_version < '3.11' and platform_machine == 'x86_64' and sys_platform == 'darwin' and extra != 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124'",
+    "(python_full_version < '3.11' and platform_machine != 'x86_64' and sys_platform == 'darwin' and extra != 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124') or (python_full_version < '3.11' and platform_machine != 'aarch64' and sys_platform == 'linux' and extra != 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124') or (python_full_version < '3.11' and sys_platform != 'darwin' and sys_platform != 'linux' and sys_platform != 'win32' and extra != 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124')",
+    "python_full_version < '3.11' and sys_platform == 'win32' and extra != 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124'",
+    "python_full_version < '3.11' and platform_machine == 'aarch64' and sys_platform == 'linux' and extra != 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124'",
+    "(python_full_version < '3.11' and platform_machine != 'aarch64' and sys_platform == 'linux' and extra == 'group-7-redelex-cpu' and extra != 'group-7-redelex-cu124') or (python_full_version < '3.11' and sys_platform != 'darwin' and sys_platform != 'linux' and sys_platform != 'win32' and extra == 'group-7-redelex-cpu' and extra != 'group-7-redelex-cu124')",
+    "python_full_version < '3.11' and sys_platform == 'win32' and extra == 'group-7-redelex-cpu' and extra != 'group-7-redelex-cu124'",
+    "python_full_version < '3.11' and platform_machine == 'x86_64' and sys_platform == 'darwin' and extra == 'group-7-redelex-cpu' and extra != 'group-7-redelex-cu124'",
+    "(python_full_version < '3.11' and platform_machine != 'x86_64' and sys_platform == 'darwin' and extra == 'group-7-redelex-cpu' and extra != 'group-7-redelex-cu124') or (python_full_version < '3.11' and platform_machine == 'aarch64' and sys_platform == 'linux' and extra == 'group-7-redelex-cpu' and extra != 'group-7-redelex-cu124')",
+    "python_full_version < '3.11' and platform_machine == 'x86_64' and sys_platform == 'darwin' and extra != 'group-7-redelex-cpu' and extra != 'group-7-redelex-cu124'",
+    "(python_full_version < '3.11' and platform_machine != 'x86_64' and sys_platform == 'darwin' and extra != 'group-7-redelex-cpu' and extra != 'group-7-redelex-cu124') or (python_full_version < '3.11' and sys_platform != 'darwin' and sys_platform != 'win32' and extra != 'group-7-redelex-cpu' and extra != 'group-7-redelex-cu124')",
+    "python_full_version < '3.11' and sys_platform == 'win32' and extra != 'group-7-redelex-cpu' and extra != 'group-7-redelex-cu124'",
 ]
 dependencies = [
-    { name = "colorama", marker = "(python_full_version < '3.11' and sys_platform == 'win32') or (python_full_version >= '3.11' and extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124') or (sys_platform != 'win32' and extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124')" },
-    { name = "decorator", marker = "python_full_version < '3.11' or (extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124')" },
-    { name = "exceptiongroup", marker = "python_full_version < '3.11' or (extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124')" },
-    { name = "jedi", marker = "python_full_version < '3.11' or (extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124')" },
-    { name = "matplotlib-inline", marker = "python_full_version < '3.11' or (extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124')" },
-    { name = "pexpect", marker = "(python_full_version < '3.11' and sys_platform != 'emscripten' and sys_platform != 'win32') or (python_full_version >= '3.11' and extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124') or (sys_platform == 'emscripten' and extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124') or (sys_platform == 'win32' and extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124')" },
-    { name = "prompt-toolkit", marker = "python_full_version < '3.11' or (extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124')" },
-    { name = "pygments", marker = "python_full_version < '3.11' or (extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124')" },
-    { name = "stack-data", marker = "python_full_version < '3.11' or (extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124')" },
-    { name = "traitlets", marker = "python_full_version < '3.11' or (extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124')" },
-    { name = "typing-extensions", marker = "python_full_version < '3.11' or (extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124')" },
+    { name = "colorama", marker = "(python_full_version < '3.11' and sys_platform == 'win32') or (python_full_version >= '3.11' and extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124') or (sys_platform != 'win32' and extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124')" },
+    { name = "decorator", marker = "python_full_version < '3.11' or (extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124')" },
+    { name = "exceptiongroup", marker = "python_full_version < '3.11' or (extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124')" },
+    { name = "jedi", marker = "python_full_version < '3.11' or (extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124')" },
+    { name = "matplotlib-inline", marker = "python_full_version < '3.11' or (extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124')" },
+    { name = "pexpect", marker = "(python_full_version < '3.11' and sys_platform != 'emscripten' and sys_platform != 'win32') or (python_full_version >= '3.11' and extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124') or (sys_platform == 'emscripten' and extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124') or (sys_platform == 'win32' and extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124')" },
+    { name = "prompt-toolkit", marker = "python_full_version < '3.11' or (extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124')" },
+    { name = "pygments", marker = "python_full_version < '3.11' or (extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124')" },
+    { name = "stack-data", marker = "python_full_version < '3.11' or (extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124')" },
+    { name = "traitlets", marker = "python_full_version < '3.11' or (extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124')" },
+    { name = "typing-extensions", marker = "python_full_version < '3.11' or (extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124')" },
 ]
 sdist = { url = "https://files.pythonhosted.org/packages/85/31/10ac88f3357fc276dc8a64e8880c82e80e7459326ae1d0a211b40abf6665/ipython-8.37.0.tar.gz", hash = "sha256:ca815841e1a41a1e6b73a0b08f3038af9b2252564d01fc405356d34033012216", size = 5606088 }
 wheels = [
@@ -1311,52 +1224,52 @@ name = "ipython"
 version = "9.3.0"
 source = { registry = "https://pypi.org/simple" }
 resolution-markers = [
-    "python_full_version >= '3.13' and platform_machine == 'x86_64' and sys_platform == 'darwin' and extra != 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124'",
-    "python_full_version == '3.12.*' and platform_machine == 'x86_64' and sys_platform == 'darwin' and extra != 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124'",
-    "(python_full_version >= '3.13' and platform_machine != 'x86_64' and sys_platform == 'darwin' and extra != 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124') or (python_full_version >= '3.13' and platform_machine != 'aarch64' and sys_platform == 'linux' and extra != 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124') or (python_full_version >= '3.13' and sys_platform != 'darwin' and sys_platform != 'linux' and sys_platform != 'win32' and extra != 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124')",
-    "(python_full_version == '3.12.*' and platform_machine != 'x86_64' and sys_platform == 'darwin' and extra != 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124') or (python_full_version == '3.12.*' and platform_machine != 'aarch64' and sys_platform == 'linux' and extra != 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124') or (python_full_version == '3.12.*' and sys_platform != 'darwin' and sys_platform != 'linux' and sys_platform != 'win32' and extra != 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124')",
-    "python_full_version >= '3.13' and sys_platform == 'win32' and extra != 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124'",
-    "python_full_version == '3.12.*' and sys_platform == 'win32' and extra != 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124'",
-    "python_full_version == '3.11.*' and platform_machine == 'x86_64' and sys_platform == 'darwin' and extra != 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124'",
-    "(python_full_version == '3.11.*' and platform_machine != 'x86_64' and sys_platform == 'darwin' and extra != 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124') or (python_full_version == '3.11.*' and platform_machine != 'aarch64' and sys_platform == 'linux' and extra != 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124') or (python_full_version == '3.11.*' and sys_platform != 'darwin' and sys_platform != 'linux' and sys_platform != 'win32' and extra != 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124')",
-    "python_full_version == '3.11.*' and sys_platform == 'win32' and extra != 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124'",
-    "python_full_version >= '3.13' and platform_machine == 'aarch64' and sys_platform == 'linux' and extra != 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124'",
-    "python_full_version == '3.12.*' and platform_machine == 'aarch64' and sys_platform == 'linux' and extra != 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124'",
-    "python_full_version == '3.11.*' and platform_machine == 'aarch64' and sys_platform == 'linux' and extra != 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124'",
-    "(python_full_version >= '3.13' and platform_machine != 'aarch64' and sys_platform == 'linux' and extra == 'group-14-ctu-relational-cpu' and extra != 'group-14-ctu-relational-cu124') or (python_full_version >= '3.13' and sys_platform != 'darwin' and sys_platform != 'linux' and sys_platform != 'win32' and extra == 'group-14-ctu-relational-cpu' and extra != 'group-14-ctu-relational-cu124')",
-    "(python_full_version == '3.12.*' and platform_machine != 'aarch64' and sys_platform == 'linux' and extra == 'group-14-ctu-relational-cpu' and extra != 'group-14-ctu-relational-cu124') or (python_full_version == '3.12.*' and sys_platform != 'darwin' and sys_platform != 'linux' and sys_platform != 'win32' and extra == 'group-14-ctu-relational-cpu' and extra != 'group-14-ctu-relational-cu124')",
-    "python_full_version >= '3.13' and sys_platform == 'win32' and extra == 'group-14-ctu-relational-cpu' and extra != 'group-14-ctu-relational-cu124'",
-    "python_full_version == '3.12.*' and sys_platform == 'win32' and extra == 'group-14-ctu-relational-cpu' and extra != 'group-14-ctu-relational-cu124'",
-    "(python_full_version == '3.11.*' and platform_machine != 'aarch64' and sys_platform == 'linux' and extra == 'group-14-ctu-relational-cpu' and extra != 'group-14-ctu-relational-cu124') or (python_full_version == '3.11.*' and sys_platform != 'darwin' and sys_platform != 'linux' and sys_platform != 'win32' and extra == 'group-14-ctu-relational-cpu' and extra != 'group-14-ctu-relational-cu124')",
-    "python_full_version == '3.11.*' and sys_platform == 'win32' and extra == 'group-14-ctu-relational-cpu' and extra != 'group-14-ctu-relational-cu124'",
-    "python_full_version >= '3.13' and platform_machine == 'x86_64' and sys_platform == 'darwin' and extra == 'group-14-ctu-relational-cpu' and extra != 'group-14-ctu-relational-cu124'",
-    "python_full_version == '3.12.*' and platform_machine == 'x86_64' and sys_platform == 'darwin' and extra == 'group-14-ctu-relational-cpu' and extra != 'group-14-ctu-relational-cu124'",
-    "(python_full_version >= '3.13' and platform_machine != 'x86_64' and sys_platform == 'darwin' and extra == 'group-14-ctu-relational-cpu' and extra != 'group-14-ctu-relational-cu124') or (python_full_version >= '3.13' and platform_machine == 'aarch64' and sys_platform == 'linux' and extra == 'group-14-ctu-relational-cpu' and extra != 'group-14-ctu-relational-cu124')",
-    "(python_full_version == '3.12.*' and platform_machine != 'x86_64' and sys_platform == 'darwin' and extra == 'group-14-ctu-relational-cpu' and extra != 'group-14-ctu-relational-cu124') or (python_full_version == '3.12.*' and platform_machine == 'aarch64' and sys_platform == 'linux' and extra == 'group-14-ctu-relational-cpu' and extra != 'group-14-ctu-relational-cu124')",
-    "python_full_version == '3.11.*' and platform_machine == 'x86_64' and sys_platform == 'darwin' and extra == 'group-14-ctu-relational-cpu' and extra != 'group-14-ctu-relational-cu124'",
-    "(python_full_version == '3.11.*' and platform_machine != 'x86_64' and sys_platform == 'darwin' and extra == 'group-14-ctu-relational-cpu' and extra != 'group-14-ctu-relational-cu124') or (python_full_version == '3.11.*' and platform_machine == 'aarch64' and sys_platform == 'linux' and extra == 'group-14-ctu-relational-cpu' and extra != 'group-14-ctu-relational-cu124')",
-    "python_full_version >= '3.13' and platform_machine == 'x86_64' and sys_platform == 'darwin' and extra != 'group-14-ctu-relational-cpu' and extra != 'group-14-ctu-relational-cu124'",
-    "python_full_version == '3.12.*' and platform_machine == 'x86_64' and sys_platform == 'darwin' and extra != 'group-14-ctu-relational-cpu' and extra != 'group-14-ctu-relational-cu124'",
-    "(python_full_version >= '3.13' and platform_machine != 'x86_64' and sys_platform == 'darwin' and extra != 'group-14-ctu-relational-cpu' and extra != 'group-14-ctu-relational-cu124') or (python_full_version >= '3.13' and sys_platform != 'darwin' and sys_platform != 'win32' and extra != 'group-14-ctu-relational-cpu' and extra != 'group-14-ctu-relational-cu124')",
-    "(python_full_version == '3.12.*' and platform_machine != 'x86_64' and sys_platform == 'darwin' and extra != 'group-14-ctu-relational-cpu' and extra != 'group-14-ctu-relational-cu124') or (python_full_version == '3.12.*' and sys_platform != 'darwin' and sys_platform != 'win32' and extra != 'group-14-ctu-relational-cpu' and extra != 'group-14-ctu-relational-cu124')",
-    "python_full_version >= '3.13' and sys_platform == 'win32' and extra != 'group-14-ctu-relational-cpu' and extra != 'group-14-ctu-relational-cu124'",
-    "python_full_version == '3.12.*' and sys_platform == 'win32' and extra != 'group-14-ctu-relational-cpu' and extra != 'group-14-ctu-relational-cu124'",
-    "python_full_version == '3.11.*' and platform_machine == 'x86_64' and sys_platform == 'darwin' and extra != 'group-14-ctu-relational-cpu' and extra != 'group-14-ctu-relational-cu124'",
-    "(python_full_version == '3.11.*' and platform_machine != 'x86_64' and sys_platform == 'darwin' and extra != 'group-14-ctu-relational-cpu' and extra != 'group-14-ctu-relational-cu124') or (python_full_version == '3.11.*' and sys_platform != 'darwin' and sys_platform != 'win32' and extra != 'group-14-ctu-relational-cpu' and extra != 'group-14-ctu-relational-cu124')",
-    "python_full_version == '3.11.*' and sys_platform == 'win32' and extra != 'group-14-ctu-relational-cpu' and extra != 'group-14-ctu-relational-cu124'",
+    "python_full_version >= '3.13' and platform_machine == 'x86_64' and sys_platform == 'darwin' and extra != 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124'",
+    "python_full_version == '3.12.*' and platform_machine == 'x86_64' and sys_platform == 'darwin' and extra != 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124'",
+    "(python_full_version >= '3.13' and platform_machine != 'x86_64' and sys_platform == 'darwin' and extra != 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124') or (python_full_version >= '3.13' and platform_machine != 'aarch64' and sys_platform == 'linux' and extra != 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124') or (python_full_version >= '3.13' and sys_platform != 'darwin' and sys_platform != 'linux' and sys_platform != 'win32' and extra != 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124')",
+    "(python_full_version == '3.12.*' and platform_machine != 'x86_64' and sys_platform == 'darwin' and extra != 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124') or (python_full_version == '3.12.*' and platform_machine != 'aarch64' and sys_platform == 'linux' and extra != 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124') or (python_full_version == '3.12.*' and sys_platform != 'darwin' and sys_platform != 'linux' and sys_platform != 'win32' and extra != 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124')",
+    "python_full_version >= '3.13' and sys_platform == 'win32' and extra != 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124'",
+    "python_full_version == '3.12.*' and sys_platform == 'win32' and extra != 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124'",
+    "python_full_version == '3.11.*' and platform_machine == 'x86_64' and sys_platform == 'darwin' and extra != 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124'",
+    "(python_full_version == '3.11.*' and platform_machine != 'x86_64' and sys_platform == 'darwin' and extra != 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124') or (python_full_version == '3.11.*' and platform_machine != 'aarch64' and sys_platform == 'linux' and extra != 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124') or (python_full_version == '3.11.*' and sys_platform != 'darwin' and sys_platform != 'linux' and sys_platform != 'win32' and extra != 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124')",
+    "python_full_version == '3.11.*' and sys_platform == 'win32' and extra != 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124'",
+    "python_full_version >= '3.13' and platform_machine == 'aarch64' and sys_platform == 'linux' and extra != 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124'",
+    "python_full_version == '3.12.*' and platform_machine == 'aarch64' and sys_platform == 'linux' and extra != 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124'",
+    "python_full_version == '3.11.*' and platform_machine == 'aarch64' and sys_platform == 'linux' and extra != 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124'",
+    "(python_full_version >= '3.13' and platform_machine != 'aarch64' and sys_platform == 'linux' and extra == 'group-7-redelex-cpu' and extra != 'group-7-redelex-cu124') or (python_full_version >= '3.13' and sys_platform != 'darwin' and sys_platform != 'linux' and sys_platform != 'win32' and extra == 'group-7-redelex-cpu' and extra != 'group-7-redelex-cu124')",
+    "(python_full_version == '3.12.*' and platform_machine != 'aarch64' and sys_platform == 'linux' and extra == 'group-7-redelex-cpu' and extra != 'group-7-redelex-cu124') or (python_full_version == '3.12.*' and sys_platform != 'darwin' and sys_platform != 'linux' and sys_platform != 'win32' and extra == 'group-7-redelex-cpu' and extra != 'group-7-redelex-cu124')",
+    "python_full_version >= '3.13' and sys_platform == 'win32' and extra == 'group-7-redelex-cpu' and extra != 'group-7-redelex-cu124'",
+    "python_full_version == '3.12.*' and sys_platform == 'win32' and extra == 'group-7-redelex-cpu' and extra != 'group-7-redelex-cu124'",
+    "(python_full_version == '3.11.*' and platform_machine != 'aarch64' and sys_platform == 'linux' and extra == 'group-7-redelex-cpu' and extra != 'group-7-redelex-cu124') or (python_full_version == '3.11.*' and sys_platform != 'darwin' and sys_platform != 'linux' and sys_platform != 'win32' and extra == 'group-7-redelex-cpu' and extra != 'group-7-redelex-cu124')",
+    "python_full_version == '3.11.*' and sys_platform == 'win32' and extra == 'group-7-redelex-cpu' and extra != 'group-7-redelex-cu124'",
+    "python_full_version >= '3.13' and platform_machine == 'x86_64' and sys_platform == 'darwin' and extra == 'group-7-redelex-cpu' and extra != 'group-7-redelex-cu124'",
+    "python_full_version == '3.12.*' and platform_machine == 'x86_64' and sys_platform == 'darwin' and extra == 'group-7-redelex-cpu' and extra != 'group-7-redelex-cu124'",
+    "(python_full_version >= '3.13' and platform_machine != 'x86_64' and sys_platform == 'darwin' and extra == 'group-7-redelex-cpu' and extra != 'group-7-redelex-cu124') or (python_full_version >= '3.13' and platform_machine == 'aarch64' and sys_platform == 'linux' and extra == 'group-7-redelex-cpu' and extra != 'group-7-redelex-cu124')",
+    "(python_full_version == '3.12.*' and platform_machine != 'x86_64' and sys_platform == 'darwin' and extra == 'group-7-redelex-cpu' and extra != 'group-7-redelex-cu124') or (python_full_version == '3.12.*' and platform_machine == 'aarch64' and sys_platform == 'linux' and extra == 'group-7-redelex-cpu' and extra != 'group-7-redelex-cu124')",
+    "python_full_version == '3.11.*' and platform_machine == 'x86_64' and sys_platform == 'darwin' and extra == 'group-7-redelex-cpu' and extra != 'group-7-redelex-cu124'",
+    "(python_full_version == '3.11.*' and platform_machine != 'x86_64' and sys_platform == 'darwin' and extra == 'group-7-redelex-cpu' and extra != 'group-7-redelex-cu124') or (python_full_version == '3.11.*' and platform_machine == 'aarch64' and sys_platform == 'linux' and extra == 'group-7-redelex-cpu' and extra != 'group-7-redelex-cu124')",
+    "python_full_version >= '3.13' and platform_machine == 'x86_64' and sys_platform == 'darwin' and extra != 'group-7-redelex-cpu' and extra != 'group-7-redelex-cu124'",
+    "python_full_version == '3.12.*' and platform_machine == 'x86_64' and sys_platform == 'darwin' and extra != 'group-7-redelex-cpu' and extra != 'group-7-redelex-cu124'",
+    "(python_full_version >= '3.13' and platform_machine != 'x86_64' and sys_platform == 'darwin' and extra != 'group-7-redelex-cpu' and extra != 'group-7-redelex-cu124') or (python_full_version >= '3.13' and sys_platform != 'darwin' and sys_platform != 'win32' and extra != 'group-7-redelex-cpu' and extra != 'group-7-redelex-cu124')",
+    "(python_full_version == '3.12.*' and platform_machine != 'x86_64' and sys_platform == 'darwin' and extra != 'group-7-redelex-cpu' and extra != 'group-7-redelex-cu124') or (python_full_version == '3.12.*' and sys_platform != 'darwin' and sys_platform != 'win32' and extra != 'group-7-redelex-cpu' and extra != 'group-7-redelex-cu124')",
+    "python_full_version >= '3.13' and sys_platform == 'win32' and extra != 'group-7-redelex-cpu' and extra != 'group-7-redelex-cu124'",
+    "python_full_version == '3.12.*' and sys_platform == 'win32' and extra != 'group-7-redelex-cpu' and extra != 'group-7-redelex-cu124'",
+    "python_full_version == '3.11.*' and platform_machine == 'x86_64' and sys_platform == 'darwin' and extra != 'group-7-redelex-cpu' and extra != 'group-7-redelex-cu124'",
+    "(python_full_version == '3.11.*' and platform_machine != 'x86_64' and sys_platform == 'darwin' and extra != 'group-7-redelex-cpu' and extra != 'group-7-redelex-cu124') or (python_full_version == '3.11.*' and sys_platform != 'darwin' and sys_platform != 'win32' and extra != 'group-7-redelex-cpu' and extra != 'group-7-redelex-cu124')",
+    "python_full_version == '3.11.*' and sys_platform == 'win32' and extra != 'group-7-redelex-cpu' and extra != 'group-7-redelex-cu124'",
 ]
 dependencies = [
-    { name = "colorama", marker = "(python_full_version >= '3.11' and sys_platform == 'win32') or (python_full_version < '3.11' and extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124') or (sys_platform != 'win32' and extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124')" },
-    { name = "decorator", marker = "python_full_version >= '3.11' or (extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124')" },
-    { name = "ipython-pygments-lexers", marker = "python_full_version >= '3.11' or (extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124')" },
-    { name = "jedi", marker = "python_full_version >= '3.11' or (extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124')" },
-    { name = "matplotlib-inline", marker = "python_full_version >= '3.11' or (extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124')" },
-    { name = "pexpect", marker = "(python_full_version >= '3.11' and sys_platform != 'emscripten' and sys_platform != 'win32') or (python_full_version < '3.11' and extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124') or (sys_platform == 'emscripten' and extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124') or (sys_platform == 'win32' and extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124')" },
-    { name = "prompt-toolkit", marker = "python_full_version >= '3.11' or (extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124')" },
-    { name = "pygments", marker = "python_full_version >= '3.11' or (extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124')" },
-    { name = "stack-data", marker = "python_full_version >= '3.11' or (extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124')" },
-    { name = "traitlets", marker = "python_full_version >= '3.11' or (extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124')" },
-    { name = "typing-extensions", marker = "python_full_version == '3.11.*' or (extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124')" },
+    { name = "colorama", marker = "(python_full_version >= '3.11' and sys_platform == 'win32') or (python_full_version < '3.11' and extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124') or (sys_platform != 'win32' and extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124')" },
+    { name = "decorator", marker = "python_full_version >= '3.11' or (extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124')" },
+    { name = "ipython-pygments-lexers", marker = "python_full_version >= '3.11' or (extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124')" },
+    { name = "jedi", marker = "python_full_version >= '3.11' or (extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124')" },
+    { name = "matplotlib-inline", marker = "python_full_version >= '3.11' or (extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124')" },
+    { name = "pexpect", marker = "(python_full_version >= '3.11' and sys_platform != 'emscripten' and sys_platform != 'win32') or (python_full_version < '3.11' and extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124') or (sys_platform == 'emscripten' and extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124') or (sys_platform == 'win32' and extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124')" },
+    { name = "prompt-toolkit", marker = "python_full_version >= '3.11' or (extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124')" },
+    { name = "pygments", marker = "python_full_version >= '3.11' or (extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124')" },
+    { name = "stack-data", marker = "python_full_version >= '3.11' or (extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124')" },
+    { name = "traitlets", marker = "python_full_version >= '3.11' or (extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124')" },
+    { name = "typing-extensions", marker = "python_full_version == '3.11.*' or (extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124')" },
 ]
 sdist = { url = "https://files.pythonhosted.org/packages/dc/09/4c7e06b96fbd203e06567b60fb41b06db606b6a82db6db7b2c85bb72a15c/ipython-9.3.0.tar.gz", hash = "sha256:79eb896f9f23f50ad16c3bc205f686f6e030ad246cc309c6279a242b14afe9d8", size = 4426460 }
 wheels = [
@@ -1368,7 +1281,7 @@ name = "ipython-pygments-lexers"
 version = "1.1.1"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
-    { name = "pygments", marker = "python_full_version >= '3.11' or (extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124')" },
+    { name = "pygments", marker = "python_full_version >= '3.11' or (extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124')" },
 ]
 sdist = { url = "https://files.pythonhosted.org/packages/ef/4c/5dd1d8af08107f88c7f741ead7a40854b8ac24ddf9ae850afbcf698aa552/ipython_pygments_lexers-1.1.1.tar.gz", hash = "sha256:09c0138009e56b6854f9535736f4171d855c8c08a563a0dcd8022f78355c7e81", size = 8393 }
 wheels = [
@@ -1466,7 +1379,7 @@ version = "5.8.1"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "platformdirs" },
-    { name = "pywin32", marker = "(platform_python_implementation != 'PyPy' and sys_platform == 'win32') or (platform_python_implementation == 'PyPy' and extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124') or (sys_platform != 'win32' and extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124')" },
+    { name = "pywin32", marker = "(platform_python_implementation != 'PyPy' and sys_platform == 'win32') or (platform_python_implementation == 'PyPy' and extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124') or (sys_platform != 'win32' and extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124')" },
     { name = "traitlets" },
 ]
 sdist = { url = "https://files.pythonhosted.org/packages/99/1b/72906d554acfeb588332eaaa6f61577705e9ec752ddb486f302dafa292d9/jupyter_core-5.8.1.tar.gz", hash = "sha256:0a5f9706f70e64786b75acba995988915ebd4601c8a52e534a40b51c95f59941", size = 88923 }
@@ -1571,11 +1484,11 @@ dependencies = [
     { name = "packaging" },
     { name = "pytorch-lightning" },
     { name = "pyyaml" },
-    { name = "torch", version = "2.4.1", source = { registry = "https://download.pytorch.org/whl/cpu" }, marker = "(platform_machine != 'x86_64' and sys_platform == 'darwin' and extra == 'group-14-ctu-relational-cpu') or (platform_machine == 'aarch64' and sys_platform == 'linux' and extra == 'group-14-ctu-relational-cpu') or (sys_platform != 'darwin' and sys_platform != 'linux' and extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124') or (sys_platform == 'darwin' and extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124') or (sys_platform == 'linux' and extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124')" },
-    { name = "torch", version = "2.4.1", source = { registry = "https://download.pytorch.org/whl/cu124" }, marker = "(platform_machine == 'aarch64' and sys_platform == 'linux' and extra == 'group-14-ctu-relational-cu124') or (platform_machine != 'aarch64' and extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124') or (sys_platform != 'linux' and extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124')" },
-    { name = "torch", version = "2.4.1", source = { registry = "https://pypi.org/simple" }, marker = "(extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124') or (extra != 'group-14-ctu-relational-cpu' and extra != 'group-14-ctu-relational-cu124')" },
-    { name = "torch", version = "2.4.1+cpu", source = { registry = "https://download.pytorch.org/whl/cpu" }, marker = "(platform_machine == 'x86_64' and sys_platform == 'darwin' and extra == 'group-14-ctu-relational-cpu') or (platform_machine != 'aarch64' and sys_platform == 'linux' and extra == 'group-14-ctu-relational-cpu') or (sys_platform != 'darwin' and sys_platform != 'linux' and extra == 'group-14-ctu-relational-cpu') or (sys_platform == 'darwin' and extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124') or (sys_platform == 'linux' and extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124')" },
-    { name = "torch", version = "2.4.1+cu124", source = { registry = "https://download.pytorch.org/whl/cu124" }, marker = "(platform_machine != 'aarch64' and extra == 'group-14-ctu-relational-cu124') or (sys_platform != 'linux' and extra == 'group-14-ctu-relational-cu124') or (extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124')" },
+    { name = "torch", version = "2.4.1", source = { registry = "https://download.pytorch.org/whl/cpu" }, marker = "(platform_machine == 'aarch64' and sys_platform == 'linux' and extra == 'group-7-redelex-cpu') or (platform_machine != 'aarch64' and extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124') or (sys_platform == 'darwin' and extra == 'group-7-redelex-cpu') or (sys_platform != 'linux' and extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124')" },
+    { name = "torch", version = "2.4.1", source = { registry = "https://download.pytorch.org/whl/cu124" }, marker = "(platform_machine == 'aarch64' and sys_platform == 'linux' and extra == 'group-7-redelex-cu124') or (platform_machine != 'aarch64' and extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124') or (sys_platform != 'linux' and extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124')" },
+    { name = "torch", version = "2.4.1", source = { registry = "https://pypi.org/simple" }, marker = "(extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124') or (extra != 'group-7-redelex-cpu' and extra != 'group-7-redelex-cu124')" },
+    { name = "torch", version = "2.4.1+cpu", source = { registry = "https://download.pytorch.org/whl/cpu" }, marker = "(platform_machine != 'aarch64' and sys_platform == 'linux' and extra == 'group-7-redelex-cpu') or (sys_platform != 'darwin' and sys_platform != 'linux' and extra == 'group-7-redelex-cpu') or (sys_platform == 'darwin' and extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124') or (sys_platform == 'linux' and extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124')" },
+    { name = "torch", version = "2.4.1+cu124", source = { registry = "https://download.pytorch.org/whl/cu124" }, marker = "(platform_machine != 'aarch64' and extra == 'group-7-redelex-cu124') or (sys_platform != 'linux' and extra == 'group-7-redelex-cu124') or (extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124')" },
     { name = "torchmetrics" },
     { name = "tqdm" },
     { name = "typing-extensions" },
@@ -1772,19 +1685,19 @@ dependencies = [
     { name = "docker" },
     { name = "flask" },
     { name = "graphene" },
-    { name = "gunicorn", marker = "sys_platform != 'win32' or (extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124')" },
+    { name = "gunicorn", marker = "sys_platform != 'win32' or (extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124')" },
     { name = "jinja2" },
     { name = "markdown" },
     { name = "matplotlib" },
     { name = "mlflow-skinny" },
     { name = "numpy" },
     { name = "pandas" },
-    { name = "pyarrow", version = "17.0.0", source = { registry = "https://pypi.org/simple" }, marker = "(platform_machine == 'x86_64' and sys_platform == 'darwin') or (platform_machine != 'x86_64' and extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124') or (sys_platform != 'darwin' and extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124')" },
-    { name = "pyarrow", version = "19.0.1", source = { registry = "https://pypi.org/simple" }, marker = "platform_machine != 'x86_64' or sys_platform != 'darwin' or (extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124')" },
+    { name = "pyarrow", version = "17.0.0", source = { registry = "https://pypi.org/simple" }, marker = "(platform_machine == 'x86_64' and sys_platform == 'darwin') or (platform_machine != 'x86_64' and extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124') or (sys_platform != 'darwin' and extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124')" },
+    { name = "pyarrow", version = "19.0.1", source = { registry = "https://pypi.org/simple" }, marker = "platform_machine != 'x86_64' or sys_platform != 'darwin' or (extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124')" },
     { name = "scikit-learn" },
     { name = "scipy" },
     { name = "sqlalchemy" },
-    { name = "waitress", marker = "sys_platform == 'win32' or (extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124')" },
+    { name = "waitress", marker = "sys_platform == 'win32' or (extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124')" },
 ]
 sdist = { url = "https://files.pythonhosted.org/packages/34/37/65f82b6bf19e9f5751d28a05346a1458b2bb775f9c6a5db21c1aa115ddfc/mlflow-2.22.1.tar.gz", hash = "sha256:b7d6cb294112115cb0031a554629a21647c38ba88d0fd7455e0ddead02b4bb28", size = 28377360 }
 wheels = [
@@ -2110,7 +2023,7 @@ name = "nvidia-cudnn-cu12"
 version = "9.1.0.70"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
-    { name = "nvidia-cublas-cu12", marker = "(platform_machine != 'x86_64' and sys_platform == 'darwin' and extra == 'group-14-ctu-relational-cu124') or (platform_machine != 'aarch64' and sys_platform == 'linux' and extra == 'group-14-ctu-relational-cu124') or (sys_platform != 'darwin' and sys_platform != 'linux' and sys_platform != 'win32' and extra == 'group-14-ctu-relational-cu124') or (sys_platform == 'darwin' and extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124') or (sys_platform == 'linux' and extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124') or (sys_platform == 'win32' and extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124')" },
+    { name = "nvidia-cublas-cu12", marker = "(platform_machine != 'aarch64' and extra == 'group-7-redelex-cu124') or (sys_platform != 'linux' and extra == 'group-7-redelex-cu124') or (extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124')" },
 ]
 wheels = [
     { url = "https://files.pythonhosted.org/packages/9f/fd/713452cd72343f682b1c7b9321e23829f00b842ceaedcda96e742ea0b0b3/nvidia_cudnn_cu12-9.1.0.70-py3-none-manylinux2014_x86_64.whl", hash = "sha256:165764f44ef8c61fcdfdfdbe769d687e06374059fbb388b6c89ecb0e28793a6f", size = 664752741 },
@@ -2142,9 +2055,9 @@ name = "nvidia-cusolver-cu12"
 version = "11.6.0.99"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
-    { name = "nvidia-cublas-cu12", marker = "(platform_machine != 'x86_64' and sys_platform == 'darwin' and extra == 'group-14-ctu-relational-cu124') or (platform_machine != 'aarch64' and sys_platform == 'linux' and extra == 'group-14-ctu-relational-cu124') or (sys_platform != 'darwin' and sys_platform != 'linux' and sys_platform != 'win32' and extra == 'group-14-ctu-relational-cu124') or (sys_platform == 'darwin' and extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124') or (sys_platform == 'linux' and extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124') or (sys_platform == 'win32' and extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124')" },
-    { name = "nvidia-cusparse-cu12", marker = "(platform_machine != 'x86_64' and sys_platform == 'darwin' and extra == 'group-14-ctu-relational-cu124') or (platform_machine != 'aarch64' and sys_platform == 'linux' and extra == 'group-14-ctu-relational-cu124') or (sys_platform != 'darwin' and sys_platform != 'linux' and sys_platform != 'win32' and extra == 'group-14-ctu-relational-cu124') or (sys_platform == 'darwin' and extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124') or (sys_platform == 'linux' and extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124') or (sys_platform == 'win32' and extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124')" },
-    { name = "nvidia-nvjitlink-cu12", marker = "(platform_machine != 'x86_64' and sys_platform == 'darwin' and extra == 'group-14-ctu-relational-cu124') or (platform_machine != 'aarch64' and sys_platform == 'linux' and extra == 'group-14-ctu-relational-cu124') or (sys_platform != 'darwin' and sys_platform != 'linux' and sys_platform != 'win32' and extra == 'group-14-ctu-relational-cu124') or (sys_platform == 'darwin' and extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124') or (sys_platform == 'linux' and extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124') or (sys_platform == 'win32' and extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124')" },
+    { name = "nvidia-cublas-cu12", marker = "(platform_machine != 'aarch64' and extra == 'group-7-redelex-cu124') or (sys_platform != 'linux' and extra == 'group-7-redelex-cu124') or (extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124')" },
+    { name = "nvidia-cusparse-cu12", marker = "(platform_machine != 'aarch64' and extra == 'group-7-redelex-cu124') or (sys_platform != 'linux' and extra == 'group-7-redelex-cu124') or (extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124')" },
+    { name = "nvidia-nvjitlink-cu12", marker = "(platform_machine != 'aarch64' and extra == 'group-7-redelex-cu124') or (sys_platform != 'linux' and extra == 'group-7-redelex-cu124') or (extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124')" },
 ]
 wheels = [
     { url = "https://files.pythonhosted.org/packages/7a/aa/e79f86ba4be5492c043d674c59d81e9169f0b1dce92da19d23ca52f9fa70/nvidia_cusolver_cu12-11.6.0.99-py3-none-manylinux2014_aarch64.whl", hash = "sha256:23960b6059207fcba310b4f921595f7c4a05ee765c3ad10559f2d4e824263eab", size = 128061334 },
@@ -2157,7 +2070,7 @@ name = "nvidia-cusparse-cu12"
 version = "12.3.0.142"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
-    { name = "nvidia-nvjitlink-cu12", marker = "(platform_machine != 'x86_64' and sys_platform == 'darwin' and extra == 'group-14-ctu-relational-cu124') or (platform_machine != 'aarch64' and sys_platform == 'linux' and extra == 'group-14-ctu-relational-cu124') or (sys_platform != 'darwin' and sys_platform != 'linux' and sys_platform != 'win32' and extra == 'group-14-ctu-relational-cu124') or (sys_platform == 'darwin' and extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124') or (sys_platform == 'linux' and extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124') or (sys_platform == 'win32' and extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124')" },
+    { name = "nvidia-nvjitlink-cu12", marker = "(platform_machine != 'aarch64' and extra == 'group-7-redelex-cu124') or (sys_platform != 'linux' and extra == 'group-7-redelex-cu124') or (extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124')" },
 ]
 wheels = [
     { url = "https://files.pythonhosted.org/packages/b6/dd/3f77235e51d7263cdc3f4f278f0e183e1ebe27ee649f7bfdadae6d5aafb2/nvidia_cusparse_cu12-12.3.0.142-py3-none-manylinux2014_aarch64.whl", hash = "sha256:37380e2592751cf73c81141933651a5e2bdcc9b1727bee1489c3987ad9023873", size = 207381615 },
@@ -2328,7 +2241,7 @@ name = "pexpect"
 version = "4.9.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
-    { name = "ptyprocess", marker = "sys_platform != 'win32' or (extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124')" },
+    { name = "ptyprocess", marker = "sys_platform != 'win32' or (extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124')" },
 ]
 sdist = { url = "https://files.pythonhosted.org/packages/42/92/cc564bf6381ff43ce1f4d06852fc19a2f11d180f23dc32d9588bee2f149d/pexpect-4.9.0.tar.gz", hash = "sha256:ee7d41123f3c9911050ea2c2dac107568dc43b2d3b0c7557a33212c398ead30f", size = 166450 }
 wheels = [
@@ -2668,38 +2581,38 @@ name = "pyarrow"
 version = "19.0.1"
 source = { registry = "https://pypi.org/simple" }
 resolution-markers = [
-    "(python_full_version >= '3.13' and platform_machine != 'x86_64' and sys_platform == 'darwin' and extra != 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124') or (python_full_version >= '3.13' and platform_machine != 'aarch64' and sys_platform == 'linux' and extra != 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124') or (python_full_version >= '3.13' and sys_platform != 'darwin' and sys_platform != 'linux' and sys_platform != 'win32' and extra != 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124')",
-    "(python_full_version == '3.12.*' and platform_machine != 'x86_64' and sys_platform == 'darwin' and extra != 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124') or (python_full_version == '3.12.*' and platform_machine != 'aarch64' and sys_platform == 'linux' and extra != 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124') or (python_full_version == '3.12.*' and sys_platform != 'darwin' and sys_platform != 'linux' and sys_platform != 'win32' and extra != 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124')",
-    "python_full_version >= '3.13' and sys_platform == 'win32' and extra != 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124'",
-    "python_full_version == '3.12.*' and sys_platform == 'win32' and extra != 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124'",
-    "(python_full_version == '3.11.*' and platform_machine != 'x86_64' and sys_platform == 'darwin' and extra != 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124') or (python_full_version == '3.11.*' and platform_machine != 'aarch64' and sys_platform == 'linux' and extra != 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124') or (python_full_version == '3.11.*' and sys_platform != 'darwin' and sys_platform != 'linux' and sys_platform != 'win32' and extra != 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124')",
-    "python_full_version == '3.11.*' and sys_platform == 'win32' and extra != 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124'",
-    "(python_full_version < '3.11' and platform_machine != 'x86_64' and sys_platform == 'darwin' and extra != 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124') or (python_full_version < '3.11' and platform_machine != 'aarch64' and sys_platform == 'linux' and extra != 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124') or (python_full_version < '3.11' and sys_platform != 'darwin' and sys_platform != 'linux' and sys_platform != 'win32' and extra != 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124')",
-    "python_full_version < '3.11' and sys_platform == 'win32' and extra != 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124'",
-    "python_full_version >= '3.13' and platform_machine == 'aarch64' and sys_platform == 'linux' and extra != 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124'",
-    "python_full_version == '3.12.*' and platform_machine == 'aarch64' and sys_platform == 'linux' and extra != 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124'",
-    "python_full_version == '3.11.*' and platform_machine == 'aarch64' and sys_platform == 'linux' and extra != 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124'",
-    "python_full_version < '3.11' and platform_machine == 'aarch64' and sys_platform == 'linux' and extra != 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124'",
-    "(python_full_version >= '3.13' and platform_machine != 'aarch64' and sys_platform == 'linux' and extra == 'group-14-ctu-relational-cpu' and extra != 'group-14-ctu-relational-cu124') or (python_full_version >= '3.13' and sys_platform != 'darwin' and sys_platform != 'linux' and sys_platform != 'win32' and extra == 'group-14-ctu-relational-cpu' and extra != 'group-14-ctu-relational-cu124')",
-    "(python_full_version == '3.12.*' and platform_machine != 'aarch64' and sys_platform == 'linux' and extra == 'group-14-ctu-relational-cpu' and extra != 'group-14-ctu-relational-cu124') or (python_full_version == '3.12.*' and sys_platform != 'darwin' and sys_platform != 'linux' and sys_platform != 'win32' and extra == 'group-14-ctu-relational-cpu' and extra != 'group-14-ctu-relational-cu124')",
-    "python_full_version >= '3.13' and sys_platform == 'win32' and extra == 'group-14-ctu-relational-cpu' and extra != 'group-14-ctu-relational-cu124'",
-    "python_full_version == '3.12.*' and sys_platform == 'win32' and extra == 'group-14-ctu-relational-cpu' and extra != 'group-14-ctu-relational-cu124'",
-    "(python_full_version == '3.11.*' and platform_machine != 'aarch64' and sys_platform == 'linux' and extra == 'group-14-ctu-relational-cpu' and extra != 'group-14-ctu-relational-cu124') or (python_full_version == '3.11.*' and sys_platform != 'darwin' and sys_platform != 'linux' and sys_platform != 'win32' and extra == 'group-14-ctu-relational-cpu' and extra != 'group-14-ctu-relational-cu124')",
-    "python_full_version == '3.11.*' and sys_platform == 'win32' and extra == 'group-14-ctu-relational-cpu' and extra != 'group-14-ctu-relational-cu124'",
-    "(python_full_version < '3.11' and platform_machine != 'aarch64' and sys_platform == 'linux' and extra == 'group-14-ctu-relational-cpu' and extra != 'group-14-ctu-relational-cu124') or (python_full_version < '3.11' and sys_platform != 'darwin' and sys_platform != 'linux' and sys_platform != 'win32' and extra == 'group-14-ctu-relational-cpu' and extra != 'group-14-ctu-relational-cu124')",
-    "python_full_version < '3.11' and sys_platform == 'win32' and extra == 'group-14-ctu-relational-cpu' and extra != 'group-14-ctu-relational-cu124'",
-    "(python_full_version >= '3.13' and platform_machine != 'x86_64' and sys_platform == 'darwin' and extra == 'group-14-ctu-relational-cpu' and extra != 'group-14-ctu-relational-cu124') or (python_full_version >= '3.13' and platform_machine == 'aarch64' and sys_platform == 'linux' and extra == 'group-14-ctu-relational-cpu' and extra != 'group-14-ctu-relational-cu124')",
-    "(python_full_version == '3.12.*' and platform_machine != 'x86_64' and sys_platform == 'darwin' and extra == 'group-14-ctu-relational-cpu' and extra != 'group-14-ctu-relational-cu124') or (python_full_version == '3.12.*' and platform_machine == 'aarch64' and sys_platform == 'linux' and extra == 'group-14-ctu-relational-cpu' and extra != 'group-14-ctu-relational-cu124')",
-    "(python_full_version == '3.11.*' and platform_machine != 'x86_64' and sys_platform == 'darwin' and extra == 'group-14-ctu-relational-cpu' and extra != 'group-14-ctu-relational-cu124') or (python_full_version == '3.11.*' and platform_machine == 'aarch64' and sys_platform == 'linux' and extra == 'group-14-ctu-relational-cpu' and extra != 'group-14-ctu-relational-cu124')",
-    "(python_full_version < '3.11' and platform_machine != 'x86_64' and sys_platform == 'darwin' and extra == 'group-14-ctu-relational-cpu' and extra != 'group-14-ctu-relational-cu124') or (python_full_version < '3.11' and platform_machine == 'aarch64' and sys_platform == 'linux' and extra == 'group-14-ctu-relational-cpu' and extra != 'group-14-ctu-relational-cu124')",
-    "(python_full_version >= '3.13' and platform_machine != 'x86_64' and sys_platform == 'darwin' and extra != 'group-14-ctu-relational-cpu' and extra != 'group-14-ctu-relational-cu124') or (python_full_version >= '3.13' and sys_platform != 'darwin' and sys_platform != 'win32' and extra != 'group-14-ctu-relational-cpu' and extra != 'group-14-ctu-relational-cu124')",
-    "(python_full_version == '3.12.*' and platform_machine != 'x86_64' and sys_platform == 'darwin' and extra != 'group-14-ctu-relational-cpu' and extra != 'group-14-ctu-relational-cu124') or (python_full_version == '3.12.*' and sys_platform != 'darwin' and sys_platform != 'win32' and extra != 'group-14-ctu-relational-cpu' and extra != 'group-14-ctu-relational-cu124')",
-    "python_full_version >= '3.13' and sys_platform == 'win32' and extra != 'group-14-ctu-relational-cpu' and extra != 'group-14-ctu-relational-cu124'",
-    "python_full_version == '3.12.*' and sys_platform == 'win32' and extra != 'group-14-ctu-relational-cpu' and extra != 'group-14-ctu-relational-cu124'",
-    "(python_full_version == '3.11.*' and platform_machine != 'x86_64' and sys_platform == 'darwin' and extra != 'group-14-ctu-relational-cpu' and extra != 'group-14-ctu-relational-cu124') or (python_full_version == '3.11.*' and sys_platform != 'darwin' and sys_platform != 'win32' and extra != 'group-14-ctu-relational-cpu' and extra != 'group-14-ctu-relational-cu124')",
-    "python_full_version == '3.11.*' and sys_platform == 'win32' and extra != 'group-14-ctu-relational-cpu' and extra != 'group-14-ctu-relational-cu124'",
-    "(python_full_version < '3.11' and platform_machine != 'x86_64' and sys_platform == 'darwin' and extra != 'group-14-ctu-relational-cpu' and extra != 'group-14-ctu-relational-cu124') or (python_full_version < '3.11' and sys_platform != 'darwin' and sys_platform != 'win32' and extra != 'group-14-ctu-relational-cpu' and extra != 'group-14-ctu-relational-cu124')",
-    "python_full_version < '3.11' and sys_platform == 'win32' and extra != 'group-14-ctu-relational-cpu' and extra != 'group-14-ctu-relational-cu124'",
+    "(python_full_version >= '3.13' and platform_machine != 'x86_64' and sys_platform == 'darwin' and extra != 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124') or (python_full_version >= '3.13' and platform_machine != 'aarch64' and sys_platform == 'linux' and extra != 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124') or (python_full_version >= '3.13' and sys_platform != 'darwin' and sys_platform != 'linux' and sys_platform != 'win32' and extra != 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124')",
+    "(python_full_version == '3.12.*' and platform_machine != 'x86_64' and sys_platform == 'darwin' and extra != 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124') or (python_full_version == '3.12.*' and platform_machine != 'aarch64' and sys_platform == 'linux' and extra != 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124') or (python_full_version == '3.12.*' and sys_platform != 'darwin' and sys_platform != 'linux' and sys_platform != 'win32' and extra != 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124')",
+    "python_full_version >= '3.13' and sys_platform == 'win32' and extra != 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124'",
+    "python_full_version == '3.12.*' and sys_platform == 'win32' and extra != 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124'",
+    "(python_full_version == '3.11.*' and platform_machine != 'x86_64' and sys_platform == 'darwin' and extra != 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124') or (python_full_version == '3.11.*' and platform_machine != 'aarch64' and sys_platform == 'linux' and extra != 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124') or (python_full_version == '3.11.*' and sys_platform != 'darwin' and sys_platform != 'linux' and sys_platform != 'win32' and extra != 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124')",
+    "python_full_version == '3.11.*' and sys_platform == 'win32' and extra != 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124'",
+    "(python_full_version < '3.11' and platform_machine != 'x86_64' and sys_platform == 'darwin' and extra != 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124') or (python_full_version < '3.11' and platform_machine != 'aarch64' and sys_platform == 'linux' and extra != 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124') or (python_full_version < '3.11' and sys_platform != 'darwin' and sys_platform != 'linux' and sys_platform != 'win32' and extra != 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124')",
+    "python_full_version < '3.11' and sys_platform == 'win32' and extra != 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124'",
+    "python_full_version >= '3.13' and platform_machine == 'aarch64' and sys_platform == 'linux' and extra != 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124'",
+    "python_full_version == '3.12.*' and platform_machine == 'aarch64' and sys_platform == 'linux' and extra != 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124'",
+    "python_full_version == '3.11.*' and platform_machine == 'aarch64' and sys_platform == 'linux' and extra != 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124'",
+    "python_full_version < '3.11' and platform_machine == 'aarch64' and sys_platform == 'linux' and extra != 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124'",
+    "(python_full_version >= '3.13' and platform_machine != 'aarch64' and sys_platform == 'linux' and extra == 'group-7-redelex-cpu' and extra != 'group-7-redelex-cu124') or (python_full_version >= '3.13' and sys_platform != 'darwin' and sys_platform != 'linux' and sys_platform != 'win32' and extra == 'group-7-redelex-cpu' and extra != 'group-7-redelex-cu124')",
+    "(python_full_version == '3.12.*' and platform_machine != 'aarch64' and sys_platform == 'linux' and extra == 'group-7-redelex-cpu' and extra != 'group-7-redelex-cu124') or (python_full_version == '3.12.*' and sys_platform != 'darwin' and sys_platform != 'linux' and sys_platform != 'win32' and extra == 'group-7-redelex-cpu' and extra != 'group-7-redelex-cu124')",
+    "python_full_version >= '3.13' and sys_platform == 'win32' and extra == 'group-7-redelex-cpu' and extra != 'group-7-redelex-cu124'",
+    "python_full_version == '3.12.*' and sys_platform == 'win32' and extra == 'group-7-redelex-cpu' and extra != 'group-7-redelex-cu124'",
+    "(python_full_version == '3.11.*' and platform_machine != 'aarch64' and sys_platform == 'linux' and extra == 'group-7-redelex-cpu' and extra != 'group-7-redelex-cu124') or (python_full_version == '3.11.*' and sys_platform != 'darwin' and sys_platform != 'linux' and sys_platform != 'win32' and extra == 'group-7-redelex-cpu' and extra != 'group-7-redelex-cu124')",
+    "python_full_version == '3.11.*' and sys_platform == 'win32' and extra == 'group-7-redelex-cpu' and extra != 'group-7-redelex-cu124'",
+    "(python_full_version < '3.11' and platform_machine != 'aarch64' and sys_platform == 'linux' and extra == 'group-7-redelex-cpu' and extra != 'group-7-redelex-cu124') or (python_full_version < '3.11' and sys_platform != 'darwin' and sys_platform != 'linux' and sys_platform != 'win32' and extra == 'group-7-redelex-cpu' and extra != 'group-7-redelex-cu124')",
+    "python_full_version < '3.11' and sys_platform == 'win32' and extra == 'group-7-redelex-cpu' and extra != 'group-7-redelex-cu124'",
+    "(python_full_version >= '3.13' and platform_machine != 'x86_64' and sys_platform == 'darwin' and extra == 'group-7-redelex-cpu' and extra != 'group-7-redelex-cu124') or (python_full_version >= '3.13' and platform_machine == 'aarch64' and sys_platform == 'linux' and extra == 'group-7-redelex-cpu' and extra != 'group-7-redelex-cu124')",
+    "(python_full_version == '3.12.*' and platform_machine != 'x86_64' and sys_platform == 'darwin' and extra == 'group-7-redelex-cpu' and extra != 'group-7-redelex-cu124') or (python_full_version == '3.12.*' and platform_machine == 'aarch64' and sys_platform == 'linux' and extra == 'group-7-redelex-cpu' and extra != 'group-7-redelex-cu124')",
+    "(python_full_version == '3.11.*' and platform_machine != 'x86_64' and sys_platform == 'darwin' and extra == 'group-7-redelex-cpu' and extra != 'group-7-redelex-cu124') or (python_full_version == '3.11.*' and platform_machine == 'aarch64' and sys_platform == 'linux' and extra == 'group-7-redelex-cpu' and extra != 'group-7-redelex-cu124')",
+    "(python_full_version < '3.11' and platform_machine != 'x86_64' and sys_platform == 'darwin' and extra == 'group-7-redelex-cpu' and extra != 'group-7-redelex-cu124') or (python_full_version < '3.11' and platform_machine == 'aarch64' and sys_platform == 'linux' and extra == 'group-7-redelex-cpu' and extra != 'group-7-redelex-cu124')",
+    "(python_full_version >= '3.13' and platform_machine != 'x86_64' and sys_platform == 'darwin' and extra != 'group-7-redelex-cpu' and extra != 'group-7-redelex-cu124') or (python_full_version >= '3.13' and sys_platform != 'darwin' and sys_platform != 'win32' and extra != 'group-7-redelex-cpu' and extra != 'group-7-redelex-cu124')",
+    "(python_full_version == '3.12.*' and platform_machine != 'x86_64' and sys_platform == 'darwin' and extra != 'group-7-redelex-cpu' and extra != 'group-7-redelex-cu124') or (python_full_version == '3.12.*' and sys_platform != 'darwin' and sys_platform != 'win32' and extra != 'group-7-redelex-cpu' and extra != 'group-7-redelex-cu124')",
+    "python_full_version >= '3.13' and sys_platform == 'win32' and extra != 'group-7-redelex-cpu' and extra != 'group-7-redelex-cu124'",
+    "python_full_version == '3.12.*' and sys_platform == 'win32' and extra != 'group-7-redelex-cpu' and extra != 'group-7-redelex-cu124'",
+    "(python_full_version == '3.11.*' and platform_machine != 'x86_64' and sys_platform == 'darwin' and extra != 'group-7-redelex-cpu' and extra != 'group-7-redelex-cu124') or (python_full_version == '3.11.*' and sys_platform != 'darwin' and sys_platform != 'win32' and extra != 'group-7-redelex-cpu' and extra != 'group-7-redelex-cu124')",
+    "python_full_version == '3.11.*' and sys_platform == 'win32' and extra != 'group-7-redelex-cpu' and extra != 'group-7-redelex-cu124'",
+    "(python_full_version < '3.11' and platform_machine != 'x86_64' and sys_platform == 'darwin' and extra != 'group-7-redelex-cpu' and extra != 'group-7-redelex-cu124') or (python_full_version < '3.11' and sys_platform != 'darwin' and sys_platform != 'win32' and extra != 'group-7-redelex-cpu' and extra != 'group-7-redelex-cu124')",
+    "python_full_version < '3.11' and sys_platform == 'win32' and extra != 'group-7-redelex-cpu' and extra != 'group-7-redelex-cu124'",
 ]
 sdist = { url = "https://files.pythonhosted.org/packages/7f/09/a9046344212690f0632b9c709f9bf18506522feb333c894d0de81d62341a/pyarrow-19.0.1.tar.gz", hash = "sha256:3bf266b485df66a400f282ac0b6d1b500b9d2ae73314a153dbe97d6d5cc8a99e", size = 1129437 }
 wheels = [
@@ -2927,12 +2840,12 @@ dependencies = [
     { name = "numpy" },
     { name = "pandas" },
     { name = "pillow" },
-    { name = "pyarrow", version = "17.0.0", source = { registry = "https://pypi.org/simple" }, marker = "(platform_machine == 'x86_64' and sys_platform == 'darwin' and extra == 'group-14-ctu-relational-cpu') or (platform_machine == 'x86_64' and sys_platform == 'darwin' and extra == 'group-14-ctu-relational-cu124') or (platform_machine != 'x86_64' and extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124') or (sys_platform != 'darwin' and extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124')" },
-    { name = "pyarrow", version = "19.0.1", source = { registry = "https://pypi.org/simple" }, marker = "(platform_machine != 'x86_64' and extra == 'group-14-ctu-relational-cpu') or (platform_machine != 'x86_64' and extra == 'group-14-ctu-relational-cu124') or (sys_platform != 'darwin' and extra == 'group-14-ctu-relational-cpu') or (sys_platform != 'darwin' and extra == 'group-14-ctu-relational-cu124') or (extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124')" },
-    { name = "torch", version = "2.4.1", source = { registry = "https://download.pytorch.org/whl/cpu" }, marker = "(platform_machine != 'x86_64' and sys_platform == 'darwin' and extra == 'group-14-ctu-relational-cpu') or (platform_machine == 'aarch64' and sys_platform == 'linux' and extra == 'group-14-ctu-relational-cpu') or (sys_platform != 'darwin' and sys_platform != 'linux' and extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124') or (sys_platform == 'darwin' and extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124') or (sys_platform == 'linux' and extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124')" },
-    { name = "torch", version = "2.4.1", source = { registry = "https://download.pytorch.org/whl/cu124" }, marker = "(platform_machine == 'aarch64' and sys_platform == 'linux' and extra == 'group-14-ctu-relational-cu124') or (platform_machine != 'aarch64' and extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124') or (sys_platform != 'linux' and extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124')" },
-    { name = "torch", version = "2.4.1+cpu", source = { registry = "https://download.pytorch.org/whl/cpu" }, marker = "(platform_machine == 'x86_64' and sys_platform == 'darwin' and extra == 'group-14-ctu-relational-cpu') or (platform_machine != 'aarch64' and sys_platform == 'linux' and extra == 'group-14-ctu-relational-cpu') or (sys_platform != 'darwin' and sys_platform != 'linux' and extra == 'group-14-ctu-relational-cpu') or (sys_platform == 'darwin' and extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124') or (sys_platform == 'linux' and extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124')" },
-    { name = "torch", version = "2.4.1+cu124", source = { registry = "https://download.pytorch.org/whl/cu124" }, marker = "(platform_machine != 'aarch64' and extra == 'group-14-ctu-relational-cu124') or (sys_platform != 'linux' and extra == 'group-14-ctu-relational-cu124') or (extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124')" },
+    { name = "pyarrow", version = "17.0.0", source = { registry = "https://pypi.org/simple" }, marker = "(platform_machine == 'x86_64' and sys_platform == 'darwin' and extra == 'group-7-redelex-cpu') or (platform_machine == 'x86_64' and sys_platform == 'darwin' and extra == 'group-7-redelex-cu124') or (platform_machine != 'x86_64' and extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124') or (sys_platform != 'darwin' and extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124')" },
+    { name = "pyarrow", version = "19.0.1", source = { registry = "https://pypi.org/simple" }, marker = "(platform_machine != 'x86_64' and extra == 'group-7-redelex-cpu') or (platform_machine != 'x86_64' and extra == 'group-7-redelex-cu124') or (sys_platform != 'darwin' and extra == 'group-7-redelex-cpu') or (sys_platform != 'darwin' and extra == 'group-7-redelex-cu124') or (extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124')" },
+    { name = "torch", version = "2.4.1", source = { registry = "https://download.pytorch.org/whl/cpu" }, marker = "(platform_machine == 'aarch64' and sys_platform == 'linux' and extra == 'group-7-redelex-cpu') or (platform_machine != 'aarch64' and extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124') or (sys_platform == 'darwin' and extra == 'group-7-redelex-cpu') or (sys_platform != 'linux' and extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124')" },
+    { name = "torch", version = "2.4.1", source = { registry = "https://download.pytorch.org/whl/cu124" }, marker = "(platform_machine == 'aarch64' and sys_platform == 'linux' and extra == 'group-7-redelex-cu124') or (platform_machine != 'aarch64' and extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124') or (sys_platform != 'linux' and extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124')" },
+    { name = "torch", version = "2.4.1+cpu", source = { registry = "https://download.pytorch.org/whl/cpu" }, marker = "(platform_machine != 'aarch64' and sys_platform == 'linux' and extra == 'group-7-redelex-cpu') or (sys_platform != 'darwin' and sys_platform != 'linux' and extra == 'group-7-redelex-cpu') or (sys_platform == 'darwin' and extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124') or (sys_platform == 'linux' and extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124')" },
+    { name = "torch", version = "2.4.1+cu124", source = { registry = "https://download.pytorch.org/whl/cu124" }, marker = "(platform_machine != 'aarch64' and extra == 'group-7-redelex-cu124') or (sys_platform != 'linux' and extra == 'group-7-redelex-cu124') or (extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124')" },
     { name = "tqdm" },
 ]
 sdist = { url = "https://files.pythonhosted.org/packages/4f/03/66fc7ecc82f71b9a440aa444749ee5a5f7700c87256247786697784005c3/pytorch_frame-0.2.5.tar.gz", hash = "sha256:927a322a1c8cd4af386e124aa0932f2a0aba415c8a1f593c2ed605e08a9f65d5", size = 103589 }
@@ -2949,11 +2862,11 @@ dependencies = [
     { name = "lightning-utilities" },
     { name = "packaging" },
     { name = "pyyaml" },
-    { name = "torch", version = "2.4.1", source = { registry = "https://download.pytorch.org/whl/cpu" }, marker = "(platform_machine != 'x86_64' and sys_platform == 'darwin' and extra == 'group-14-ctu-relational-cpu') or (platform_machine == 'aarch64' and sys_platform == 'linux' and extra == 'group-14-ctu-relational-cpu') or (sys_platform != 'darwin' and sys_platform != 'linux' and extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124') or (sys_platform == 'darwin' and extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124') or (sys_platform == 'linux' and extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124')" },
-    { name = "torch", version = "2.4.1", source = { registry = "https://download.pytorch.org/whl/cu124" }, marker = "(platform_machine == 'aarch64' and sys_platform == 'linux' and extra == 'group-14-ctu-relational-cu124') or (platform_machine != 'aarch64' and extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124') or (sys_platform != 'linux' and extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124')" },
-    { name = "torch", version = "2.4.1", source = { registry = "https://pypi.org/simple" }, marker = "(extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124') or (extra != 'group-14-ctu-relational-cpu' and extra != 'group-14-ctu-relational-cu124')" },
-    { name = "torch", version = "2.4.1+cpu", source = { registry = "https://download.pytorch.org/whl/cpu" }, marker = "(platform_machine == 'x86_64' and sys_platform == 'darwin' and extra == 'group-14-ctu-relational-cpu') or (platform_machine != 'aarch64' and sys_platform == 'linux' and extra == 'group-14-ctu-relational-cpu') or (sys_platform != 'darwin' and sys_platform != 'linux' and extra == 'group-14-ctu-relational-cpu') or (sys_platform == 'darwin' and extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124') or (sys_platform == 'linux' and extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124')" },
-    { name = "torch", version = "2.4.1+cu124", source = { registry = "https://download.pytorch.org/whl/cu124" }, marker = "(platform_machine != 'aarch64' and extra == 'group-14-ctu-relational-cu124') or (sys_platform != 'linux' and extra == 'group-14-ctu-relational-cu124') or (extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124')" },
+    { name = "torch", version = "2.4.1", source = { registry = "https://download.pytorch.org/whl/cpu" }, marker = "(platform_machine == 'aarch64' and sys_platform == 'linux' and extra == 'group-7-redelex-cpu') or (platform_machine != 'aarch64' and extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124') or (sys_platform == 'darwin' and extra == 'group-7-redelex-cpu') or (sys_platform != 'linux' and extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124')" },
+    { name = "torch", version = "2.4.1", source = { registry = "https://download.pytorch.org/whl/cu124" }, marker = "(platform_machine == 'aarch64' and sys_platform == 'linux' and extra == 'group-7-redelex-cu124') or (platform_machine != 'aarch64' and extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124') or (sys_platform != 'linux' and extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124')" },
+    { name = "torch", version = "2.4.1", source = { registry = "https://pypi.org/simple" }, marker = "(extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124') or (extra != 'group-7-redelex-cpu' and extra != 'group-7-redelex-cu124')" },
+    { name = "torch", version = "2.4.1+cpu", source = { registry = "https://download.pytorch.org/whl/cpu" }, marker = "(platform_machine != 'aarch64' and sys_platform == 'linux' and extra == 'group-7-redelex-cpu') or (sys_platform != 'darwin' and sys_platform != 'linux' and extra == 'group-7-redelex-cpu') or (sys_platform == 'darwin' and extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124') or (sys_platform == 'linux' and extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124')" },
+    { name = "torch", version = "2.4.1+cu124", source = { registry = "https://download.pytorch.org/whl/cu124" }, marker = "(platform_machine != 'aarch64' and extra == 'group-7-redelex-cu124') or (sys_platform != 'linux' and extra == 'group-7-redelex-cu124') or (extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124')" },
     { name = "torchmetrics" },
     { name = "tqdm" },
     { name = "typing-extensions" },
@@ -3040,7 +2953,7 @@ name = "pyzmq"
 version = "27.0.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
-    { name = "cffi", marker = "implementation_name == 'pypy' or (extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124')" },
+    { name = "cffi", marker = "implementation_name == 'pypy' or (extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124')" },
 ]
 sdist = { url = "https://files.pythonhosted.org/packages/f1/06/50a4e9648b3e8b992bef8eb632e457307553a89d294103213cfd47b3da69/pyzmq-27.0.0.tar.gz", hash = "sha256:b1f08eeb9ce1510e6939b6e5dcd46a17765e2333daae78ecf4606808442e52cf", size = 280478 }
 wheels = [
@@ -3136,8 +3049,8 @@ data = [
     { name = "fsspec" },
     { name = "numpy" },
     { name = "pandas" },
-    { name = "pyarrow", version = "17.0.0", source = { registry = "https://pypi.org/simple" }, marker = "(platform_machine == 'x86_64' and sys_platform == 'darwin') or (platform_machine != 'x86_64' and extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124') or (sys_platform != 'darwin' and extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124')" },
-    { name = "pyarrow", version = "19.0.1", source = { registry = "https://pypi.org/simple" }, marker = "platform_machine != 'x86_64' or sys_platform != 'darwin' or (extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124')" },
+    { name = "pyarrow", version = "17.0.0", source = { registry = "https://pypi.org/simple" }, marker = "(platform_machine == 'x86_64' and sys_platform == 'darwin') or (platform_machine != 'x86_64' and extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124') or (sys_platform != 'darwin' and extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124')" },
+    { name = "pyarrow", version = "19.0.1", source = { registry = "https://pypi.org/simple" }, marker = "platform_machine != 'x86_64' or sys_platform != 'darwin' or (extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124')" },
 ]
 serve = [
     { name = "aiohttp" },
@@ -3159,8 +3072,8 @@ serve = [
 train = [
     { name = "fsspec" },
     { name = "pandas" },
-    { name = "pyarrow", version = "17.0.0", source = { registry = "https://pypi.org/simple" }, marker = "(platform_machine == 'x86_64' and sys_platform == 'darwin') or (platform_machine != 'x86_64' and extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124') or (sys_platform != 'darwin' and extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124')" },
-    { name = "pyarrow", version = "19.0.1", source = { registry = "https://pypi.org/simple" }, marker = "platform_machine != 'x86_64' or sys_platform != 'darwin' or (extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124')" },
+    { name = "pyarrow", version = "17.0.0", source = { registry = "https://pypi.org/simple" }, marker = "(platform_machine == 'x86_64' and sys_platform == 'darwin') or (platform_machine != 'x86_64' and extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124') or (sys_platform != 'darwin' and extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124')" },
+    { name = "pyarrow", version = "19.0.1", source = { registry = "https://pypi.org/simple" }, marker = "platform_machine != 'x86_64' or sys_platform != 'darwin' or (extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124')" },
     { name = "pydantic" },
     { name = "requests" },
     { name = "tensorboardx" },
@@ -3168,10 +3081,97 @@ train = [
 tune = [
     { name = "fsspec" },
     { name = "pandas" },
-    { name = "pyarrow", version = "17.0.0", source = { registry = "https://pypi.org/simple" }, marker = "(platform_machine == 'x86_64' and sys_platform == 'darwin') or (platform_machine != 'x86_64' and extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124') or (sys_platform != 'darwin' and extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124')" },
-    { name = "pyarrow", version = "19.0.1", source = { registry = "https://pypi.org/simple" }, marker = "platform_machine != 'x86_64' or sys_platform != 'darwin' or (extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124')" },
+    { name = "pyarrow", version = "17.0.0", source = { registry = "https://pypi.org/simple" }, marker = "(platform_machine == 'x86_64' and sys_platform == 'darwin') or (platform_machine != 'x86_64' and extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124') or (sys_platform != 'darwin' and extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124')" },
+    { name = "pyarrow", version = "19.0.1", source = { registry = "https://pypi.org/simple" }, marker = "platform_machine != 'x86_64' or sys_platform != 'darwin' or (extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124')" },
     { name = "requests" },
     { name = "tensorboardx" },
+]
+
+[[package]]
+name = "redelex"
+version = "0.4.0"
+source = { editable = "." }
+dependencies = [
+    { name = "attrs" },
+    { name = "inflect" },
+    { name = "pandas" },
+    { name = "pymysql" },
+    { name = "relbench" },
+    { name = "sqlalchemy" },
+    { name = "tqdm" },
+]
+
+[package.dev-dependencies]
+cpu = [
+    { name = "pytorch-frame" },
+    { name = "sentence-transformers" },
+    { name = "torch", version = "2.4.1", source = { registry = "https://download.pytorch.org/whl/cpu" }, marker = "(platform_machine == 'aarch64' and sys_platform == 'linux' and extra == 'group-7-redelex-cpu') or (platform_machine != 'aarch64' and extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124') or (sys_platform == 'darwin' and extra == 'group-7-redelex-cpu') or (sys_platform != 'linux' and extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124')" },
+    { name = "torch", version = "2.4.1+cpu", source = { registry = "https://download.pytorch.org/whl/cpu" }, marker = "(platform_machine != 'aarch64' and sys_platform == 'linux' and extra == 'group-7-redelex-cpu') or (sys_platform != 'darwin' and sys_platform != 'linux' and extra == 'group-7-redelex-cpu') or (sys_platform == 'darwin' and extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124') or (sys_platform == 'linux' and extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124')" },
+    { name = "torch-geometric" },
+    { name = "torchaudio", version = "2.4.1", source = { registry = "https://download.pytorch.org/whl/cpu" }, marker = "(platform_machine == 'aarch64' and sys_platform == 'linux' and extra == 'group-7-redelex-cpu') or (platform_machine != 'aarch64' and extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124') or (sys_platform == 'darwin' and extra == 'group-7-redelex-cpu') or (sys_platform != 'linux' and extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124')" },
+    { name = "torchaudio", version = "2.4.1+cpu", source = { registry = "https://download.pytorch.org/whl/cpu" }, marker = "(platform_machine != 'aarch64' and sys_platform == 'linux' and extra == 'group-7-redelex-cpu') or (sys_platform != 'darwin' and sys_platform != 'linux' and extra == 'group-7-redelex-cpu') or (sys_platform == 'darwin' and extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124') or (sys_platform == 'linux' and extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124')" },
+    { name = "torchvision", version = "0.19.1", source = { registry = "https://download.pytorch.org/whl/cpu" }, marker = "(platform_machine == 'aarch64' and sys_platform == 'linux' and extra == 'group-7-redelex-cpu') or (platform_machine != 'aarch64' and extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124') or (sys_platform == 'darwin' and extra == 'group-7-redelex-cpu') or (sys_platform != 'linux' and extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124')" },
+    { name = "torchvision", version = "0.19.1+cpu", source = { registry = "https://download.pytorch.org/whl/cpu" }, marker = "(platform_machine != 'aarch64' and sys_platform == 'linux' and extra == 'group-7-redelex-cpu') or (sys_platform != 'darwin' and sys_platform != 'linux' and extra == 'group-7-redelex-cpu') or (sys_platform == 'darwin' and extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124') or (sys_platform == 'linux' and extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124')" },
+]
+cu124 = [
+    { name = "pytorch-frame" },
+    { name = "sentence-transformers" },
+    { name = "torch", version = "2.4.1", source = { registry = "https://download.pytorch.org/whl/cu124" }, marker = "(platform_machine == 'aarch64' and sys_platform == 'linux' and extra == 'group-7-redelex-cu124') or (platform_machine != 'aarch64' and extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124') or (sys_platform != 'linux' and extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124')" },
+    { name = "torch", version = "2.4.1+cu124", source = { registry = "https://download.pytorch.org/whl/cu124" }, marker = "(platform_machine != 'aarch64' and extra == 'group-7-redelex-cu124') or (sys_platform != 'linux' and extra == 'group-7-redelex-cu124') or (extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124')" },
+    { name = "torch-geometric" },
+    { name = "torchaudio", version = "2.4.1+cu124", source = { registry = "https://download.pytorch.org/whl/cu124" } },
+    { name = "torchvision", version = "0.19.1+cu124", source = { registry = "https://download.pytorch.org/whl/cu124" } },
+]
+dev = [
+    { name = "ipykernel" },
+    { name = "matplotlib" },
+    { name = "pre-commit" },
+]
+experiments = [
+    { name = "getml" },
+    { name = "lightning" },
+    { name = "mlflow" },
+    { name = "ray", extra = ["data", "serve", "train", "tune"] },
+]
+
+[package.metadata]
+requires-dist = [
+    { name = "attrs", specifier = ">=25.3.0" },
+    { name = "inflect", specifier = ">=7.5.0" },
+    { name = "pandas", specifier = ">=2.2.3" },
+    { name = "pymysql", specifier = ">=1.1.1" },
+    { name = "relbench", specifier = ">=1.1.0" },
+    { name = "sqlalchemy", specifier = ">=2.0.40" },
+    { name = "tqdm", specifier = ">=4.67.1" },
+]
+
+[package.metadata.requires-dev]
+cpu = [
+    { name = "pytorch-frame", specifier = ">=0.2.5" },
+    { name = "sentence-transformers", specifier = ">=4.0.1" },
+    { name = "torch", specifier = "==2.4.1", index = "https://download.pytorch.org/whl/cpu", conflict = { package = "redelex", group = "cpu" } },
+    { name = "torch-geometric", specifier = ">=2.6.1" },
+    { name = "torchaudio", specifier = "==2.4.1", index = "https://download.pytorch.org/whl/cpu", conflict = { package = "redelex", group = "cpu" } },
+    { name = "torchvision", specifier = "==0.19.1", index = "https://download.pytorch.org/whl/cpu", conflict = { package = "redelex", group = "cpu" } },
+]
+cu124 = [
+    { name = "pytorch-frame", specifier = ">=0.2.5" },
+    { name = "sentence-transformers", specifier = ">=4.0.1" },
+    { name = "torch", specifier = "==2.4.1", index = "https://download.pytorch.org/whl/cu124", conflict = { package = "redelex", group = "cu124" } },
+    { name = "torch-geometric", specifier = ">=2.6.1" },
+    { name = "torchaudio", specifier = "==2.4.1", index = "https://download.pytorch.org/whl/cu124", conflict = { package = "redelex", group = "cu124" } },
+    { name = "torchvision", specifier = "==0.19.1", index = "https://download.pytorch.org/whl/cu124", conflict = { package = "redelex", group = "cu124" } },
+]
+dev = [
+    { name = "ipykernel", specifier = ">=6.29.5" },
+    { name = "matplotlib", specifier = ">=3.10.1" },
+    { name = "pre-commit", specifier = ">=4.2.0" },
+]
+experiments = [
+    { name = "getml", specifier = ">=1.5.1" },
+    { name = "lightning", specifier = ">=2.5.1.post0" },
+    { name = "mlflow", specifier = ">=2.22.1" },
+    { name = "ray", extras = ["data", "serve", "train", "tune"], specifier = ">=2.46.0" },
 ]
 
 [[package]]
@@ -3181,7 +3181,7 @@ source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "attrs" },
     { name = "rpds-py" },
-    { name = "typing-extensions", marker = "python_full_version < '3.13' or (extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124')" },
+    { name = "typing-extensions", marker = "python_full_version < '3.13' or (extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124')" },
 ]
 sdist = { url = "https://files.pythonhosted.org/packages/2f/db/98b5c277be99dd18bfd91dd04e1b759cad18d1a338188c936e92f921c7e2/referencing-0.36.2.tar.gz", hash = "sha256:df2e89862cd09deabbdba16944cc3f10feb6b3e6f18e902f7cc25609a34775aa", size = 74744 }
 wheels = [
@@ -3266,8 +3266,8 @@ dependencies = [
     { name = "numpy" },
     { name = "pandas" },
     { name = "pooch" },
-    { name = "pyarrow", version = "17.0.0", source = { registry = "https://pypi.org/simple" }, marker = "(platform_machine == 'x86_64' and sys_platform == 'darwin') or (platform_machine != 'x86_64' and extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124') or (sys_platform != 'darwin' and extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124')" },
-    { name = "pyarrow", version = "19.0.1", source = { registry = "https://pypi.org/simple" }, marker = "platform_machine != 'x86_64' or sys_platform != 'darwin' or (extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124')" },
+    { name = "pyarrow", version = "17.0.0", source = { registry = "https://pypi.org/simple" }, marker = "(platform_machine == 'x86_64' and sys_platform == 'darwin') or (platform_machine != 'x86_64' and extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124') or (sys_platform != 'darwin' and extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124')" },
+    { name = "pyarrow", version = "19.0.1", source = { registry = "https://pypi.org/simple" }, marker = "platform_machine != 'x86_64' or sys_platform != 'darwin' or (extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124')" },
     { name = "scikit-learn" },
     { name = "typing-extensions" },
 ]
@@ -3298,7 +3298,7 @@ source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "markdown-it-py" },
     { name = "pygments" },
-    { name = "typing-extensions", marker = "python_full_version < '3.11' or (extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124')" },
+    { name = "typing-extensions", marker = "python_full_version < '3.11' or (extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124')" },
 ]
 sdist = { url = "https://files.pythonhosted.org/packages/ab/3a/0316b28d0761c6734d6bc14e770d85506c986c85ffb239e688eeaab2c2bc/rich-13.9.4.tar.gz", hash = "sha256:439594978a49a09530cff7ebc4b5c7103ef57baf48d5ea3184f21d9a2befa098", size = 223149 }
 wheels = [
@@ -3541,10 +3541,10 @@ dependencies = [
     { name = "pillow" },
     { name = "scikit-learn" },
     { name = "scipy" },
-    { name = "torch", version = "2.4.1", source = { registry = "https://download.pytorch.org/whl/cpu" }, marker = "(platform_machine != 'x86_64' and sys_platform == 'darwin' and extra == 'group-14-ctu-relational-cpu') or (platform_machine == 'aarch64' and sys_platform == 'linux' and extra == 'group-14-ctu-relational-cpu') or (sys_platform != 'darwin' and sys_platform != 'linux' and extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124') or (sys_platform == 'darwin' and extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124') or (sys_platform == 'linux' and extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124')" },
-    { name = "torch", version = "2.4.1", source = { registry = "https://download.pytorch.org/whl/cu124" }, marker = "(platform_machine == 'aarch64' and sys_platform == 'linux' and extra == 'group-14-ctu-relational-cu124') or (platform_machine != 'aarch64' and extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124') or (sys_platform != 'linux' and extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124')" },
-    { name = "torch", version = "2.4.1+cpu", source = { registry = "https://download.pytorch.org/whl/cpu" }, marker = "(platform_machine == 'x86_64' and sys_platform == 'darwin' and extra == 'group-14-ctu-relational-cpu') or (platform_machine != 'aarch64' and sys_platform == 'linux' and extra == 'group-14-ctu-relational-cpu') or (sys_platform != 'darwin' and sys_platform != 'linux' and extra == 'group-14-ctu-relational-cpu') or (sys_platform == 'darwin' and extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124') or (sys_platform == 'linux' and extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124')" },
-    { name = "torch", version = "2.4.1+cu124", source = { registry = "https://download.pytorch.org/whl/cu124" }, marker = "(platform_machine != 'aarch64' and extra == 'group-14-ctu-relational-cu124') or (sys_platform != 'linux' and extra == 'group-14-ctu-relational-cu124') or (extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124')" },
+    { name = "torch", version = "2.4.1", source = { registry = "https://download.pytorch.org/whl/cpu" }, marker = "(platform_machine == 'aarch64' and sys_platform == 'linux' and extra == 'group-7-redelex-cpu') or (platform_machine != 'aarch64' and extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124') or (sys_platform == 'darwin' and extra == 'group-7-redelex-cpu') or (sys_platform != 'linux' and extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124')" },
+    { name = "torch", version = "2.4.1", source = { registry = "https://download.pytorch.org/whl/cu124" }, marker = "(platform_machine == 'aarch64' and sys_platform == 'linux' and extra == 'group-7-redelex-cu124') or (platform_machine != 'aarch64' and extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124') or (sys_platform != 'linux' and extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124')" },
+    { name = "torch", version = "2.4.1+cpu", source = { registry = "https://download.pytorch.org/whl/cpu" }, marker = "(platform_machine != 'aarch64' and sys_platform == 'linux' and extra == 'group-7-redelex-cpu') or (sys_platform != 'darwin' and sys_platform != 'linux' and extra == 'group-7-redelex-cpu') or (sys_platform == 'darwin' and extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124') or (sys_platform == 'linux' and extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124')" },
+    { name = "torch", version = "2.4.1+cu124", source = { registry = "https://download.pytorch.org/whl/cu124" }, marker = "(platform_machine != 'aarch64' and extra == 'group-7-redelex-cu124') or (sys_platform != 'linux' and extra == 'group-7-redelex-cu124') or (extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124')" },
     { name = "tqdm" },
     { name = "transformers" },
     { name = "typing-extensions" },
@@ -3607,7 +3607,7 @@ name = "sqlalchemy"
 version = "2.0.40"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
-    { name = "greenlet", marker = "(python_full_version < '3.14' and platform_machine == 'AMD64') or (python_full_version < '3.14' and platform_machine == 'WIN32') or (python_full_version < '3.14' and platform_machine == 'aarch64') or (python_full_version < '3.14' and platform_machine == 'amd64') or (python_full_version < '3.14' and platform_machine == 'ppc64le') or (python_full_version < '3.14' and platform_machine == 'win32') or (python_full_version < '3.14' and platform_machine == 'x86_64') or (platform_machine != 'AMD64' and platform_machine != 'WIN32' and platform_machine != 'aarch64' and platform_machine != 'amd64' and platform_machine != 'ppc64le' and platform_machine != 'win32' and platform_machine != 'x86_64' and extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124') or (platform_machine == 'AMD64' and extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124') or (platform_machine == 'WIN32' and extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124') or (platform_machine == 'aarch64' and extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124') or (platform_machine == 'amd64' and extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124') or (platform_machine == 'ppc64le' and extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124') or (platform_machine == 'win32' and extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124') or (platform_machine == 'x86_64' and extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124')" },
+    { name = "greenlet", marker = "(python_full_version < '3.14' and platform_machine == 'AMD64') or (python_full_version < '3.14' and platform_machine == 'WIN32') or (python_full_version < '3.14' and platform_machine == 'aarch64') or (python_full_version < '3.14' and platform_machine == 'amd64') or (python_full_version < '3.14' and platform_machine == 'ppc64le') or (python_full_version < '3.14' and platform_machine == 'win32') or (python_full_version < '3.14' and platform_machine == 'x86_64') or (platform_machine != 'AMD64' and platform_machine != 'WIN32' and platform_machine != 'aarch64' and platform_machine != 'amd64' and platform_machine != 'ppc64le' and platform_machine != 'win32' and platform_machine != 'x86_64' and extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124') or (platform_machine == 'AMD64' and extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124') or (platform_machine == 'WIN32' and extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124') or (platform_machine == 'aarch64' and extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124') or (platform_machine == 'amd64' and extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124') or (platform_machine == 'ppc64le' and extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124') or (platform_machine == 'win32' and extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124') or (platform_machine == 'x86_64' and extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124')" },
     { name = "typing-extensions" },
 ]
 sdist = { url = "https://files.pythonhosted.org/packages/68/c3/3f2bfa5e4dcd9938405fe2fab5b6ab94a9248a4f9536ea2fd497da20525f/sqlalchemy-2.0.40.tar.gz", hash = "sha256:d827099289c64589418ebbcaead0145cd19f4e3e8a93919a0100247af245fa00", size = 9664299 }
@@ -3786,18 +3786,22 @@ name = "torch"
 version = "2.4.1"
 source = { registry = "https://download.pytorch.org/whl/cpu" }
 resolution-markers = [
+    "python_full_version >= '3.13' and platform_machine == 'x86_64' and sys_platform == 'darwin'",
+    "python_full_version == '3.12.*' and platform_machine == 'x86_64' and sys_platform == 'darwin'",
     "(python_full_version >= '3.13' and platform_machine != 'x86_64' and sys_platform == 'darwin') or (python_full_version >= '3.13' and platform_machine == 'aarch64' and sys_platform == 'linux')",
     "(python_full_version == '3.12.*' and platform_machine != 'x86_64' and sys_platform == 'darwin') or (python_full_version == '3.12.*' and platform_machine == 'aarch64' and sys_platform == 'linux')",
+    "python_full_version == '3.11.*' and platform_machine == 'x86_64' and sys_platform == 'darwin'",
     "(python_full_version == '3.11.*' and platform_machine != 'x86_64' and sys_platform == 'darwin') or (python_full_version == '3.11.*' and platform_machine == 'aarch64' and sys_platform == 'linux')",
+    "python_full_version < '3.11' and platform_machine == 'x86_64' and sys_platform == 'darwin'",
     "(python_full_version < '3.11' and platform_machine != 'x86_64' and sys_platform == 'darwin') or (python_full_version < '3.11' and platform_machine == 'aarch64' and sys_platform == 'linux')",
 ]
 dependencies = [
-    { name = "filelock", marker = "(platform_machine != 'x86_64' and sys_platform == 'darwin' and extra == 'group-14-ctu-relational-cpu') or (platform_machine == 'aarch64' and sys_platform == 'linux' and extra == 'group-14-ctu-relational-cpu') or (sys_platform != 'darwin' and sys_platform != 'linux' and extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124') or (sys_platform == 'darwin' and extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124') or (sys_platform == 'linux' and extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124')" },
-    { name = "fsspec", marker = "(platform_machine != 'x86_64' and sys_platform == 'darwin' and extra == 'group-14-ctu-relational-cpu') or (platform_machine == 'aarch64' and sys_platform == 'linux' and extra == 'group-14-ctu-relational-cpu') or (sys_platform != 'darwin' and sys_platform != 'linux' and extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124') or (sys_platform == 'darwin' and extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124') or (sys_platform == 'linux' and extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124')" },
-    { name = "jinja2", marker = "(platform_machine != 'x86_64' and sys_platform == 'darwin' and extra == 'group-14-ctu-relational-cpu') or (platform_machine == 'aarch64' and sys_platform == 'linux' and extra == 'group-14-ctu-relational-cpu') or (sys_platform != 'darwin' and sys_platform != 'linux' and extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124') or (sys_platform == 'darwin' and extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124') or (sys_platform == 'linux' and extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124')" },
-    { name = "networkx", marker = "(platform_machine != 'x86_64' and sys_platform == 'darwin' and extra == 'group-14-ctu-relational-cpu') or (platform_machine == 'aarch64' and sys_platform == 'linux' and extra == 'group-14-ctu-relational-cpu') or (sys_platform != 'darwin' and sys_platform != 'linux' and extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124') or (sys_platform == 'darwin' and extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124') or (sys_platform == 'linux' and extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124')" },
-    { name = "sympy", marker = "(platform_machine != 'x86_64' and sys_platform == 'darwin' and extra == 'group-14-ctu-relational-cpu') or (platform_machine == 'aarch64' and sys_platform == 'linux' and extra == 'group-14-ctu-relational-cpu') or (sys_platform != 'darwin' and sys_platform != 'linux' and extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124') or (sys_platform == 'darwin' and extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124') or (sys_platform == 'linux' and extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124')" },
-    { name = "typing-extensions", marker = "(platform_machine != 'x86_64' and sys_platform == 'darwin' and extra == 'group-14-ctu-relational-cpu') or (platform_machine == 'aarch64' and sys_platform == 'linux' and extra == 'group-14-ctu-relational-cpu') or (sys_platform != 'darwin' and sys_platform != 'linux' and extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124') or (sys_platform == 'darwin' and extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124') or (sys_platform == 'linux' and extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124')" },
+    { name = "filelock", marker = "(platform_machine == 'aarch64' and sys_platform == 'linux' and extra == 'group-7-redelex-cpu') or (platform_machine != 'aarch64' and extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124') or (sys_platform == 'darwin' and extra == 'group-7-redelex-cpu') or (sys_platform != 'linux' and extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124')" },
+    { name = "fsspec", marker = "(platform_machine == 'aarch64' and sys_platform == 'linux' and extra == 'group-7-redelex-cpu') or (platform_machine != 'aarch64' and extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124') or (sys_platform == 'darwin' and extra == 'group-7-redelex-cpu') or (sys_platform != 'linux' and extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124')" },
+    { name = "jinja2", marker = "(platform_machine == 'aarch64' and sys_platform == 'linux' and extra == 'group-7-redelex-cpu') or (platform_machine != 'aarch64' and extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124') or (sys_platform == 'darwin' and extra == 'group-7-redelex-cpu') or (sys_platform != 'linux' and extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124')" },
+    { name = "networkx", marker = "(platform_machine == 'aarch64' and sys_platform == 'linux' and extra == 'group-7-redelex-cpu') or (platform_machine != 'aarch64' and extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124') or (sys_platform == 'darwin' and extra == 'group-7-redelex-cpu') or (sys_platform != 'linux' and extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124')" },
+    { name = "sympy", marker = "(platform_machine == 'aarch64' and sys_platform == 'linux' and extra == 'group-7-redelex-cpu') or (platform_machine != 'aarch64' and extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124') or (sys_platform == 'darwin' and extra == 'group-7-redelex-cpu') or (sys_platform != 'linux' and extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124')" },
+    { name = "typing-extensions", marker = "(platform_machine == 'aarch64' and sys_platform == 'linux' and extra == 'group-7-redelex-cpu') or (platform_machine != 'aarch64' and extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124') or (sys_platform == 'darwin' and extra == 'group-7-redelex-cpu') or (sys_platform != 'linux' and extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124')" },
 ]
 wheels = [
     { url = "https://download.pytorch.org/whl/cpu/torch-2.4.1-cp310-cp310-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:fa27b048d32198cda6e9cff0bf768e8683d98743903b7e5d2b1f5098ded1d343" },
@@ -3819,12 +3823,12 @@ resolution-markers = [
     "python_full_version < '3.11' and platform_machine == 'aarch64' and sys_platform == 'linux'",
 ]
 dependencies = [
-    { name = "filelock", marker = "(platform_machine == 'aarch64' and sys_platform == 'linux' and extra == 'group-14-ctu-relational-cu124') or (platform_machine != 'aarch64' and extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124') or (sys_platform != 'linux' and extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124')" },
-    { name = "fsspec", marker = "(platform_machine == 'aarch64' and sys_platform == 'linux' and extra == 'group-14-ctu-relational-cu124') or (platform_machine != 'aarch64' and extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124') or (sys_platform != 'linux' and extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124')" },
-    { name = "jinja2", marker = "(platform_machine == 'aarch64' and sys_platform == 'linux' and extra == 'group-14-ctu-relational-cu124') or (platform_machine != 'aarch64' and extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124') or (sys_platform != 'linux' and extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124')" },
-    { name = "networkx", marker = "(platform_machine == 'aarch64' and sys_platform == 'linux' and extra == 'group-14-ctu-relational-cu124') or (platform_machine != 'aarch64' and extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124') or (sys_platform != 'linux' and extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124')" },
-    { name = "sympy", marker = "(platform_machine == 'aarch64' and sys_platform == 'linux' and extra == 'group-14-ctu-relational-cu124') or (platform_machine != 'aarch64' and extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124') or (sys_platform != 'linux' and extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124')" },
-    { name = "typing-extensions", marker = "(platform_machine == 'aarch64' and sys_platform == 'linux' and extra == 'group-14-ctu-relational-cu124') or (platform_machine != 'aarch64' and extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124') or (sys_platform != 'linux' and extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124')" },
+    { name = "filelock", marker = "(platform_machine == 'aarch64' and sys_platform == 'linux' and extra == 'group-7-redelex-cu124') or (platform_machine != 'aarch64' and extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124') or (sys_platform != 'linux' and extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124')" },
+    { name = "fsspec", marker = "(platform_machine == 'aarch64' and sys_platform == 'linux' and extra == 'group-7-redelex-cu124') or (platform_machine != 'aarch64' and extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124') or (sys_platform != 'linux' and extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124')" },
+    { name = "jinja2", marker = "(platform_machine == 'aarch64' and sys_platform == 'linux' and extra == 'group-7-redelex-cu124') or (platform_machine != 'aarch64' and extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124') or (sys_platform != 'linux' and extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124')" },
+    { name = "networkx", marker = "(platform_machine == 'aarch64' and sys_platform == 'linux' and extra == 'group-7-redelex-cu124') or (platform_machine != 'aarch64' and extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124') or (sys_platform != 'linux' and extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124')" },
+    { name = "sympy", marker = "(platform_machine == 'aarch64' and sys_platform == 'linux' and extra == 'group-7-redelex-cu124') or (platform_machine != 'aarch64' and extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124') or (sys_platform != 'linux' and extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124')" },
+    { name = "typing-extensions", marker = "(platform_machine == 'aarch64' and sys_platform == 'linux' and extra == 'group-7-redelex-cu124') or (platform_machine != 'aarch64' and extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124') or (sys_platform != 'linux' and extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124')" },
 ]
 wheels = [
     { url = "https://download.pytorch.org/whl/cu124/torch-2.4.1-cp310-cp310-linux_aarch64.whl", hash = "sha256:baa065a4fb7805c78f16841cfc4f3fc3c6823d1de726087e583c68abe553dad7" },
@@ -3851,12 +3855,12 @@ resolution-markers = [
     "python_full_version < '3.11' and sys_platform == 'win32'",
 ]
 dependencies = [
-    { name = "filelock", marker = "(extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124') or (extra != 'group-14-ctu-relational-cpu' and extra != 'group-14-ctu-relational-cu124')" },
-    { name = "fsspec", marker = "(extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124') or (extra != 'group-14-ctu-relational-cpu' and extra != 'group-14-ctu-relational-cu124')" },
-    { name = "jinja2", marker = "(extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124') or (extra != 'group-14-ctu-relational-cpu' and extra != 'group-14-ctu-relational-cu124')" },
-    { name = "networkx", marker = "(extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124') or (extra != 'group-14-ctu-relational-cpu' and extra != 'group-14-ctu-relational-cu124')" },
-    { name = "sympy", marker = "(extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124') or (extra != 'group-14-ctu-relational-cpu' and extra != 'group-14-ctu-relational-cu124')" },
-    { name = "typing-extensions", marker = "(extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124') or (extra != 'group-14-ctu-relational-cpu' and extra != 'group-14-ctu-relational-cu124')" },
+    { name = "filelock", marker = "(extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124') or (extra != 'group-7-redelex-cpu' and extra != 'group-7-redelex-cu124')" },
+    { name = "fsspec", marker = "(extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124') or (extra != 'group-7-redelex-cpu' and extra != 'group-7-redelex-cu124')" },
+    { name = "jinja2", marker = "(extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124') or (extra != 'group-7-redelex-cpu' and extra != 'group-7-redelex-cu124')" },
+    { name = "networkx", marker = "(extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124') or (extra != 'group-7-redelex-cpu' and extra != 'group-7-redelex-cu124')" },
+    { name = "sympy", marker = "(extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124') or (extra != 'group-7-redelex-cpu' and extra != 'group-7-redelex-cu124')" },
+    { name = "typing-extensions", marker = "(extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124') or (extra != 'group-7-redelex-cpu' and extra != 'group-7-redelex-cu124')" },
 ]
 wheels = [
     { url = "https://files.pythonhosted.org/packages/41/05/d540049b1832d1062510efc6829634b7fbef5394c757d8312414fb65a3cb/torch-2.4.1-cp310-cp310-manylinux1_x86_64.whl", hash = "sha256:362f82e23a4cd46341daabb76fba08f04cd646df9bfaf5da50af97cb60ca4971", size = 797072810 },
@@ -3886,18 +3890,14 @@ resolution-markers = [
     "python_full_version == '3.11.*' and sys_platform == 'win32'",
     "(python_full_version < '3.11' and platform_machine != 'aarch64' and sys_platform == 'linux') or (python_full_version < '3.11' and sys_platform != 'darwin' and sys_platform != 'linux' and sys_platform != 'win32')",
     "python_full_version < '3.11' and sys_platform == 'win32'",
-    "python_full_version >= '3.13' and platform_machine == 'x86_64' and sys_platform == 'darwin'",
-    "python_full_version == '3.12.*' and platform_machine == 'x86_64' and sys_platform == 'darwin'",
-    "python_full_version == '3.11.*' and platform_machine == 'x86_64' and sys_platform == 'darwin'",
-    "python_full_version < '3.11' and platform_machine == 'x86_64' and sys_platform == 'darwin'",
 ]
 dependencies = [
-    { name = "filelock", marker = "(platform_machine == 'x86_64' and sys_platform == 'darwin' and extra == 'group-14-ctu-relational-cpu') or (platform_machine != 'aarch64' and sys_platform == 'linux' and extra == 'group-14-ctu-relational-cpu') or (sys_platform != 'darwin' and sys_platform != 'linux' and extra == 'group-14-ctu-relational-cpu') or (sys_platform == 'darwin' and extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124') or (sys_platform == 'linux' and extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124')" },
-    { name = "fsspec", marker = "(platform_machine == 'x86_64' and sys_platform == 'darwin' and extra == 'group-14-ctu-relational-cpu') or (platform_machine != 'aarch64' and sys_platform == 'linux' and extra == 'group-14-ctu-relational-cpu') or (sys_platform != 'darwin' and sys_platform != 'linux' and extra == 'group-14-ctu-relational-cpu') or (sys_platform == 'darwin' and extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124') or (sys_platform == 'linux' and extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124')" },
-    { name = "jinja2", marker = "(platform_machine == 'x86_64' and sys_platform == 'darwin' and extra == 'group-14-ctu-relational-cpu') or (platform_machine != 'aarch64' and sys_platform == 'linux' and extra == 'group-14-ctu-relational-cpu') or (sys_platform != 'darwin' and sys_platform != 'linux' and extra == 'group-14-ctu-relational-cpu') or (sys_platform == 'darwin' and extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124') or (sys_platform == 'linux' and extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124')" },
-    { name = "networkx", marker = "(platform_machine == 'x86_64' and sys_platform == 'darwin' and extra == 'group-14-ctu-relational-cpu') or (platform_machine != 'aarch64' and sys_platform == 'linux' and extra == 'group-14-ctu-relational-cpu') or (sys_platform != 'darwin' and sys_platform != 'linux' and extra == 'group-14-ctu-relational-cpu') or (sys_platform == 'darwin' and extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124') or (sys_platform == 'linux' and extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124')" },
-    { name = "sympy", marker = "(platform_machine == 'x86_64' and sys_platform == 'darwin' and extra == 'group-14-ctu-relational-cpu') or (platform_machine != 'aarch64' and sys_platform == 'linux' and extra == 'group-14-ctu-relational-cpu') or (sys_platform != 'darwin' and sys_platform != 'linux' and extra == 'group-14-ctu-relational-cpu') or (sys_platform == 'darwin' and extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124') or (sys_platform == 'linux' and extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124')" },
-    { name = "typing-extensions", marker = "(platform_machine == 'x86_64' and sys_platform == 'darwin' and extra == 'group-14-ctu-relational-cpu') or (platform_machine != 'aarch64' and sys_platform == 'linux' and extra == 'group-14-ctu-relational-cpu') or (sys_platform != 'darwin' and sys_platform != 'linux' and extra == 'group-14-ctu-relational-cpu') or (sys_platform == 'darwin' and extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124') or (sys_platform == 'linux' and extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124')" },
+    { name = "filelock", marker = "(platform_machine != 'aarch64' and sys_platform == 'linux' and extra == 'group-7-redelex-cpu') or (sys_platform != 'darwin' and sys_platform != 'linux' and extra == 'group-7-redelex-cpu') or (sys_platform == 'darwin' and extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124') or (sys_platform == 'linux' and extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124')" },
+    { name = "fsspec", marker = "(platform_machine != 'aarch64' and sys_platform == 'linux' and extra == 'group-7-redelex-cpu') or (sys_platform != 'darwin' and sys_platform != 'linux' and extra == 'group-7-redelex-cpu') or (sys_platform == 'darwin' and extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124') or (sys_platform == 'linux' and extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124')" },
+    { name = "jinja2", marker = "(platform_machine != 'aarch64' and sys_platform == 'linux' and extra == 'group-7-redelex-cpu') or (sys_platform != 'darwin' and sys_platform != 'linux' and extra == 'group-7-redelex-cpu') or (sys_platform == 'darwin' and extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124') or (sys_platform == 'linux' and extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124')" },
+    { name = "networkx", marker = "(platform_machine != 'aarch64' and sys_platform == 'linux' and extra == 'group-7-redelex-cpu') or (sys_platform != 'darwin' and sys_platform != 'linux' and extra == 'group-7-redelex-cpu') or (sys_platform == 'darwin' and extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124') or (sys_platform == 'linux' and extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124')" },
+    { name = "sympy", marker = "(platform_machine != 'aarch64' and sys_platform == 'linux' and extra == 'group-7-redelex-cpu') or (sys_platform != 'darwin' and sys_platform != 'linux' and extra == 'group-7-redelex-cpu') or (sys_platform == 'darwin' and extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124') or (sys_platform == 'linux' and extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124')" },
+    { name = "typing-extensions", marker = "(platform_machine != 'aarch64' and sys_platform == 'linux' and extra == 'group-7-redelex-cpu') or (sys_platform != 'darwin' and sys_platform != 'linux' and extra == 'group-7-redelex-cpu') or (sys_platform == 'darwin' and extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124') or (sys_platform == 'linux' and extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124')" },
 ]
 wheels = [
     { url = "https://download.pytorch.org/whl/cpu/torch-2.4.1%2Bcpu-cp310-cp310-linux_x86_64.whl", hash = "sha256:833490a28ac156762ed6adaa7c695879564fa2fd0dc51bcf3fdb2c7b47dc55e6" },
@@ -3927,25 +3927,25 @@ resolution-markers = [
     "python_full_version < '3.11' and sys_platform == 'win32'",
 ]
 dependencies = [
-    { name = "filelock", marker = "(platform_machine != 'aarch64' and extra == 'group-14-ctu-relational-cu124') or (sys_platform != 'linux' and extra == 'group-14-ctu-relational-cu124') or (extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124')" },
-    { name = "fsspec", marker = "(platform_machine != 'aarch64' and extra == 'group-14-ctu-relational-cu124') or (sys_platform != 'linux' and extra == 'group-14-ctu-relational-cu124') or (extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124')" },
-    { name = "jinja2", marker = "(platform_machine != 'aarch64' and extra == 'group-14-ctu-relational-cu124') or (sys_platform != 'linux' and extra == 'group-14-ctu-relational-cu124') or (extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124')" },
-    { name = "networkx", marker = "(platform_machine != 'aarch64' and extra == 'group-14-ctu-relational-cu124') or (sys_platform != 'linux' and extra == 'group-14-ctu-relational-cu124') or (extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124')" },
-    { name = "nvidia-cublas-cu12", marker = "(platform_machine == 'x86_64' and sys_platform == 'linux' and extra == 'group-14-ctu-relational-cu124') or (platform_machine != 'x86_64' and extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124') or (sys_platform != 'linux' and extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124')" },
-    { name = "nvidia-cuda-cupti-cu12", marker = "(platform_machine == 'x86_64' and sys_platform == 'linux' and extra == 'group-14-ctu-relational-cu124') or (platform_machine != 'x86_64' and extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124') or (sys_platform != 'linux' and extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124')" },
-    { name = "nvidia-cuda-nvrtc-cu12", marker = "(platform_machine == 'x86_64' and sys_platform == 'linux' and extra == 'group-14-ctu-relational-cu124') or (platform_machine != 'x86_64' and extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124') or (sys_platform != 'linux' and extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124')" },
-    { name = "nvidia-cuda-runtime-cu12", marker = "(platform_machine == 'x86_64' and sys_platform == 'linux' and extra == 'group-14-ctu-relational-cu124') or (platform_machine != 'x86_64' and extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124') or (sys_platform != 'linux' and extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124')" },
-    { name = "nvidia-cudnn-cu12", marker = "(platform_machine == 'x86_64' and sys_platform == 'linux' and extra == 'group-14-ctu-relational-cu124') or (platform_machine != 'x86_64' and extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124') or (sys_platform != 'linux' and extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124')" },
-    { name = "nvidia-cufft-cu12", marker = "(platform_machine == 'x86_64' and sys_platform == 'linux' and extra == 'group-14-ctu-relational-cu124') or (platform_machine != 'x86_64' and extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124') or (sys_platform != 'linux' and extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124')" },
-    { name = "nvidia-curand-cu12", marker = "(platform_machine == 'x86_64' and sys_platform == 'linux' and extra == 'group-14-ctu-relational-cu124') or (platform_machine != 'x86_64' and extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124') or (sys_platform != 'linux' and extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124')" },
-    { name = "nvidia-cusolver-cu12", marker = "(platform_machine == 'x86_64' and sys_platform == 'linux' and extra == 'group-14-ctu-relational-cu124') or (platform_machine != 'x86_64' and extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124') or (sys_platform != 'linux' and extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124')" },
-    { name = "nvidia-cusparse-cu12", marker = "(platform_machine == 'x86_64' and sys_platform == 'linux' and extra == 'group-14-ctu-relational-cu124') or (platform_machine != 'x86_64' and extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124') or (sys_platform != 'linux' and extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124')" },
-    { name = "nvidia-nccl-cu12", marker = "(platform_machine == 'x86_64' and sys_platform == 'linux' and extra == 'group-14-ctu-relational-cu124') or (platform_machine != 'x86_64' and extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124') or (sys_platform != 'linux' and extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124')" },
-    { name = "nvidia-nvjitlink-cu12", marker = "(platform_machine == 'x86_64' and sys_platform == 'linux' and extra == 'group-14-ctu-relational-cu124') or (platform_machine != 'x86_64' and extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124') or (sys_platform != 'linux' and extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124')" },
-    { name = "nvidia-nvtx-cu12", marker = "(platform_machine == 'x86_64' and sys_platform == 'linux' and extra == 'group-14-ctu-relational-cu124') or (platform_machine != 'x86_64' and extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124') or (sys_platform != 'linux' and extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124')" },
-    { name = "sympy", marker = "(platform_machine != 'aarch64' and extra == 'group-14-ctu-relational-cu124') or (sys_platform != 'linux' and extra == 'group-14-ctu-relational-cu124') or (extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124')" },
-    { name = "triton", marker = "(python_full_version < '3.13' and platform_machine == 'x86_64' and sys_platform == 'linux' and extra == 'group-14-ctu-relational-cu124') or (python_full_version >= '3.13' and extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124') or (platform_machine != 'x86_64' and extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124') or (sys_platform != 'linux' and extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124')" },
-    { name = "typing-extensions", marker = "(platform_machine != 'aarch64' and extra == 'group-14-ctu-relational-cu124') or (sys_platform != 'linux' and extra == 'group-14-ctu-relational-cu124') or (extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124')" },
+    { name = "filelock", marker = "(platform_machine != 'aarch64' and extra == 'group-7-redelex-cu124') or (sys_platform != 'linux' and extra == 'group-7-redelex-cu124') or (extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124')" },
+    { name = "fsspec", marker = "(platform_machine != 'aarch64' and extra == 'group-7-redelex-cu124') or (sys_platform != 'linux' and extra == 'group-7-redelex-cu124') or (extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124')" },
+    { name = "jinja2", marker = "(platform_machine != 'aarch64' and extra == 'group-7-redelex-cu124') or (sys_platform != 'linux' and extra == 'group-7-redelex-cu124') or (extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124')" },
+    { name = "networkx", marker = "(platform_machine != 'aarch64' and extra == 'group-7-redelex-cu124') or (sys_platform != 'linux' and extra == 'group-7-redelex-cu124') or (extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124')" },
+    { name = "nvidia-cublas-cu12", marker = "(platform_machine == 'x86_64' and sys_platform == 'linux' and extra == 'group-7-redelex-cu124') or (platform_machine != 'x86_64' and extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124') or (sys_platform != 'linux' and extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124')" },
+    { name = "nvidia-cuda-cupti-cu12", marker = "(platform_machine == 'x86_64' and sys_platform == 'linux' and extra == 'group-7-redelex-cu124') or (platform_machine != 'x86_64' and extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124') or (sys_platform != 'linux' and extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124')" },
+    { name = "nvidia-cuda-nvrtc-cu12", marker = "(platform_machine == 'x86_64' and sys_platform == 'linux' and extra == 'group-7-redelex-cu124') or (platform_machine != 'x86_64' and extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124') or (sys_platform != 'linux' and extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124')" },
+    { name = "nvidia-cuda-runtime-cu12", marker = "(platform_machine == 'x86_64' and sys_platform == 'linux' and extra == 'group-7-redelex-cu124') or (platform_machine != 'x86_64' and extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124') or (sys_platform != 'linux' and extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124')" },
+    { name = "nvidia-cudnn-cu12", marker = "(platform_machine == 'x86_64' and sys_platform == 'linux' and extra == 'group-7-redelex-cu124') or (platform_machine != 'x86_64' and extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124') or (sys_platform != 'linux' and extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124')" },
+    { name = "nvidia-cufft-cu12", marker = "(platform_machine == 'x86_64' and sys_platform == 'linux' and extra == 'group-7-redelex-cu124') or (platform_machine != 'x86_64' and extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124') or (sys_platform != 'linux' and extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124')" },
+    { name = "nvidia-curand-cu12", marker = "(platform_machine == 'x86_64' and sys_platform == 'linux' and extra == 'group-7-redelex-cu124') or (platform_machine != 'x86_64' and extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124') or (sys_platform != 'linux' and extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124')" },
+    { name = "nvidia-cusolver-cu12", marker = "(platform_machine == 'x86_64' and sys_platform == 'linux' and extra == 'group-7-redelex-cu124') or (platform_machine != 'x86_64' and extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124') or (sys_platform != 'linux' and extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124')" },
+    { name = "nvidia-cusparse-cu12", marker = "(platform_machine == 'x86_64' and sys_platform == 'linux' and extra == 'group-7-redelex-cu124') or (platform_machine != 'x86_64' and extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124') or (sys_platform != 'linux' and extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124')" },
+    { name = "nvidia-nccl-cu12", marker = "(platform_machine == 'x86_64' and sys_platform == 'linux' and extra == 'group-7-redelex-cu124') or (platform_machine != 'x86_64' and extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124') or (sys_platform != 'linux' and extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124')" },
+    { name = "nvidia-nvjitlink-cu12", marker = "(platform_machine == 'x86_64' and sys_platform == 'linux' and extra == 'group-7-redelex-cu124') or (platform_machine != 'x86_64' and extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124') or (sys_platform != 'linux' and extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124')" },
+    { name = "nvidia-nvtx-cu12", marker = "(platform_machine == 'x86_64' and sys_platform == 'linux' and extra == 'group-7-redelex-cu124') or (platform_machine != 'x86_64' and extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124') or (sys_platform != 'linux' and extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124')" },
+    { name = "sympy", marker = "(platform_machine != 'aarch64' and extra == 'group-7-redelex-cu124') or (sys_platform != 'linux' and extra == 'group-7-redelex-cu124') or (extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124')" },
+    { name = "triton", marker = "(python_full_version < '3.13' and platform_machine == 'x86_64' and sys_platform == 'linux' and extra == 'group-7-redelex-cu124') or (python_full_version >= '3.13' and extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124') or (platform_machine != 'x86_64' and extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124') or (sys_platform != 'linux' and extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124')" },
+    { name = "typing-extensions", marker = "(platform_machine != 'aarch64' and extra == 'group-7-redelex-cu124') or (sys_platform != 'linux' and extra == 'group-7-redelex-cu124') or (extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124')" },
 ]
 wheels = [
     { url = "https://download.pytorch.org/whl/cu124/torch-2.4.1%2Bcu124-cp310-cp310-linux_x86_64.whl", hash = "sha256:464cb998fa46d34317b10811dad88486aa8aeb96ebbcefc3ed3f00ddf6c3249b" },
@@ -3980,13 +3980,17 @@ name = "torchaudio"
 version = "2.4.1"
 source = { registry = "https://download.pytorch.org/whl/cpu" }
 resolution-markers = [
+    "python_full_version >= '3.13' and platform_machine == 'x86_64' and sys_platform == 'darwin'",
+    "python_full_version == '3.12.*' and platform_machine == 'x86_64' and sys_platform == 'darwin'",
     "(python_full_version >= '3.13' and platform_machine != 'x86_64' and sys_platform == 'darwin') or (python_full_version >= '3.13' and platform_machine == 'aarch64' and sys_platform == 'linux')",
     "(python_full_version == '3.12.*' and platform_machine != 'x86_64' and sys_platform == 'darwin') or (python_full_version == '3.12.*' and platform_machine == 'aarch64' and sys_platform == 'linux')",
+    "python_full_version == '3.11.*' and platform_machine == 'x86_64' and sys_platform == 'darwin'",
     "(python_full_version == '3.11.*' and platform_machine != 'x86_64' and sys_platform == 'darwin') or (python_full_version == '3.11.*' and platform_machine == 'aarch64' and sys_platform == 'linux')",
+    "python_full_version < '3.11' and platform_machine == 'x86_64' and sys_platform == 'darwin'",
     "(python_full_version < '3.11' and platform_machine != 'x86_64' and sys_platform == 'darwin') or (python_full_version < '3.11' and platform_machine == 'aarch64' and sys_platform == 'linux')",
 ]
 dependencies = [
-    { name = "torch", version = "2.4.1", source = { registry = "https://download.pytorch.org/whl/cpu" }, marker = "(platform_machine != 'x86_64' and sys_platform == 'darwin') or (platform_machine == 'aarch64' and sys_platform == 'linux')" },
+    { name = "torch", version = "2.4.1", source = { registry = "https://download.pytorch.org/whl/cpu" }, marker = "(platform_machine == 'aarch64' and sys_platform == 'linux') or sys_platform == 'darwin'" },
 ]
 wheels = [
     { url = "https://download.pytorch.org/whl/cpu/torchaudio-2.4.1-cp310-cp310-linux_aarch64.whl", hash = "sha256:54431179d9a9ccf3feeae98aace07d89fae9fd728e2bc8656efbd70e7edcc6f8" },
@@ -4010,13 +4014,9 @@ resolution-markers = [
     "python_full_version == '3.11.*' and sys_platform == 'win32'",
     "(python_full_version < '3.11' and platform_machine != 'aarch64' and sys_platform == 'linux') or (python_full_version < '3.11' and sys_platform != 'darwin' and sys_platform != 'linux' and sys_platform != 'win32')",
     "python_full_version < '3.11' and sys_platform == 'win32'",
-    "python_full_version >= '3.13' and platform_machine == 'x86_64' and sys_platform == 'darwin'",
-    "python_full_version == '3.12.*' and platform_machine == 'x86_64' and sys_platform == 'darwin'",
-    "python_full_version == '3.11.*' and platform_machine == 'x86_64' and sys_platform == 'darwin'",
-    "python_full_version < '3.11' and platform_machine == 'x86_64' and sys_platform == 'darwin'",
 ]
 dependencies = [
-    { name = "torch", version = "2.4.1+cpu", source = { registry = "https://download.pytorch.org/whl/cpu" }, marker = "(platform_machine == 'x86_64' and sys_platform == 'darwin') or (platform_machine != 'aarch64' and sys_platform == 'linux') or (sys_platform != 'darwin' and sys_platform != 'linux')" },
+    { name = "torch", version = "2.4.1+cpu", source = { registry = "https://download.pytorch.org/whl/cpu" }, marker = "(platform_machine != 'aarch64' and sys_platform == 'linux') or (sys_platform != 'darwin' and sys_platform != 'linux')" },
 ]
 wheels = [
     { url = "https://download.pytorch.org/whl/cpu/torchaudio-2.4.1%2Bcpu-cp310-cp310-linux_x86_64.whl", hash = "sha256:653d980f631e9817cc3cd9c648f2866c328a76f66c9021b2accd83403dede258" },
@@ -4050,8 +4050,8 @@ resolution-markers = [
     "python_full_version < '3.11' and platform_machine == 'aarch64' and sys_platform == 'linux'",
 ]
 dependencies = [
-    { name = "torch", version = "2.4.1", source = { registry = "https://download.pytorch.org/whl/cu124" }, marker = "(platform_machine == 'aarch64' and sys_platform == 'linux' and extra == 'group-14-ctu-relational-cu124') or (platform_machine != 'aarch64' and extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124') or (sys_platform != 'linux' and extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124')" },
-    { name = "torch", version = "2.4.1+cu124", source = { registry = "https://download.pytorch.org/whl/cu124" }, marker = "(platform_machine != 'aarch64' and extra == 'group-14-ctu-relational-cu124') or (sys_platform != 'linux' and extra == 'group-14-ctu-relational-cu124') or (extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124')" },
+    { name = "torch", version = "2.4.1", source = { registry = "https://download.pytorch.org/whl/cu124" }, marker = "(platform_machine == 'aarch64' and sys_platform == 'linux' and extra == 'group-7-redelex-cu124') or (platform_machine != 'aarch64' and extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124') or (sys_platform != 'linux' and extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124')" },
+    { name = "torch", version = "2.4.1+cu124", source = { registry = "https://download.pytorch.org/whl/cu124" }, marker = "(platform_machine != 'aarch64' and extra == 'group-7-redelex-cu124') or (sys_platform != 'linux' and extra == 'group-7-redelex-cu124') or (extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124')" },
 ]
 wheels = [
     { url = "https://download.pytorch.org/whl/cu124/torchaudio-2.4.1%2Bcu124-cp310-cp310-linux_x86_64.whl", hash = "sha256:1b80ecfca94228e49d20536f75bea99cfba79303e596122059ea120ea8196a0d" },
@@ -4070,11 +4070,11 @@ dependencies = [
     { name = "lightning-utilities" },
     { name = "numpy" },
     { name = "packaging" },
-    { name = "torch", version = "2.4.1", source = { registry = "https://download.pytorch.org/whl/cpu" }, marker = "(platform_machine != 'x86_64' and sys_platform == 'darwin' and extra == 'group-14-ctu-relational-cpu') or (platform_machine == 'aarch64' and sys_platform == 'linux' and extra == 'group-14-ctu-relational-cpu') or (sys_platform != 'darwin' and sys_platform != 'linux' and extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124') or (sys_platform == 'darwin' and extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124') or (sys_platform == 'linux' and extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124')" },
-    { name = "torch", version = "2.4.1", source = { registry = "https://download.pytorch.org/whl/cu124" }, marker = "(platform_machine == 'aarch64' and sys_platform == 'linux' and extra == 'group-14-ctu-relational-cu124') or (platform_machine != 'aarch64' and extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124') or (sys_platform != 'linux' and extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124')" },
-    { name = "torch", version = "2.4.1", source = { registry = "https://pypi.org/simple" }, marker = "(extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124') or (extra != 'group-14-ctu-relational-cpu' and extra != 'group-14-ctu-relational-cu124')" },
-    { name = "torch", version = "2.4.1+cpu", source = { registry = "https://download.pytorch.org/whl/cpu" }, marker = "(platform_machine == 'x86_64' and sys_platform == 'darwin' and extra == 'group-14-ctu-relational-cpu') or (platform_machine != 'aarch64' and sys_platform == 'linux' and extra == 'group-14-ctu-relational-cpu') or (sys_platform != 'darwin' and sys_platform != 'linux' and extra == 'group-14-ctu-relational-cpu') or (sys_platform == 'darwin' and extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124') or (sys_platform == 'linux' and extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124')" },
-    { name = "torch", version = "2.4.1+cu124", source = { registry = "https://download.pytorch.org/whl/cu124" }, marker = "(platform_machine != 'aarch64' and extra == 'group-14-ctu-relational-cu124') or (sys_platform != 'linux' and extra == 'group-14-ctu-relational-cu124') or (extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124')" },
+    { name = "torch", version = "2.4.1", source = { registry = "https://download.pytorch.org/whl/cpu" }, marker = "(platform_machine == 'aarch64' and sys_platform == 'linux' and extra == 'group-7-redelex-cpu') or (platform_machine != 'aarch64' and extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124') or (sys_platform == 'darwin' and extra == 'group-7-redelex-cpu') or (sys_platform != 'linux' and extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124')" },
+    { name = "torch", version = "2.4.1", source = { registry = "https://download.pytorch.org/whl/cu124" }, marker = "(platform_machine == 'aarch64' and sys_platform == 'linux' and extra == 'group-7-redelex-cu124') or (platform_machine != 'aarch64' and extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124') or (sys_platform != 'linux' and extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124')" },
+    { name = "torch", version = "2.4.1", source = { registry = "https://pypi.org/simple" }, marker = "(extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124') or (extra != 'group-7-redelex-cpu' and extra != 'group-7-redelex-cu124')" },
+    { name = "torch", version = "2.4.1+cpu", source = { registry = "https://download.pytorch.org/whl/cpu" }, marker = "(platform_machine != 'aarch64' and sys_platform == 'linux' and extra == 'group-7-redelex-cpu') or (sys_platform != 'darwin' and sys_platform != 'linux' and extra == 'group-7-redelex-cpu') or (sys_platform == 'darwin' and extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124') or (sys_platform == 'linux' and extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124')" },
+    { name = "torch", version = "2.4.1+cu124", source = { registry = "https://download.pytorch.org/whl/cu124" }, marker = "(platform_machine != 'aarch64' and extra == 'group-7-redelex-cu124') or (sys_platform != 'linux' and extra == 'group-7-redelex-cu124') or (extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124')" },
 ]
 sdist = { url = "https://files.pythonhosted.org/packages/b7/ec/f5a4f94c77a1b4c0a37e5c5c8b666a33bc074130258a6b655346bec560c2/torchmetrics-1.7.2.tar.gz", hash = "sha256:ba401cd01aeaa268e809c0e4f42ef8f95669bf9b485e1d93d54dc765e012338a", size = 566185 }
 wheels = [
@@ -4086,15 +4086,19 @@ name = "torchvision"
 version = "0.19.1"
 source = { registry = "https://download.pytorch.org/whl/cpu" }
 resolution-markers = [
+    "python_full_version >= '3.13' and platform_machine == 'x86_64' and sys_platform == 'darwin'",
+    "python_full_version == '3.12.*' and platform_machine == 'x86_64' and sys_platform == 'darwin'",
     "(python_full_version >= '3.13' and platform_machine != 'x86_64' and sys_platform == 'darwin') or (python_full_version >= '3.13' and platform_machine == 'aarch64' and sys_platform == 'linux')",
     "(python_full_version == '3.12.*' and platform_machine != 'x86_64' and sys_platform == 'darwin') or (python_full_version == '3.12.*' and platform_machine == 'aarch64' and sys_platform == 'linux')",
+    "python_full_version == '3.11.*' and platform_machine == 'x86_64' and sys_platform == 'darwin'",
     "(python_full_version == '3.11.*' and platform_machine != 'x86_64' and sys_platform == 'darwin') or (python_full_version == '3.11.*' and platform_machine == 'aarch64' and sys_platform == 'linux')",
+    "python_full_version < '3.11' and platform_machine == 'x86_64' and sys_platform == 'darwin'",
     "(python_full_version < '3.11' and platform_machine != 'x86_64' and sys_platform == 'darwin') or (python_full_version < '3.11' and platform_machine == 'aarch64' and sys_platform == 'linux')",
 ]
 dependencies = [
-    { name = "numpy", marker = "(platform_machine != 'x86_64' and sys_platform == 'darwin') or (platform_machine == 'aarch64' and sys_platform == 'linux')" },
-    { name = "pillow", marker = "(platform_machine != 'x86_64' and sys_platform == 'darwin') or (platform_machine == 'aarch64' and sys_platform == 'linux')" },
-    { name = "torch", version = "2.4.1", source = { registry = "https://download.pytorch.org/whl/cpu" }, marker = "(platform_machine != 'x86_64' and sys_platform == 'darwin') or (platform_machine == 'aarch64' and sys_platform == 'linux')" },
+    { name = "numpy", marker = "(platform_machine == 'aarch64' and sys_platform == 'linux') or sys_platform == 'darwin'" },
+    { name = "pillow", marker = "(platform_machine == 'aarch64' and sys_platform == 'linux') or sys_platform == 'darwin'" },
+    { name = "torch", version = "2.4.1", source = { registry = "https://download.pytorch.org/whl/cpu" }, marker = "(platform_machine == 'aarch64' and sys_platform == 'linux') or sys_platform == 'darwin'" },
 ]
 wheels = [
     { url = "https://download.pytorch.org/whl/cpu/torchvision-0.19.1-cp310-cp310-linux_aarch64.whl", hash = "sha256:7b063116164be52fc6deb4762de7f8c90bfa3a65f8d5caf17f8e2d5aadc75a04" },
@@ -4118,15 +4122,11 @@ resolution-markers = [
     "python_full_version == '3.11.*' and sys_platform == 'win32'",
     "(python_full_version < '3.11' and platform_machine != 'aarch64' and sys_platform == 'linux') or (python_full_version < '3.11' and sys_platform != 'darwin' and sys_platform != 'linux' and sys_platform != 'win32')",
     "python_full_version < '3.11' and sys_platform == 'win32'",
-    "python_full_version >= '3.13' and platform_machine == 'x86_64' and sys_platform == 'darwin'",
-    "python_full_version == '3.12.*' and platform_machine == 'x86_64' and sys_platform == 'darwin'",
-    "python_full_version == '3.11.*' and platform_machine == 'x86_64' and sys_platform == 'darwin'",
-    "python_full_version < '3.11' and platform_machine == 'x86_64' and sys_platform == 'darwin'",
 ]
 dependencies = [
-    { name = "numpy", marker = "(platform_machine == 'x86_64' and sys_platform == 'darwin') or (platform_machine != 'aarch64' and sys_platform == 'linux') or (sys_platform != 'darwin' and sys_platform != 'linux')" },
-    { name = "pillow", marker = "(platform_machine == 'x86_64' and sys_platform == 'darwin') or (platform_machine != 'aarch64' and sys_platform == 'linux') or (sys_platform != 'darwin' and sys_platform != 'linux')" },
-    { name = "torch", version = "2.4.1+cpu", source = { registry = "https://download.pytorch.org/whl/cpu" }, marker = "(platform_machine == 'x86_64' and sys_platform == 'darwin') or (platform_machine != 'aarch64' and sys_platform == 'linux') or (sys_platform != 'darwin' and sys_platform != 'linux')" },
+    { name = "numpy", marker = "(platform_machine != 'aarch64' and sys_platform == 'linux') or (sys_platform != 'darwin' and sys_platform != 'linux')" },
+    { name = "pillow", marker = "(platform_machine != 'aarch64' and sys_platform == 'linux') or (sys_platform != 'darwin' and sys_platform != 'linux')" },
+    { name = "torch", version = "2.4.1+cpu", source = { registry = "https://download.pytorch.org/whl/cpu" }, marker = "(platform_machine != 'aarch64' and sys_platform == 'linux') or (sys_platform != 'darwin' and sys_platform != 'linux')" },
 ]
 wheels = [
     { url = "https://download.pytorch.org/whl/cpu/torchvision-0.19.1%2Bcpu-cp310-cp310-linux_x86_64.whl", hash = "sha256:e06d9da878353f2d81a326781e454b7a9fd29369c227c181931b4d7b98f97ff4" },
@@ -4162,8 +4162,8 @@ resolution-markers = [
 dependencies = [
     { name = "numpy" },
     { name = "pillow" },
-    { name = "torch", version = "2.4.1", source = { registry = "https://download.pytorch.org/whl/cu124" }, marker = "(platform_machine == 'aarch64' and sys_platform == 'linux' and extra == 'group-14-ctu-relational-cu124') or (platform_machine != 'aarch64' and extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124') or (sys_platform != 'linux' and extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124')" },
-    { name = "torch", version = "2.4.1+cu124", source = { registry = "https://download.pytorch.org/whl/cu124" }, marker = "(platform_machine != 'aarch64' and extra == 'group-14-ctu-relational-cu124') or (sys_platform != 'linux' and extra == 'group-14-ctu-relational-cu124') or (extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124')" },
+    { name = "torch", version = "2.4.1", source = { registry = "https://download.pytorch.org/whl/cu124" }, marker = "(platform_machine == 'aarch64' and sys_platform == 'linux' and extra == 'group-7-redelex-cu124') or (platform_machine != 'aarch64' and extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124') or (sys_platform != 'linux' and extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124')" },
+    { name = "torch", version = "2.4.1+cu124", source = { registry = "https://download.pytorch.org/whl/cu124" }, marker = "(platform_machine != 'aarch64' and extra == 'group-7-redelex-cu124') or (sys_platform != 'linux' and extra == 'group-7-redelex-cu124') or (extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124')" },
 ]
 wheels = [
     { url = "https://download.pytorch.org/whl/cu124/torchvision-0.19.1%2Bcu124-cp310-cp310-linux_x86_64.whl", hash = "sha256:a96c5533c6914afe1ded9e92ad8981e2143f5ed89cd811b842eda1aff01b261c" },
@@ -4240,7 +4240,7 @@ name = "triton"
 version = "3.0.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
-    { name = "filelock", marker = "(python_full_version < '3.13' and platform_machine != 'x86_64' and sys_platform == 'darwin' and extra == 'group-14-ctu-relational-cu124') or (python_full_version < '3.13' and platform_machine != 'aarch64' and sys_platform == 'linux' and extra == 'group-14-ctu-relational-cu124') or (python_full_version < '3.13' and sys_platform != 'darwin' and sys_platform != 'linux' and sys_platform != 'win32' and extra == 'group-14-ctu-relational-cu124') or (python_full_version >= '3.13' and sys_platform != 'darwin' and sys_platform != 'linux' and extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124') or (python_full_version >= '3.13' and sys_platform == 'darwin' and extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124') or (python_full_version >= '3.13' and sys_platform == 'linux' and extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124') or (platform_machine == 'x86_64' and sys_platform == 'darwin' and extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124') or (platform_machine == 'aarch64' and sys_platform == 'linux' and extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124') or (sys_platform == 'win32' and extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124')" },
+    { name = "filelock", marker = "(platform_machine != 'aarch64' and extra == 'group-7-redelex-cu124') or (sys_platform != 'linux' and extra == 'group-7-redelex-cu124') or (extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124')" },
 ]
 wheels = [
     { url = "https://files.pythonhosted.org/packages/45/27/14cc3101409b9b4b9241d2ba7deaa93535a217a211c86c4cc7151fb12181/triton-3.0.0-1-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.whl", hash = "sha256:e1efef76935b2febc365bfadf74bcb65a6f959a9872e5bddf44cc9e0adce1e1a", size = 209376304 },
@@ -4306,7 +4306,7 @@ source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "click" },
     { name = "h11" },
-    { name = "typing-extensions", marker = "python_full_version < '3.11' or (extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124')" },
+    { name = "typing-extensions", marker = "python_full_version < '3.11' or (extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124')" },
 ]
 sdist = { url = "https://files.pythonhosted.org/packages/de/ad/713be230bcda622eaa35c28f0d328c3675c371238470abdea52417f17a8e/uvicorn-0.34.3.tar.gz", hash = "sha256:35919a9a979d7a59334b6b10e05d77c1d0d574c50e0fc98b8b1a0f165708b55a", size = 76631 }
 wheels = [
@@ -4315,11 +4315,11 @@ wheels = [
 
 [package.optional-dependencies]
 standard = [
-    { name = "colorama", marker = "sys_platform == 'win32' or (extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124')" },
+    { name = "colorama", marker = "sys_platform == 'win32' or (extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124')" },
     { name = "httptools" },
     { name = "python-dotenv" },
     { name = "pyyaml" },
-    { name = "uvloop", marker = "(platform_python_implementation != 'PyPy' and sys_platform != 'cygwin' and sys_platform != 'win32') or (platform_python_implementation == 'PyPy' and extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124') or (sys_platform == 'cygwin' and extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124') or (sys_platform == 'win32' and extra == 'group-14-ctu-relational-cpu' and extra == 'group-14-ctu-relational-cu124')" },
+    { name = "uvloop", marker = "(platform_python_implementation != 'PyPy' and sys_platform != 'cygwin' and sys_platform != 'win32') or (platform_python_implementation == 'PyPy' and extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124') or (sys_platform == 'cygwin' and extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124') or (sys_platform == 'win32' and extra == 'group-7-redelex-cpu' and extra == 'group-7-redelex-cu124')" },
     { name = "watchfiles" },
     { name = "websockets" },
 ]

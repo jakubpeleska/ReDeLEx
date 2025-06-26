@@ -24,7 +24,7 @@ You can load datasets in same way as in the RelBench, e.g.:
 
 ```python
 from relbench.datasets import get_dataset
-import ctu_relational
+import redelex
 
 dataset = get_dataset('ctu-seznam') # automatically cached through the relbench package
 db = dataset.get_db()
@@ -33,7 +33,7 @@ db = dataset.get_db()
 or directly from CTU Relational:
 
 ```python
-from ctu_relational import datasets as ctu_datasets
+from redelex import datasets as ctu_datasets
 
 dataset = ctu_datasets.Seznam() # custom cache directory should be specified
 db = dataset.get_db()
@@ -42,7 +42,7 @@ db = dataset.get_db()
 As opposed to the RelBench package, CTU Relational works directly with relational databases through the [SQLAlchemy](https://github.com/sqlalchemy/sqlalchemy?tab=readme-ov-file#sqlalchemy) package. `DBDataset` class provides a way of loading an SQL database in the RelBench format. You can load data from your SQL server with the following snippet.
 
 ```python
-from ctu_relational.datasets import DBDataset
+from redelex.datasets import DBDataset
 
 custom_dataset = DBDataset(
             dialect="mariadb", # other dialects should be supported but weren't tested
@@ -57,7 +57,7 @@ custom_dataset = DBDataset(
 db = custom_dataset.get_db(upto_test_timestamp=False)
 ```
 
-Although, directly loaded databases usually need some additional touches. Take a look at [`ctu_datasets.py`](https://github.com/jakubpeleska/ctu-relational-py/blob/d666c3694c10d3702a917db2fa162e2b259e6546/ctu_relational/datasets/ctu_datasets.py) for examples.
+Although, directly loaded databases usually need some additional touches. Take a look at [`ctu_datasets.py`](https://github.com/jakubpeleska/ctu-relational-py/blob/d666c3694c10d3702a917db2fa162e2b259e6546/redelex/datasets/ctu_datasets.py) for examples.
 
 ## Development
 
