@@ -34,14 +34,14 @@ from relbench.base import BaseTask, EntityTask, TaskType
 from relbench.modeling.graph import get_node_train_table_input
 from relbench.tasks import get_task
 
-
 sys.path.append(".")
 
-from ctu_relational.tasks import CTUBaseEntityTask, CTUEntityTaskTemporal
-from ctu_relational.utils import standardize_table_dt
-from ctu_relational.nn.sagegnn import SAGEModel
-from ctu_relational.nn.dbformer import DBFormerModel
-from ctu_relational.nn.utils import (
+from redelex.tasks import CTUBaseEntityTask, CTUEntityTaskTemporal
+from redelex.utils import standardize_table_dt
+from redelex.nn.models.sagegnn import SAGEModel
+from redelex.nn.models.dbformer import DBFormerModel
+
+from experiments.utils import (
     get_cache_path,
     get_data,
     get_loss,

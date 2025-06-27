@@ -5,7 +5,6 @@ import os
 import random
 import sys
 
-
 os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
 os.environ["RAY_memory_monitor_refresh_ms"] = "0"
 
@@ -37,11 +36,11 @@ from relbench.tasks import get_task
 
 sys.path.append(".")
 
-from ctu_relational.tasks import CTUBaseEntityTask, CTUEntityTaskTemporal
-from ctu_relational.utils import standardize_table_dt
+from redelex.tasks import CTUBaseEntityTask, CTUEntityTaskTemporal
+from redelex.utils import standardize_table_dt
+from redelex.nn.models.tabular import TabularModel
 
-from ctu_relational.nn.tabular import TabularModel
-from ctu_relational.nn.utils import (
+from experiments.utils import (
     get_cache_path,
     get_data,
     get_loss,
