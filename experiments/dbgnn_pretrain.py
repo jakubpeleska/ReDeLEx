@@ -35,7 +35,7 @@ sys.path.append(".")
 from redelex.datasets import get_dataset_info
 from redelex.nn.models.rdl_model import RDLModel
 from redelex.nn.corruptors import DBResampleCorruptor
-from redelex.nn.pretrain_wrappers import (
+from redelex.nn.models.pretrain_wrappers import (
     PretrainingModel,
     LightningPretraining,
     LightningEntityTaskModel,
