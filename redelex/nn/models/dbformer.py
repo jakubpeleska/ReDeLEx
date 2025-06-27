@@ -4,39 +4,40 @@ import torch
 from torch import Tensor
 
 from torch_frame.data.stats import StatType
-from torch_frame.nn import ResNet
 
 from torch_geometric.data import HeteroData
 from torch_geometric.nn import MLP
 from torch_geometric.typing import NodeType
 
-from relbench.modeling.nn import HeteroEncoder, HeteroGraphSAGE, HeteroTemporalEncoder
+from relbench.modeling.nn import HeteroEncoder, HeteroTemporalEncoder
 
-from experiments.nn.encoders import LinearRowEncoder
+from redelex.nn.encoders import PerFeatureRowEncoder
+from redelex.nn.models.rgnn import DBFormer
 
 
-class SAGEModel(torch.nn.Module):
+class DBFormerModel(torch.nn.Module):
     def __init__(
         self,
         data: HeteroData,
         col_stats_dict: Dict[str, Dict[str, Dict[StatType, Any]]],
+        entity_table: NodeType,
         num_layers: int,
         channels: int,
-        row_encoder: Literal["resnet", "linear"],
+        row_encoder: Literal["linear"],
         out_channels: int,
         aggr: str,
         norm: str,
     ):
         super().__init__()
 
+        self.entity_table = entity_table
+
         def get_encoder(row_encoder: str):
-            if row_encoder == "resnet":
-                return ResNet, {
+            if row_encoder == "linear":
+                return PerFeatureRowEncoder, {
                     "channels": 128,
-                    "num_layers": 4,
+                    "feature_transform": "linear",
                 }
-            elif row_encoder == "linear":
-                return LinearRowEncoder, {"channels": 128}
             else:
                 raise ValueError(f"Unknown row_encoder: {row_encoder}")
 
@@ -58,15 +59,18 @@ class SAGEModel(torch.nn.Module):
             ],
             channels=channels,
         )
-        self.gnn = HeteroGraphSAGE(
+        self.gnn = DBFormer(
             node_types=data.node_types,
             edge_types=data.edge_types,
             channels=channels,
             aggr=aggr,
             num_layers=num_layers,
+            col_stats_dict=col_stats_dict,
         )
+
+        entity_cols = len(col_stats_dict[entity_table].keys())
         self.head = MLP(
-            channels,
+            entity_cols * channels,
             out_channels=out_channels,
             norm=norm,
             num_layers=1,
@@ -80,21 +84,17 @@ class SAGEModel(torch.nn.Module):
         self.gnn.reset_parameters()
         self.head.reset_parameters()
 
-    def forward(
-        self,
-        batch: HeteroData,
-        entity_table: NodeType,
-    ) -> Tensor:
+    def forward(self, batch: HeteroData, entity_table: NodeType) -> Tensor:
         x_dict = self.encoder(batch.tf_dict)
 
-        if hasattr(batch[entity_table], "seed_time"):
-            seed_time = batch[entity_table].seed_time
+        if hasattr(batch[self.entity_table], "seed_time"):
+            seed_time = batch[self.entity_table].seed_time
             rel_time_dict = self.temporal_encoder(
                 seed_time, batch.time_dict, batch.batch_dict
             )
 
             for node_type, rel_time in rel_time_dict.items():
-                x_dict[node_type] = x_dict[node_type] + rel_time
+                x_dict[node_type] = x_dict[node_type] + rel_time[:, None, :]
 
         x_dict = self.gnn(
             x_dict,
@@ -103,7 +103,9 @@ class SAGEModel(torch.nn.Module):
             batch.num_sampled_edges_dict,
         )
 
-        if hasattr(batch[entity_table], "seed_time"):
-            return self.head(x_dict[entity_table][: seed_time.size(0)])
+        entity_x = x_dict[self.entity_table]
+        if hasattr(batch[self.entity_table], "seed_time"):
+            entity_x = entity_x[: seed_time.size(0)]
 
-        return self.head(x_dict[entity_table])
+        entity_x = entity_x.view(entity_x.size(0), -1)
+        return self.head(entity_x)

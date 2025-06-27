@@ -37,9 +37,9 @@ from relbench.tasks import get_task
 
 sys.path.append(".")
 
-from ctu_relational.tasks import CTUBaseEntityTask, CTUEntityTaskTemporal
-from ctu_relational.datasets import DBDataset
-from ctu_relational.utils import guess_schema, convert_timedelta, standardize_db_dt
+from redelex.tasks import CTUBaseEntityTask, CTUEntityTaskTemporal
+from redelex.datasets import DBDataset
+from redelex.utils import guess_schema, convert_timedelta, standardize_db_dt
 
 
 from experiments.utils import (
@@ -363,7 +363,7 @@ def run_ray_tuner(
 
     convert_timedelta(db)
 
-    stypes_cache_path = Path(f"{cache_path}/stypes.json")
+    stypes_cache_path = Path(f"{cache_path}/attribute-schema.json")
     try:
         with open(stypes_cache_path, "r") as f:
             col_to_stype_dict = json.load(f)
