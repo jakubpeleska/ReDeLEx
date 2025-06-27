@@ -6,7 +6,7 @@
 
 **ReDeLEx** (Relational Deep Learning Exploration) is a Python framework for the development and evaluation of **Relational Deep Learning (RDL)** models. It enables end-to-end experimentation with graph-based neural networks on **relational databases (RDBs)**, building on the CTU Relational Learning Repository and fully integrating with the [RelBench](https://github.com/snap-stanford/relbench) interface.
 
-Published at ECML PKDD 2025, ReDeLEx is the first unified platform to bridge classical propositionalization-based relational learning and modern graph-based deep learning methods. It provides tools to transform SQL databases into heterogeneous graph representations suitable for Graph Neural Networks (GNNs), supports both static and temporal tasks, and enables a structured comparison across classical and deep learning models.
+It provides tools to transform SQL databases into heterogeneous graph representations suitable for Graph Neural Networks (GNNs), supports both static and temporal tasks, and enables a structured comparison across classical and deep learning models.
 
 ## 🧠 Features
 
@@ -163,9 +163,3 @@ If you use ReDeLEx in your work, please cite:
 ## 📎 Acknowledgements
 
 This project has received funding from the European Union’s Horizon Europe program under the grant agreement TUPLES No. 101070149, and the Czech Science Foundation grant No. 24-11664S.
-
----
-
-🔍 For full dataset explorer, visit: [https://relational.fel.cvut.cz](https://relational.fel.cvut.cz)
-
-📂 Source code and issue tracking: [https://github.com/jakubpeleska/ReDeLEx](https://github.com/jakubpeleska/ReDeLEx)
